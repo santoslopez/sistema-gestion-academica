@@ -1,0 +1,25 @@
+# Ignorar archivos compilados de Java
+*.class
+
+# Archivos generados automáticamente por NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+gen-external-apache-ant.xml
+
+# Archivos de configuración de NetBeans específicos de usuario
+nb-configuration.xml
+
+# Ignorar logs y archivos temporales
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Ignorar archivos de sistema operativo
+**/.DS_Store
+Thumbs.db
+
+# Ignorar archivos de herramientas de compilación
+/out/
