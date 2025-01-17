@@ -4,17 +4,40 @@
  */
 package main;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.Locale;
+import jinternal.ListadoUsuarios;
+import jinternal.RegistrarUsuario;
+
 /**
  *
  * @author santoslopeztzoy
  */
 public class MenuPrincipalJFrame extends javax.swing.JFrame {
-
+    
+    private static MenuPrincipalJFrame instancia;
+    public static MenuPrincipalJFrame getInstancia(){
+        if(instancia==null){
+            instancia=new MenuPrincipalJFrame();
+        }
+        return instancia;
+    }
+    
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    
+    // obtener ancho y alto
+    int ancho = screenSize.width;
+    int alto = screenSize.height;
+    int dimensionRestar = 300;
+    
     /**
      * Creates new form MenuPrincipalJFrame
      */
     public MenuPrincipalJFrame() {
         initComponents();
+        this.setSize(ancho-dimensionRestar,alto-dimensionRestar);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -26,21 +49,108 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        escritorio = new javax.swing.JDesktopPane();
+        jLabelTitulo = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItemRegistrarUsuarios = new javax.swing.JMenuItem();
+        jMenuItemListarUsuarios = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(102, 255, 102));
+
+        jLabelTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("SISTEMA EDUCATIVO");
+
+        escritorio.setLayer(jLabelTitulo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 196, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(escritorio)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(escritorio)
+        );
+
+        jMenu1.setText("Usuarios");
+
+        jMenuItemRegistrarUsuarios.setText("Registrar");
+        jMenuItemRegistrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistrarUsuariosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemRegistrarUsuarios);
+
+        jMenuItemListarUsuarios.setText("Listar");
+        jMenuItemListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListarUsuariosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemListarUsuarios);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItemRegistrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarUsuariosActionPerformed
+        // TODO add your handling code here:
+        if(!escritorio.isAncestorOf(RegistrarUsuario.getInstancia())){
+            escritorio.add(RegistrarUsuario.getInstancia());
+            RegistrarUsuario.getInstancia().setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(RegistrarUsuario.getInstancia());
+        }
+    }//GEN-LAST:event_jMenuItemRegistrarUsuariosActionPerformed
+
+    private void jMenuItemListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarUsuariosActionPerformed
+        // TODO add your handling code here:
+        ListadoUsuarios list = new ListadoUsuarios();
+        if(!escritorio.isAncestorOf(list)){
+            escritorio.add(list);
+            list.setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(list);
+        }
+    }//GEN-LAST:event_jMenuItemListarUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +188,13 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemListarUsuarios;
+    private javax.swing.JMenuItem jMenuItemRegistrarUsuarios;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

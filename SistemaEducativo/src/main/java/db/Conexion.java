@@ -44,7 +44,6 @@ public class Conexion {
 
             if (conection != null) {
                 System.out.println("Conexión exitosa a la base de datos.");
-                statement = conection.createStatement();
             } else {
                 System.out.println("Fallo la conexión a la base de datos.");
             }
@@ -55,9 +54,9 @@ public class Conexion {
         }
     }
 
-    public Connection getConection() {
+    /*public Connection getConection() {
         return conection;
-    }
+    }*/
     
     /*
     Realizar consultas: SELECT y evitar inyección SQL
@@ -75,5 +74,19 @@ public class Conexion {
         }
         return resultSet;
         
+    }
+    // realizar insert, update y delete
+    public ResultSet ejecutarSentencia(String consulta,Object[] params){
+        ResultSet resultSet = null;
+        try{
+            PreparedStatement prep = conection.prepareStatement(consulta);
+            for(int i=0;i<params.length;i++){
+                prep.setObject(i+1,params[i]);
+            }
+            prep.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return resultSet;
     }
 }
