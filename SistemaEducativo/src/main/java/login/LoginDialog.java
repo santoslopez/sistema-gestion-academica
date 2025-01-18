@@ -7,6 +7,7 @@ package login;
 import bean.Usuario;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import main.MenuPrincipalEstudianteJFrame;
 import main.MenuPrincipalJFrame;
 import manejador.ManejadorDeUsuario;
 
@@ -17,6 +18,7 @@ import manejador.ManejadorDeUsuario;
 public class LoginDialog extends javax.swing.JDialog {
     
     private Usuario userAdmin=new Usuario();
+    private Usuario userEstudiante = new Usuario();
      private ImageIcon iconError;
 
     /**
@@ -134,6 +136,12 @@ public class LoginDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
 
+    
+    public void limpiarFormularioLogin(){
+        txtUsername.setText("");
+        txtPassword.setText("");
+    }
+    
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
         String username = txtUsername.getText();
@@ -141,6 +149,7 @@ public class LoginDialog extends javax.swing.JDialog {
         
         userAdmin = ManejadorDeUsuario.getInstancia().iniciarSesion(username,pass,1);
         
+        userEstudiante = ManejadorDeUsuario.getInstancia().iniciarSesion(username,pass,2);
         /*
             Hit: si devuelve null, revisar que el nombre de la tabla sea el correcto en el manejador
         */
@@ -149,9 +158,13 @@ public class LoginDialog extends javax.swing.JDialog {
             //JOptionPane.showMessageDialog(null, "GOOODrrectos", "Mensaje", JOptionPane.ERROR_MESSAGE,iconError);
 
             MenuPrincipalJFrame.getInstancia().setVisible(true);
+            limpiarFormularioLogin();
+            this.dispose();
+        }else if(userEstudiante!=null){
+            MenuPrincipalEstudianteJFrame.getInstancia().setVisible(true);
+            limpiarFormularioLogin();
             this.dispose();
         }else{
-            System.out.println(userAdmin);
             JOptionPane.showMessageDialog(null, "Usuario o password incorrectos", "Mensaje", JOptionPane.ERROR_MESSAGE,iconError);
         }
         

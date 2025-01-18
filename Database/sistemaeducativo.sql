@@ -4,9 +4,12 @@ use sistemaeducativo;
 
 CREATE TABLE TipoUsuario(
 	idTipoUsuario INT AUTO_INCREMENT,
-    nombreTipo varchar(20) NOT NULL,
+    nombreTipo varchar(20) NOT NULL UNIQUE,
     primary key (idTipoUsuario)
 );
+
+INSERT INTO TipoUsuario(nombreTipo) VALUES ('admin');
+INSERT INTO TipoUsuario(nombreTipo) VALUES ('student');
 
 CREATE TABLE Usuario(
 	idUsuario INT AUTO_INCREMENT,
@@ -25,7 +28,6 @@ CREATE TABLE Usuario(
     foreign key (idTipoUsuario) references TipoUsuario(idTipoUsuario)
 );
 
-INSERT INTO TipoUsuario(nombreTipo) VALUES ('admin');
 
 INSERT INTO Usuario(nombres,apellidos,fechaNacimiento,correo,username,contrasena,carnet,idTipoUsuario)
 VALUES ('Eva','Maria','1996-01-10','prueba2@gmail.com','eva','eva','15002241',1);
@@ -44,15 +46,17 @@ DELIMITER ;
 
 -- DROP TRIGGER createPasswordUser;
 
-
-
 select * from usuario;
+
+SELECT * FROM Usuario WHERE username='santoslopez' AND contrasena='hola' AND idTipoUsuario=1;
 
 CREATE TABLE Facultad(
 	idFacultad INT AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL UNIQUE,
     PRIMARY KEY (idFacultad)
 );
+
+select * from Facultad;
 
 CREATE TABLE Carreras(
 	idCarrera INT AUTO_INCREMENT,
@@ -62,3 +66,4 @@ CREATE TABLE Carreras(
     FOREIGN KEY (idFacultad) REFERENCES Facultad(idFacultad),
     UNIQUE (nombre,idFacultad)
 );
+

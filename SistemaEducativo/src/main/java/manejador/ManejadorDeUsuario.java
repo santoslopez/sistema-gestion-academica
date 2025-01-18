@@ -79,7 +79,6 @@ public class ManejadorDeUsuario {
         Object[] params = {user,password,idTipoUsuario};
         
         ResultSet consulta=Conexion.getInstancia().hacerConsulta(query,params);
-        System.out.println("estoy aqui: "+consulta);
         
         if(consulta!=null){
             try{
