@@ -4,6 +4,7 @@
  */
 package jinternal;
 
+import bean.LlenarComboBox;
 import db.Conexion;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -22,6 +23,14 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
         return instancia;
     }
     
+    public void llenarComboBox(){
+        String consulta="SELECT DISTINCT t.idTipoUsuario,t.nombreTipo FROM TipoUsuario AS t INNER JOIN Usuario AS u ON t.idTipoUsuario=u.idTipoUsuario;";
+        // no hace nada debido a que no es relevante para la consulta que estamos haciendo
+        Object[] params={};
+        LlenarComboBox.getInstancia().tipoCuenta(jComboBoxTipoUsuario,consulta,params,"idTipoUsuario","nombreTipo");
+    }
+    
+    
     /**
      * Creates new form RegistrarUsuario
      */
@@ -29,6 +38,7 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
         initComponents();
         //habilitar cierre
         setClosable(true);
+        llenarComboBox();
     }
 
     /**
@@ -227,9 +237,14 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
             
             String sentencia = "CALL crearUsuario(?,?,?,?,?,?,?)"; 
             
-            Object[] params = {nombres,apellidos,fechaNacimiento,correo,usuario,carnet,1};
             
+            // necesario para recuperar el ID del tipo de usuario
+            LlenarComboBox llenar = (LlenarComboBox)jComboBoxTipoUsuario.getSelectedItem();
             
+            int idComboBox= llenar.getId();
+            
+            Object[] params = {nombres,apellidos,fechaNacimiento,correo,usuario,carnet,idComboBox};
+
             Conexion.getInstancia().ejecutarSentencia(sentencia,params);
             
             JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);

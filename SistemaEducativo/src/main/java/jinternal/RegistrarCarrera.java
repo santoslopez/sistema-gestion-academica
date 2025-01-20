@@ -6,6 +6,7 @@ package jinternal;
 
 import db.Conexion;
 import bean.Carreras;
+import bean.LlenarComboBox;
 import javax.swing.JOptionPane;
 import manejador.ManejadorDeCarreras;
 
@@ -26,12 +27,21 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
         return instancia;
     }
     
+    
+    public void llenarComboBox(){
+        String consulta="SELECT DISTINCT f.idFacultad,f.nombre FROM Carreras AS c INNER JOIN Facultad AS f ON c.idFacultad=c.idFacultad;";
+        // no hace nada debido a que no es relevante para la consulta que estamos haciendo
+        Object[] params={};
+        LlenarComboBox.getInstancia().tipoCuenta(cboFacultad,consulta,params,"idFacultad","nombre");
+    }
+    
     /**
      * Creates new form RegistrarCarrera
      */
     public RegistrarCarrera() {
         initComponents();
         setClosable(true);
+        llenarComboBox();
     }
 
     /**
@@ -48,8 +58,8 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
         lblNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         lblFacultad = new javax.swing.JLabel();
-        txtFacultad = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
+        cboFacultad = new javax.swing.JComboBox<>();
 
         setTitle("Registrar carrera");
 
@@ -68,16 +78,18 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
             }
         });
 
+        cboFacultad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanelContenedorPrincipalLayout = new javax.swing.GroupLayout(jPanelContenedorPrincipal);
         jPanelContenedorPrincipal.setLayout(jPanelContenedorPrincipalLayout);
         jPanelContenedorPrincipalLayout.setHorizontalGroup(
             jPanelContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
             .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(txtNombre)
             .addComponent(lblFacultad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(txtFacultad)
             .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cboFacultad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelContenedorPrincipalLayout.setVerticalGroup(
             jPanelContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,9 +102,9 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -126,24 +138,29 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
             }else{
                 String sentencia="INSERT INTO Carreras(nombre,idFacultad) VALUES(?,?)"; 
 
+                // necesario para recuperar el ID del combobox seleccionado
+                LlenarComboBox combobox = (LlenarComboBox)cboFacultad.getSelectedItem();
+                
+                int idFacultad = combobox.getId();
 
-                Object[] params = {nombreCarrera,1};
+                Object[] params = {nombreCarrera,idFacultad};
                 Conexion.getInstancia().ejecutarSentencia(sentencia, params);
 
                 JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
             }
 
         }
+               
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<String> cboFacultad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelContenedorPrincipal;
     private javax.swing.JLabel lblFacultad;
     private javax.swing.JLabel lblNombre;
-    private javax.swing.JTextField txtFacultad;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
