@@ -1,13 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Locale;
+import javax.swing.JOptionPane;
+import jinternal.ListadoCarreras;
+import jinternal.ListadoFacultad;
 import jinternal.ListadoUsuarios;
+import jinternal.RegistrarCarrera;
 import jinternal.RegistrarFacultad;
 import jinternal.RegistrarUsuario;
 
@@ -54,13 +54,17 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jLabelTitulo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuUsuarios = new javax.swing.JMenu();
         jMenuItemRegistrarUsuarios = new javax.swing.JMenuItem();
         jMenuItemListarUsuarios = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jMenuFacultad = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemListarFacultad = new javax.swing.JMenuItem();
+        jMenuCarreras = new javax.swing.JMenu();
+        jMenuItemRegistrarCarreras = new javax.swing.JMenuItem();
+        jMenuItemListarCarreras = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,7 +100,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
             .addComponent(escritorio)
         );
 
-        jMenu1.setText("Usuarios");
+        jMenuUsuarios.setText("Estudiantes");
 
         jMenuItemRegistrarUsuarios.setText("Registrar");
         jMenuItemRegistrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +108,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
                 jMenuItemRegistrarUsuariosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemRegistrarUsuarios);
+        jMenuUsuarios.add(jMenuItemRegistrarUsuarios);
 
         jMenuItemListarUsuarios.setText("Listar");
         jMenuItemListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
@@ -112,11 +116,11 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
                 jMenuItemListarUsuariosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemListarUsuarios);
+        jMenuUsuarios.add(jMenuItemListarUsuarios);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuUsuarios);
 
-        jMenu3.setText("Facultad");
+        jMenuFacultad.setText("Facultad");
 
         jMenuItem1.setText("Registrar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -124,15 +128,49 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        jMenuFacultad.add(jMenuItem1);
 
-        jMenuItem2.setText("Listar");
-        jMenu3.add(jMenuItem2);
+        jMenuItemListarFacultad.setText("Listar");
+        jMenuItemListarFacultad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListarFacultadActionPerformed(evt);
+            }
+        });
+        jMenuFacultad.add(jMenuItemListarFacultad);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenuFacultad);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenuCarreras.setText("Carreras");
+
+        jMenuItemRegistrarCarreras.setText("Registrar");
+        jMenuItemRegistrarCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistrarCarrerasActionPerformed(evt);
+            }
+        });
+        jMenuCarreras.add(jMenuItemRegistrarCarreras);
+
+        jMenuItemListarCarreras.setText("Listar");
+        jMenuItemListarCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListarCarrerasActionPerformed(evt);
+            }
+        });
+        jMenuCarreras.add(jMenuItemListarCarreras);
+
+        jMenuBar1.add(jMenuCarreras);
+
+        jMenu1.setText("Perfil");
+
+        jMenuItem2.setText("Cerrar sesión");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -162,12 +200,12 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
     private void jMenuItemListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarUsuariosActionPerformed
         // TODO add your handling code here:
-        ListadoUsuarios list = new ListadoUsuarios();
-        if(!escritorio.isAncestorOf(list)){
-            escritorio.add(list);
-            list.setVisible(true);
+        
+        if(!escritorio.isAncestorOf(ListadoUsuarios.getInstancia())){
+            escritorio.add(ListadoUsuarios.getInstancia());
+            ListadoUsuarios.getInstancia().setVisible(true);
         }else{
-            escritorio.setSelectedFrame(list);
+            escritorio.setSelectedFrame(ListadoUsuarios.getInstancia());
         }
     }//GEN-LAST:event_jMenuItemListarUsuariosActionPerformed
 
@@ -180,6 +218,53 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
             escritorio.setSelectedFrame(RegistrarFacultad.getInstancia());
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItemListarFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarFacultadActionPerformed
+        // TODO add your handling code here:
+       
+        
+        if(!escritorio.isAncestorOf(ListadoFacultad.getInstancia())){
+            escritorio.add(ListadoFacultad.getInstancia());
+            ListadoFacultad.getInstancia().setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(ListadoFacultad.getInstancia());
+        }
+        
+    }//GEN-LAST:event_jMenuItemListarFacultadActionPerformed
+
+    private void jMenuItemListarCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarCarrerasActionPerformed
+        // TODO add your handling code here:        
+        if(!escritorio.isAncestorOf(ListadoCarreras.getInstancia())){
+            escritorio.add(ListadoCarreras.getInstancia());
+            ListadoCarreras.getInstancia().setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(ListadoCarreras.getInstancia());
+        }
+        
+    }//GEN-LAST:event_jMenuItemListarCarrerasActionPerformed
+
+    private void jMenuItemRegistrarCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarCarrerasActionPerformed
+        // TODO add your handling code here:
+        
+        if(!escritorio.isAncestorOf(RegistrarCarrera.getInstancia())){
+            escritorio.add(RegistrarCarrera.getInstancia());
+            RegistrarCarrera.getInstancia().setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(RegistrarCarrera.getInstancia());
+        }
+        
+    }//GEN-LAST:event_jMenuItemRegistrarCarrerasActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        int confirmarCerrarSesion = JOptionPane.showConfirmDialog(null,"¿Confirmar cierre del programa?","Mensaje",
+                JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        
+        if(confirmarCerrarSesion==JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+       
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,13 +305,17 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCarreras;
+    private javax.swing.JMenu jMenuFacultad;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemListarCarreras;
+    private javax.swing.JMenuItem jMenuItemListarFacultad;
     private javax.swing.JMenuItem jMenuItemListarUsuarios;
+    private javax.swing.JMenuItem jMenuItemRegistrarCarreras;
     private javax.swing.JMenuItem jMenuItemRegistrarUsuarios;
+    private javax.swing.JMenu jMenuUsuarios;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

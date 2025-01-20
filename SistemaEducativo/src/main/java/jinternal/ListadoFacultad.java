@@ -4,30 +4,31 @@
  */
 package jinternal;
 
-import modelo.ModeloDeUsuario;
+
+import modelo.ModeloDeFacultad;
 
 /**
  *
  * @author santoslopeztzoy
  */
-public class ListadoUsuarios extends javax.swing.JInternalFrame {
-    private ModeloDeUsuario modelo;
+public class ListadoFacultad extends javax.swing.JInternalFrame {
     
-    private static ListadoUsuarios instancia;
-    public static ListadoUsuarios getInstancia(){
+    private ModeloDeFacultad modelo;
+    
+    private static ListadoFacultad instancia;
+    public static ListadoFacultad getInstancia(){
         if(instancia==null){
-            instancia=new ListadoUsuarios();
+            instancia=new ListadoFacultad();
         }
         return instancia;
     }
+    
     /**
-     * Creates new form ListadoUsuarios
+     * Creates new form ListadoFacultad
      */
-    public ListadoUsuarios() {
+    public ListadoFacultad() {
         initComponents();
         
-        setSize(600,250);
-        //habilitar cierre
         setClosable(true);
     }
 
@@ -42,35 +43,31 @@ public class ListadoUsuarios extends javax.swing.JInternalFrame {
 
         jPanelContenedor = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
-        jScrollPaneListadoUsuarios = new javax.swing.JScrollPane();
-        jTableListadoUsuarios = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setTitle("Listado de facultad");
 
-        jPanelContenedor.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Listado de usuarios");
+        lblTitulo.setText("Listado de facultades");
 
-        modelo=new ModeloDeUsuario();
-        jTableListadoUsuarios.setModel(modelo);
-        jScrollPaneListadoUsuarios.setViewportView(jTableListadoUsuarios);
+        modelo = new ModeloDeFacultad();
+        jTable1.setModel(modelo);
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanelContenedorLayout = new javax.swing.GroupLayout(jPanelContenedor);
         jPanelContenedor.setLayout(jPanelContenedorLayout);
         jPanelContenedorLayout.setHorizontalGroup(
             jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPaneListadoUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
         );
         jPanelContenedorLayout.setVerticalGroup(
             jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelContenedorLayout.createSequentialGroup()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneListadoUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -90,8 +87,8 @@ public class ListadoUsuarios extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanelContenedor;
-    private javax.swing.JScrollPane jScrollPaneListadoUsuarios;
-    private javax.swing.JTable jTableListadoUsuarios;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }

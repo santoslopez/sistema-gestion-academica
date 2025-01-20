@@ -29,8 +29,8 @@ CREATE TABLE Usuario(
 );
 
 
-INSERT INTO Usuario(nombres,apellidos,fechaNacimiento,correo,username,contrasena,carnet,idTipoUsuario)
-VALUES ('Eva','Maria','1996-01-10','prueba2@gmail.com','eva','eva','15002241',1);
+INSERT INTO Usuario(nombres,apellidos,fechaNacimiento,correo,username,carnet,idTipoUsuario)
+VALUES ('Eva','Maria','1996-01-10','prueba2@gmail.com','eva','15002241',1);
 
 -- Triger para agregar una contraseña por default en la base de datos
 DELIMITER //
@@ -45,18 +45,51 @@ END //
 DELIMITER ;
 
 -- DROP TRIGGER createPasswordUser;
-
-select * from usuario;
-
-SELECT * FROM Usuario WHERE username='santoslopez' AND contrasena='hola' AND idTipoUsuario=1;
-
 CREATE TABLE Facultad(
 	idFacultad INT AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL UNIQUE,
     PRIMARY KEY (idFacultad)
 );
 
-select * from Facultad;
+-- Procedimiento almacenado para que muestre las carreras disponibles y que indique que facultad pertenece
+DELIMITER $$
+CREATE PROCEDURE listarCarrerasPorFacultad()
+BEGIN
+	SELECT c.idCarrera,c.nombre,f.nombre FROM Carreras AS c INNER JOIN Facultad AS f ON c.idFacultad=f.idFacultad;
+END $$
+DELIMITER ;
+
+-- muestra el listado de facultades disponibles
+DELIMITER $$ 
+CREATE PROCEDURE listarFacultades()
+BEGIN
+	SELECT * FROM Facultad;
+END $$
+DELIMITER ;
+
+-- muestra el listado de estudiantes
+DELIMITER $$
+CREATE PROCEDURE listarUsuarios(IN tipoUsuarioID INT)
+BEGIN
+	SELECT * FROM Usuario WHERE idTipoUsuario=tipoUsuarioID;
+END $$
+DELIMITER ;
+
+-- procedimiento almacenado para registrar usuario
+DELIMITER $$
+CREATE PROCEDURE crearUsuario(
+IN datosNombres VARCHAR(100),
+IN datosApellidos VARCHAR(100),
+IN datosFechaNacimiento DATE,
+IN datosCorreo VARCHAR(128), 
+IN datosUsername varchar(128),
+IN datosCarnet varchar(10),
+IN datosTipoUsuario INT)
+BEGIN
+	INSERT INTO Usuario(nombres,apellidos,fechaNacimiento,correo,username,carnet,idTipoUsuario) VALUES (datosNombres,
+    datosApellidos,datosFechaNacimiento,datosCorreo,datosUsername,datosCarnet,datosTipoUsuario);
+END $$
+DELIMITER ;
 
 CREATE TABLE Carreras(
 	idCarrera INT AUTO_INCREMENT,
@@ -66,4 +99,3 @@ CREATE TABLE Carreras(
     FOREIGN KEY (idFacultad) REFERENCES Facultad(idFacultad),
     UNIQUE (nombre,idFacultad)
 );
-

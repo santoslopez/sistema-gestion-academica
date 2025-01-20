@@ -38,7 +38,7 @@ public class ManejadorDeUsuario {
         Usuario usuario = null;
         mostrarUsuario.removeAll(mostrarUsuario);
         
-        String queryUsuarios = "SELECT * FROM Usuario";
+        String queryUsuarios = "CALL listarUsuarios(2)";
         
         Object[] params={};
         ResultSet consulta = Conexion.getInstancia().hacerConsulta(queryUsuarios,params);

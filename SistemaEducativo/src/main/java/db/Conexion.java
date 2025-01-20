@@ -53,10 +53,6 @@ public class Conexion {
             System.out.println("Error en la conexión: " + e.getMessage());
         }
     }
-
-    /*public Connection getConection() {
-        return conection;
-    }*/
     
     /*
     Realizar consultas: SELECT y evitar inyección SQL

@@ -202,11 +202,10 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
         String nombres = txtNombres.getText();
         String apellidos = txtApellidos.getText();
         String fechaNacimiento = txtFechaNacimiento.getText();
-        Date fechaActual = new Date();
+        
         String usuario=txtUsuario.getText();
         String carnet="default";
         String correo=txtCorreo.getText();
-        String estadoActivo="a";
         
         
         int confirmarGuardar = JOptionPane.showConfirmDialog(null, 
@@ -216,9 +215,21 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
                 JOptionPane.QUESTION_MESSAGE);
         
         if (confirmarGuardar==JOptionPane.YES_OPTION){
-            String sentencia = "INSERT INTO Usuario(nombres,apellidos,fechaNacimiento,correo,username,carnet,idTipoUsuario) VALUES (?,?,?,?,?,?,?)";
+
+            /*String sentencia = "CALL crearUsuario('"
+                    +nombres+"','"
+                    +apellidos+"','"
+                    +fechaNacimiento+"','"
+                    +correo+"','"
+                    +usuario+"','"
+                    +carnet+"','"
+                    +1+"')";*/
+            
+            String sentencia = "CALL crearUsuario(?,?,?,?,?,?,?)"; 
             
             Object[] params = {nombres,apellidos,fechaNacimiento,correo,usuario,carnet,1};
+            
+            
             Conexion.getInstancia().ejecutarSentencia(sentencia,params);
             
             JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);

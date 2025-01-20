@@ -33,6 +33,8 @@ public class RegistrarFacultad extends javax.swing.JInternalFrame {
      */
     public RegistrarFacultad() {
         initComponents();
+        
+        setClosable(true);
     }
 
     /**
@@ -52,7 +54,7 @@ public class RegistrarFacultad extends javax.swing.JInternalFrame {
 
         setTitle("Registrar facultad");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 102));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         lblTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         lblTitulo.setText("Registrar facultad");

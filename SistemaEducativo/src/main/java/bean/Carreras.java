@@ -10,6 +10,8 @@ public class Carreras {
     private String nombre;
     private int idFacultad;
 
+    private String nombreFacultad;
+    
     public int getIdCarrera() {
         return idCarrera;
     }
@@ -20,6 +22,10 @@ public class Carreras {
 
     public String getNombre() {
         return nombre;
+    }
+    
+    public String getNombreFacultad(){
+        return nombreFacultad;
     }
 
     public void setNombre(String nombre) {
@@ -41,5 +47,17 @@ public class Carreras {
     
     public Carreras(){
     
+    }
+    
+    public Carreras(int idCarrera,String nombre,int idFacultad){
+        this.idCarrera=idCarrera;
+        this.nombre=nombre;
+        this.idFacultad=idFacultad;
+    }
+    
+    public Carreras(int idCarrera,String nombre,String nombreFacultad){
+        this.idCarrera=idCarrera;
+        this.nombre=nombre;
+        this.nombreFacultad=nombreFacultad;
     }
 }

@@ -5,19 +5,33 @@
 package jinternal;
 
 import db.Conexion;
+import bean.Carreras;
 import javax.swing.JOptionPane;
+import manejador.ManejadorDeCarreras;
 
 /**
  *
  * @author santoslopeztzoy
  */
 public class RegistrarCarrera extends javax.swing.JInternalFrame {
+    
+    private Carreras carrera=new Carreras();
 
+    private static RegistrarCarrera instancia;
+    
+    public static RegistrarCarrera getInstancia(){
+        if(instancia==null){
+            instancia=new RegistrarCarrera();
+        }
+        return instancia;
+    }
+    
     /**
      * Creates new form RegistrarCarrera
      */
     public RegistrarCarrera() {
         initComponents();
+        setClosable(true);
     }
 
     /**
@@ -103,12 +117,22 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
         int confirmarGuardar = JOptionPane.showConfirmDialog(null,"¿Deseas guardar los datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         
         if(confirmarGuardar==JOptionPane.YES_OPTION){
-           String sentencia="INSERT INTO Carreras(nombre,idFacultad) VALUES(?,?)"; 
            
-           Object[] params = {nombreCarrera,1};
-           Conexion.getInstancia().ejecutarSentencia(sentencia, params);
-           
-           JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+            carrera = ManejadorDeCarreras.getInstancia().verificarCarreras(nombreCarrera);
+            
+            if(carrera!=null){
+
+                JOptionPane.showMessageDialog(null, "Error, nombre de carrera ya existe","Mensaje",JOptionPane.ERROR_MESSAGE);
+            }else{
+                String sentencia="INSERT INTO Carreras(nombre,idFacultad) VALUES(?,?)"; 
+
+
+                Object[] params = {nombreCarrera,1};
+                Conexion.getInstancia().ejecutarSentencia(sentencia, params);
+
+                JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
+            }
+
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 

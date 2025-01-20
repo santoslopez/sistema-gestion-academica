@@ -7,8 +7,8 @@ package modelo;
  */
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+//import javax.swing.JButton;
+//import javax.swing.JLabel;
 import javax.swing.table.AbstractTableModel;
 import bean.Usuario;
 import manejador.ManejadorDeUsuario;
