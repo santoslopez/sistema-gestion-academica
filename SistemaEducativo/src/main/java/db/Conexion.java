@@ -33,7 +33,10 @@ public class Conexion {
 
         try {
             // Definir la URL de la base de datos (puede ser en Azure o local)
-            //String url = "jdbc:sqlserver://localhost:1433;databaseName=SistemaEducativo;user=SA;password=pbd.2024;encrypt=true;trustServerCertificate=false;";
+            /*String url = "jdbc:sqlserver://localhost:1433;databaseName=SistemaEducativo;
+            
+            user=SA;password=pbd.2024;encrypt=true;trustServerCertificate=false;";*/
+            
             String url = "jdbc:mysql://localhost:3306/sistemaeducativo?serverTimezone=UTC";
             String user = "root";
             String password = "thecrimson";

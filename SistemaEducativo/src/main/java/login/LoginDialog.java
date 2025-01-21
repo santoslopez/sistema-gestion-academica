@@ -7,6 +7,7 @@ package login;
 import bean.Usuario;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import jdialg.ModificarPerfil;
 import main.MenuPrincipalEstudianteJFrame;
 import main.MenuPrincipalJFrame;
 import manejador.ManejadorDeUsuario;
@@ -158,6 +159,8 @@ public class LoginDialog extends javax.swing.JDialog {
             //JOptionPane.showMessageDialog(null, "GOOODrrectos", "Mensaje", JOptionPane.ERROR_MESSAGE,iconError);
 
             MenuPrincipalJFrame.getInstancia().setVisible(true);
+            MenuPrincipalJFrame.getInstancia().setUsuario(username);
+            ModificarPerfil.getInstancia().setApellidos(userAdmin.getCorreo());
             limpiarFormularioLogin();
             this.dispose();
         }else if(userEstudiante!=null){

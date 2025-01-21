@@ -3,7 +3,9 @@ package main;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Locale;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import jdialg.ModificarPerfil;
 import jinternal.ListadoCarreras;
 import jinternal.ListadoFacultad;
 import jinternal.ListadoUsuarios;
@@ -50,21 +52,33 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         escritorio = new javax.swing.JDesktopPane();
         jLabelTitulo = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuUsuarios = new javax.swing.JMenu();
         jMenuItemRegistrarUsuarios = new javax.swing.JMenuItem();
         jMenuItemListarUsuarios = new javax.swing.JMenuItem();
-        jMenuFacultad = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItemListarFacultad = new javax.swing.JMenuItem();
         jMenuCarreras = new javax.swing.JMenu();
         jMenuItemRegistrarCarreras = new javax.swing.JMenuItem();
         jMenuItemListarCarreras = new javax.swing.JMenuItem();
+        jMenuFacultad = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemListarFacultad = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItemActualizarPerfil = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+
+        jMenu2.setText("File");
+        jMenuBar2.add(jMenu2);
+
+        jMenu3.setText("Edit");
+        jMenuBar2.add(jMenu3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,19 +88,32 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("SISTEMA EDUCATIVO");
 
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel1.setText("Bienvenido:");
+
         escritorio.setLayer(jLabelTitulo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lblUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 196, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario)
+                    .addComponent(jLabel1))
+                .addGap(0, 173, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -100,7 +127,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
             .addComponent(escritorio)
         );
 
-        jMenuUsuarios.setText("Estudiantes");
+        jMenuUsuarios.setText("Usuarios");
 
         jMenuItemRegistrarUsuarios.setText("Registrar");
         jMenuItemRegistrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +137,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenuUsuarios.add(jMenuItemRegistrarUsuarios);
 
-        jMenuItemListarUsuarios.setText("Listar");
+        jMenuItemListarUsuarios.setText("Lista estudiantes");
         jMenuItemListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemListarUsuariosActionPerformed(evt);
@@ -119,26 +146,6 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuUsuarios.add(jMenuItemListarUsuarios);
 
         jMenuBar1.add(jMenuUsuarios);
-
-        jMenuFacultad.setText("Facultad");
-
-        jMenuItem1.setText("Registrar");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenuFacultad.add(jMenuItem1);
-
-        jMenuItemListarFacultad.setText("Listar");
-        jMenuItemListarFacultad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemListarFacultadActionPerformed(evt);
-            }
-        });
-        jMenuFacultad.add(jMenuItemListarFacultad);
-
-        jMenuBar1.add(jMenuFacultad);
 
         jMenuCarreras.setText("Carreras");
 
@@ -160,7 +167,35 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuCarreras);
 
+        jMenuFacultad.setText("Facultad");
+
+        jMenuItem1.setText("Registrar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuFacultad.add(jMenuItem1);
+
+        jMenuItemListarFacultad.setText("Listar");
+        jMenuItemListarFacultad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListarFacultadActionPerformed(evt);
+            }
+        });
+        jMenuFacultad.add(jMenuItemListarFacultad);
+
+        jMenuBar1.add(jMenuFacultad);
+
         jMenu1.setText("Perfil");
+
+        jMenuItemActualizarPerfil.setText("Actualizar perfil");
+        jMenuItemActualizarPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemActualizarPerfilActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemActualizarPerfil);
 
         jMenuItem2.setText("Cerrar sesión");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -266,6 +301,15 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItemActualizarPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemActualizarPerfilActionPerformed
+        // TODO add your handling code here:
+        //ModificarPerfil m = new ModificarPerfil(this,true);
+        ModificarPerfil.getInstancia().setVisible(true);
+        String usuario = lblUsuario.getText();
+        ModificarPerfil.getInstancia().setNombres(usuario);
+        
+    }//GEN-LAST:event_jMenuItemActualizarPerfilActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -300,16 +344,29 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
             }
         });
     }
+    
+    public JLabel getUsuario(){
+        return lblUsuario;
+    }
+    
+    public void setUsuario(String usuario){
+        lblUsuario.setText(usuario);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenu jMenuCarreras;
     private javax.swing.JMenu jMenuFacultad;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemActualizarPerfil;
     private javax.swing.JMenuItem jMenuItemListarCarreras;
     private javax.swing.JMenuItem jMenuItemListarFacultad;
     private javax.swing.JMenuItem jMenuItemListarUsuarios;
@@ -317,5 +374,6 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRegistrarUsuarios;
     private javax.swing.JMenu jMenuUsuarios;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,9 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package jinternal;
 
+import bean.Usuario;
+import db.Conexion;
+import java.sql.ResultSet;
+import javax.swing.RowFilter;
+import javax.swing.table.AbstractTableModel;
+//import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import modelo.ModeloDeUsuario;
 
 /**
@@ -12,6 +15,9 @@ import modelo.ModeloDeUsuario;
  */
 public class ListadoUsuarios extends javax.swing.JInternalFrame {
     private ModeloDeUsuario modelo;
+    
+    private TableRowSorter sorterTabla;
+    
     
     private static ListadoUsuarios instancia;
     public static ListadoUsuarios getInstancia(){
@@ -29,6 +35,10 @@ public class ListadoUsuarios extends javax.swing.JInternalFrame {
         setSize(600,250);
         //habilitar cierre
         setClosable(true);
+        
+        sorterTabla = new TableRowSorter(jTableListadoUsuarios.getModel());
+        jTableListadoUsuarios.setRowSorter(sorterTabla);
+        
     }
 
     /**
@@ -44,6 +54,9 @@ public class ListadoUsuarios extends javax.swing.JInternalFrame {
         lblTitulo = new javax.swing.JLabel();
         jScrollPaneListadoUsuarios = new javax.swing.JScrollPane();
         jTableListadoUsuarios = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -57,19 +70,40 @@ public class ListadoUsuarios extends javax.swing.JInternalFrame {
         jTableListadoUsuarios.setModel(modelo);
         jScrollPaneListadoUsuarios.setViewportView(jTableListadoUsuarios);
 
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel1.setText("Buscar:");
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelContenedorLayout = new javax.swing.GroupLayout(jPanelContenedor);
         jPanelContenedor.setLayout(jPanelContenedorLayout);
         jPanelContenedorLayout.setHorizontalGroup(
             jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPaneListadoUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+            .addComponent(jScrollPaneListadoUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+            .addGroup(jPanelContenedorLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelContenedorLayout.setVerticalGroup(
             jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelContenedorLayout.createSequentialGroup()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneListadoUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPaneListadoUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -87,11 +121,25 @@ public class ListadoUsuarios extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        String buscar = txtBuscar.getText();
+        
+        // para decirle que va ser esta columna 1
+        //sorterTabla.setRowFilter(RowFilter.regexFilter("(?i)"+buscar,1)); 
+        sorterTabla.setRowFilter(RowFilter.regexFilter("(?i)"+buscar));        
+
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelContenedor;
     private javax.swing.JScrollPane jScrollPaneListadoUsuarios;
     private javax.swing.JTable jTableListadoUsuarios;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

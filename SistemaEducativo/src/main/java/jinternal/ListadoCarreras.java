@@ -4,6 +4,8 @@
  */
 package jinternal;
 
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
 import modelo.ModeloDeCarreras;
 
 /**
@@ -11,6 +13,10 @@ import modelo.ModeloDeCarreras;
  * @author santoslopeztzoy
  */
 public class ListadoCarreras extends javax.swing.JInternalFrame {
+    
+    // necesario para filtrar la busqueda
+    private TableRowSorter sorterTabla;
+    
     
     private ModeloDeCarreras modelo;
     private static ListadoCarreras instancia;
@@ -29,6 +35,8 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
         initComponents();
         
         setClosable(true);
+        sorterTabla = new TableRowSorter(jTableListadoCarreras.getModel());
+        jTableListadoCarreras.setRowSorter(sorterTabla);
     }
 
     /**
@@ -43,29 +51,53 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
         jPanelContenedorPrincipal = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableListadoCarreras = new javax.swing.JTable();
+        lblTitul = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         lblTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Listado de carreras");
 
         modelo = new ModeloDeCarreras();
-        jTable1.setModel(modelo);
-        jScrollPane1.setViewportView(jTable1);
+        jTableListadoCarreras.setModel(modelo);
+        jScrollPane1.setViewportView(jTableListadoCarreras);
+
+        lblTitul.setText("Buscar");
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelContenedorPrincipalLayout = new javax.swing.GroupLayout(jPanelContenedorPrincipal);
         jPanelContenedorPrincipal.setLayout(jPanelContenedorPrincipalLayout);
         jPanelContenedorPrincipalLayout.setHorizontalGroup(
             jPanelContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+            .addGroup(jPanelContenedorPrincipalLayout.createSequentialGroup()
+                .addComponent(lblTitul)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelContenedorPrincipalLayout.setVerticalGroup(
             jPanelContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelContenedorPrincipalLayout.createSequentialGroup()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                .addGroup(jPanelContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitul)
+                    .addGroup(jPanelContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -82,11 +114,20 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        String buscar = txtBuscar.getText();
+        sorterTabla.setRowFilter(RowFilter.regexFilter("(?i)"+buscar));
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JPanel jPanelContenedorPrincipal;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableListadoCarreras;
+    private javax.swing.JLabel lblTitul;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
