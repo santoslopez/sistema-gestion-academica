@@ -75,6 +75,9 @@ BEGIN
 END $$
 DELIMITER ;
 
+DROP PROCEDURE listarUsuarios;
+CALL listarUsuarios(2);
+
 -- procedimiento almacenado para registrar usuario
 DELIMITER $$
 CREATE PROCEDURE crearUsuario(
@@ -98,4 +101,88 @@ CREATE TABLE Carreras(
     PRIMARY KEY (idCarrera),
     FOREIGN KEY (idFacultad) REFERENCES Facultad(idFacultad),
     UNIQUE (nombre,idFacultad)
+);
+
+select * from usuario;
+
+-- representa el edificio donde se imparten las clases
+CREATE TABLE Edificio(
+	idEdificio INT AUTO_INCREMENT,
+    edificio VARCHAR(20) NOT NULL
+);
+
+-- representa el aula donde se imparten las clases
+CREATE TABLE Aula(
+	idAula INT AUTO_INCREMENT NOT NULL,
+    salon VARCHAR(20) NOT NULL UNIQUE,
+    idEdificio INT NOT NULL,
+    nivel VARCHAR(30) NOT NULL, 
+    PRIMARY KEY (idAula),
+    FOREIGN KEY (idEdificio) REFERENCES Edificio(idEdificio)
+);
+
+CREATE TABLE Ciclos(
+	idCiclo INT AUTO_INCREMENT NOT NULL,
+    descripcion VARCHAR(30),
+    PRIMARY KEY (idCiclo)
+);
+INSERT INTO Ciclos(descripcion) VALUES ("Semestre 1");
+INSERT INTO Ciclos(descripcion) VALUES ("Semestre 2");
+INSERT INTO Ciclos(descripcion) VALUES ("Semestre 3");
+INSERT INTO Ciclos(descripcion) VALUES ("Semestre 4");
+INSERT INTO Ciclos(descripcion) VALUES ("Semestre 5");
+INSERT INTO Ciclos(descripcion) VALUES ("Semestre 6");
+INSERT INTO Ciclos(descripcion) VALUES ("Semestre 7");
+INSERT INTO Ciclos(descripcion) VALUES ("Semestre 8");
+INSERT INTO Ciclos(descripcion) VALUES ("Trimestre 1");
+INSERT INTO Ciclos(descripcion) VALUES ("Trimestre 2");
+INSERT INTO Ciclos(descripcion) VALUES ("Trimestre 3");
+INSERT INTO Ciclos(descripcion) VALUES ("Trimestre 4");
+INSERT INTO Ciclos(descripcion) VALUES ("INTERCICLO");
+
+
+-- tabla que indica que cursos se van a impartir
+CREATE TABLE Cursos(
+	idCurso INT AUTO_INCREMENT NOT NULL,
+    codigo VARCHAR(20) NOT NULL UNIQUE,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    PRIMARY KEY (idCurso)
+);
+
+-- representa los cursos que se van a impartir, cada curso tiene asociado la carrera y la facultad a la que pertenece.
+-- fecha registro regresenta la fecha en que se hizo el insert
+CREATE TABLE CursosCicloProfesor(
+	idCursoCiclo INT AUTO_INCREMENT NOT NULL,
+    idCurso INT NOT NULL,
+    idCarreras INT NOT NULL,
+    añoImpartido DATE NOT NULL,
+    fechaInicioClase DATE NOT NULL,
+    fechaFinClase DATE NOT NULL,
+    idCiclo INT NOT NULL,
+    idAula INT NOT NULL,
+	idProfesor INT NOT NULL,
+    PRIMARY KEY (idCursoCiclo),
+    FOREIGN KEY (idCarreras) REFERENCES Carreras(idCarreras),
+    FOREIGN KEY (idCiclo) REFERENCES Ciclos(idCiclo),
+	FOREIGN KEY (idCurso) REFERENCES Cursos(idCurso),
+    FOREIGN KEY (idAula) REFERENCES Aula(idAula),
+	FOREIGN KEY (idProfesor) REFERENCES Usuario(idProfesor)
+);
+
+
+CREATE TABLE DiasSemana(
+	idDiasSemana INT AUTO_INCREMENT NOT NULL,
+    dia VARCHAR(15) NOT NULL,
+    PRIMARY KEY (idDiasSemana)
+);
+
+CREATE TABLE HorarioClaseProfesor(
+	idHorarioClaseProfesor INT AUTO_INCREMENT NOT NULL,
+    idCursoCiclo INT NOT NULL,
+    idDiasSemana INT NOT NULL,
+	horacioClaseInicio TIME NOT NULL,
+    horarioClaseFin TIME NOT NULL,
+    PRIMARY KEY (idHorarioClaseProfesor),
+    FOREIGN KEY (idCursoCiclo) REFERENCES CursosCicloProfesor(idCursoCiclo),
+    FOREIGN KEY (idDiasSemana) REFERENCES DiasSemana(idDiasSemana)
 );
