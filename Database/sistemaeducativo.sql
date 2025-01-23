@@ -105,11 +105,18 @@ CREATE TABLE Carreras(
 
 select * from usuario;
 
+use sistemaeducativo;
+
 -- representa el edificio donde se imparten las clases
 CREATE TABLE Edificio(
 	idEdificio INT AUTO_INCREMENT,
-    edificio VARCHAR(20) NOT NULL
+    nombreEdificio VARCHAR(20) UNIQUE NOT NULL,
+    PRIMARY KEY (idEdificio)
 );
+
+
+
+INSERT INTO Edificio(nombreEdificio) VALUES ("TORRE GALILEO");
 
 -- representa el aula donde se imparten las clases
 CREATE TABLE Aula(

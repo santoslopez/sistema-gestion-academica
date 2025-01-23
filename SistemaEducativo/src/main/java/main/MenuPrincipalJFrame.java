@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import jdialg.ModificarPerfil;
 import jinternal.ListadoCarreras;
+import jinternal.ListadoEdificios;
 import jinternal.ListadoFacultad;
 import jinternal.ListadoUsuarios;
 import jinternal.RegistrarCarrera;
@@ -70,6 +71,8 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuFacultad = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItemListarFacultad = new javax.swing.JMenuItem();
+        jMenuEdificios = new javax.swing.JMenu();
+        jMenuItemListadoEdificios = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemActualizarPerfil = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -186,6 +189,18 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuFacultad.add(jMenuItemListarFacultad);
 
         jMenuBar1.add(jMenuFacultad);
+
+        jMenuEdificios.setText("Edificios");
+
+        jMenuItemListadoEdificios.setText("Listado de edificios");
+        jMenuItemListadoEdificios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListadoEdificiosActionPerformed(evt);
+            }
+        });
+        jMenuEdificios.add(jMenuItemListadoEdificios);
+
+        jMenuBar1.add(jMenuEdificios);
 
         jMenu1.setText("Perfil");
 
@@ -310,6 +325,16 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItemActualizarPerfilActionPerformed
 
+    private void jMenuItemListadoEdificiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListadoEdificiosActionPerformed
+        // TODO add your handling code here:
+        if(!escritorio.isAncestorOf(ListadoEdificios.getInstancia())){
+            escritorio.add(ListadoEdificios.getInstancia());
+            ListadoEdificios.getInstancia().setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(ListadoEdificios.getInstancia());
+        }
+    }//GEN-LAST:event_jMenuItemListadoEdificiosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -363,10 +388,12 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenu jMenuCarreras;
+    private javax.swing.JMenu jMenuEdificios;
     private javax.swing.JMenu jMenuFacultad;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemActualizarPerfil;
+    private javax.swing.JMenuItem jMenuItemListadoEdificios;
     private javax.swing.JMenuItem jMenuItemListarCarreras;
     private javax.swing.JMenuItem jMenuItemListarFacultad;
     private javax.swing.JMenuItem jMenuItemListarUsuarios;
