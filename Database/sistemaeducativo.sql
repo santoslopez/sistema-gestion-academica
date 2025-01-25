@@ -114,19 +114,29 @@ CREATE TABLE Edificio(
     PRIMARY KEY (idEdificio)
 );
 
-
-
 INSERT INTO Edificio(nombreEdificio) VALUES ("TORRE GALILEO");
-
 -- representa el aula donde se imparten las clases
 CREATE TABLE Aula(
 	idAula INT AUTO_INCREMENT NOT NULL,
     salon VARCHAR(20) NOT NULL UNIQUE,
     idEdificio INT NOT NULL,
-    nivel VARCHAR(30) NOT NULL, 
+    nivel INT NOT NULL, 
     PRIMARY KEY (idAula),
     FOREIGN KEY (idEdificio) REFERENCES Edificio(idEdificio)
 );
+
+-- Muestra los salones y el edificio que le corresponde
+DELIMITER $$
+CREATE PROCEDURE listarSalonesDeEdificio()
+
+BEGIN
+SELECT a.idAula,a.salon,e.nombreEdificio,a.nivel FROM Aula AS a INNER JOIN Edificio AS e ON 
+A.idEdificio=E.idEdificio;
+
+END $$
+
+DELIMITER ;
+
 
 CREATE TABLE Ciclos(
 	idCiclo INT AUTO_INCREMENT NOT NULL,

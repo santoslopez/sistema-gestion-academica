@@ -6,6 +6,7 @@ import java.util.Locale;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import jdialg.ModificarPerfil;
+import jinternal.ListadoAulas;
 import jinternal.ListadoCarreras;
 import jinternal.ListadoEdificios;
 import jinternal.ListadoFacultad;
@@ -73,6 +74,8 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuItemListarFacultad = new javax.swing.JMenuItem();
         jMenuEdificios = new javax.swing.JMenu();
         jMenuItemListadoEdificios = new javax.swing.JMenuItem();
+        jMenuAulas = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemActualizarPerfil = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -201,6 +204,18 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuEdificios.add(jMenuItemListadoEdificios);
 
         jMenuBar1.add(jMenuEdificios);
+
+        jMenuAulas.setText("Aulas");
+
+        jMenuItem3.setText("Listado de aulas");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenuAulas.add(jMenuItem3);
+
+        jMenuBar1.add(jMenuAulas);
 
         jMenu1.setText("Perfil");
 
@@ -335,6 +350,18 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemListadoEdificiosActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        
+        if(!escritorio.isAncestorOf(ListadoAulas.getInstancia())){
+            escritorio.add(ListadoAulas.getInstancia());
+            ListadoAulas.getInstancia().setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(ListadoAulas.getInstancia());
+        }
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -385,6 +412,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenuAulas;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenu jMenuCarreras;
@@ -392,6 +420,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFacultad;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemActualizarPerfil;
     private javax.swing.JMenuItem jMenuItemListadoEdificios;
     private javax.swing.JMenuItem jMenuItemListarCarreras;
