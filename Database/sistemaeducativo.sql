@@ -42,7 +42,6 @@ BEGIN
 END //
 DELIMITER ;
 
--- DROP TRIGGER createPasswordUser;
 CREATE TABLE Facultad(
 	idFacultad INT AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL UNIQUE,
@@ -136,6 +135,20 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- actualizar nombre carreras
+DELIMITER $$
+CREATE PROCEDURE modificarDatosCarreras(
+IN nuevosDatosNombre varchar(15),
+IN idCarreraModificar INT
+)
+BEGIN
+	UPDATE Carreras SET nombre=nuevosDatosNombre WHERE idCarrera=idCarreraModificar;
+    COMMIT;
+    
+    SELECT 'actualizado' AS mensaje;
+END $$
+DELIMITER ;
+
 -- representa el edificio donde se imparten las clases
 CREATE TABLE Edificio(
 	idEdificio INT AUTO_INCREMENT,
@@ -144,6 +157,7 @@ CREATE TABLE Edificio(
 );
 
 INSERT INTO Edificio(nombreEdificio) VALUES ("TORRE GALILEO");
+
 -- representa el aula donde se imparten las clases
 CREATE TABLE Aula(
 	idAula INT AUTO_INCREMENT NOT NULL,
@@ -185,22 +199,9 @@ BEGIN
 END $$
 DELIMITER ;
 
+select * from carreras;
+
 INSERT INTO Ciclos(descripcion) VALUES ("Semestre 1");
-
-CALL  agregarCiclo("Semestre 1");
-
-INSERT INTO Ciclos(descripcion) VALUES ("Semestre 2");
-INSERT INTO Ciclos(descripcion) VALUES ("Semestre 3");
-INSERT INTO Ciclos(descripcion) VALUES ("Semestre 4");
-INSERT INTO Ciclos(descripcion) VALUES ("Semestre 5");
-INSERT INTO Ciclos(descripcion) VALUES ("Semestre 6");
-INSERT INTO Ciclos(descripcion) VALUES ("Semestre 7");
-INSERT INTO Ciclos(descripcion) VALUES ("Semestre 8");
-INSERT INTO Ciclos(descripcion) VALUES ("Trimestre 1");
-INSERT INTO Ciclos(descripcion) VALUES ("Trimestre 2");
-INSERT INTO Ciclos(descripcion) VALUES ("Trimestre 3");
-INSERT INTO Ciclos(descripcion) VALUES ("Trimestre 4");
-INSERT INTO Ciclos(descripcion) VALUES ("INTERCICLO");
 
 -- tabla que indica que cursos se van a impartir
 CREATE TABLE Cursos(
@@ -229,7 +230,6 @@ CREATE TABLE CursosCicloProfesor(
     FOREIGN KEY (idAula) REFERENCES Aula(idAula),
 	FOREIGN KEY (idProfesor) REFERENCES Usuario(idProfesor)
 );
-
 
 CREATE TABLE DiasSemana(
 	idDiasSemana INT AUTO_INCREMENT NOT NULL,

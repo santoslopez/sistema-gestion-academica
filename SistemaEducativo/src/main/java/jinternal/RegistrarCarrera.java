@@ -159,11 +159,10 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
             
             try{
                 if (consulta!=null){
-                        System.out.println("estoy aqui: "+consulta);
 
                     if(consulta.next()){
                         String mensajeObtenido = consulta.getString("mensaje");
-                        System.out.println("estoy aqui: "+mensajeObtenido);
+  
                         if(mensajeObtenido.equals("enuso")){
                             
                             JOptionPane.showMessageDialog(null, "Error, nombre de carrera en uso.","Mensaje",JOptionPane.ERROR_MESSAGE);   
