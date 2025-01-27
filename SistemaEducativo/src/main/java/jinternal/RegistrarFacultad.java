@@ -17,8 +17,7 @@ import manejador.ManejadorDeFacultad;
 public class RegistrarFacultad extends javax.swing.JInternalFrame {
 
     
-    private Facultad facultad=new Facultad();
-    
+    //private Facultad facultad=new Facultad();
     
     private static RegistrarFacultad instancia;
     public static RegistrarFacultad getInstancia(){
@@ -116,12 +115,38 @@ public class RegistrarFacultad extends javax.swing.JInternalFrame {
         
         if(confirmarGuardar==JOptionPane.YES_OPTION){
             
+            Object[] params = {nombreFacultad};
+
+            String sentencia= "CALL registrarFacultad(?)";
+            
+            // anteriorme utilice Conexion.getInstancia().ejecutarSentencia(sentencia, params); para guardar datos
+            ResultSet ejecutar = Conexion.getInstancia().hacerConsulta(sentencia, params);
+            
+            try{
+                if(ejecutar!=null){
+                    if(ejecutar.next()){
+                        String mensajeObtenido = ejecutar.getString("mensaje");
+                        
+                        if (mensajeObtenido.equals("enuso")){
+                            JOptionPane.showMessageDialog(null,"Error, nombre de facultad ya existe","Mensaje",JOptionPane.ERROR_MESSAGE);  
+                            
+                        }else if (mensajeObtenido.equals("registrado")){
+                            JOptionPane.showMessageDialog(null,"Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);  
+                            txtNombreFacultad.setText("");
+                        }else{
+                            
+                        }
+                    }
+                }
+
+
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+
+            
             /*
-            Verificar si ya existe esta facultad
-            */
-            facultad = ManejadorDeFacultad.getInstancia().validarExistencia(nombreFacultad);
-            
-            
+            facultad = new ManejadorDeFacultad.
             if(facultad!=null){
                 
                 
@@ -130,14 +155,8 @@ public class RegistrarFacultad extends javax.swing.JInternalFrame {
               
             }else{
 
-                String sentencia="INSERT INTO Facultad(nombre) VALUES(?)";
 
-                Object[] params = {nombreFacultad};
-                Conexion.getInstancia().ejecutarSentencia(sentencia, params);
-
-                JOptionPane.showMessageDialog(null,"Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);  
-                
-            }
+            }*/
 
         }
         

@@ -6,6 +6,7 @@ package jinternal;
 
 import bean.LlenarComboBox;
 import db.Conexion;
+import java.sql.ResultSet;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -226,15 +227,6 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
         
         if (confirmarGuardar==JOptionPane.YES_OPTION){
 
-            /*String sentencia = "CALL crearUsuario('"
-                    +nombres+"','"
-                    +apellidos+"','"
-                    +fechaNacimiento+"','"
-                    +correo+"','"
-                    +usuario+"','"
-                    +carnet+"','"
-                    +1+"')";*/
-            
             String sentencia = "CALL crearUsuario(?,?,?,?,?,?,?)"; 
             
             
@@ -245,9 +237,36 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
             
             Object[] params = {nombres,apellidos,fechaNacimiento,correo,usuario,carnet,idComboBox};
 
-            Conexion.getInstancia().ejecutarSentencia(sentencia,params);
+            ResultSet resultado = Conexion.getInstancia().hacerConsulta(sentencia,params);
             
-            JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+            try{
+               if(resultado!=null){
+                   if(resultado.next()){
+                       String mensajeObtenido = resultado.getString("mensaje");
+                       
+                       if (mensajeObtenido.equals("enuso")){
+                           JOptionPane.showMessageDialog(null, "Error, registro no realizado. El nombre de usuario o correo ya existe.","Mensaje",JOptionPane.ERROR_MESSAGE);
+                           
+                       }else if(mensajeObtenido.equals("registrado")){
+                           JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                           txtNombres.setText("");
+                           txtApellidos.setText("");
+                           txtFechaNacimiento.setText("");
+                           txtUsuario.setText("");
+                           txtCorreo.setText("");   
+                       }else{
+                           
+                       }
+                   }
+               }
+            
+                            
+             
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+
+
         }
     }//GEN-LAST:event_btnRegistrarUsuarioActionPerformed
 

@@ -74,8 +74,8 @@ public class Conexion {
         return resultSet;
         
     }
-    // realizar insert, update y delete
-    public ResultSet ejecutarSentencia(String consulta,Object[] params){
+    // Actualmente no se utiliza debido a que se crearon procedimientos almacenados para realizar insert, update y delete
+    /*public ResultSet ejecutarSentencia(String consulta,Object[] params){
         ResultSet resultSet = null;
         try{
             PreparedStatement prep = conection.prepareStatement(consulta);
@@ -87,5 +87,5 @@ public class Conexion {
             ex.printStackTrace();
         }
         return resultSet;
-    }
+    }*/
 }

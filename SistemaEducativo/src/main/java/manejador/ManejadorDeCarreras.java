@@ -32,9 +32,7 @@ public class ManejadorDeCarreras {
     public ArrayList<Carreras> listarCarrerasGuardadas(){
         Carreras carreras = null;
         mostrarCarreras.removeAll(mostrarCarreras);
-        
-        //String queryCarreras= "SELECT * FROM Carreras";
-        //String queryCarreras= "SELECT c.idCarrera,c.nombre,f.nombre FROM Carreras AS c INNER JOIN Facultad AS f ON c.idFacultad=f.idFacultad";
+       
         String queryCarreras = "CALL listarCarrerasPorFacultad()";
         
         Object[] params = {};
@@ -58,7 +56,7 @@ public class ManejadorDeCarreras {
     
     
     // valida si la carrera ya existe
-    public Carreras verificarCarreras(String nombreCarrera){
+    /*public Carreras verificarCarreras(String nombreCarrera){
         Carreras carreras = null;
         
         String query="SELECT * FROM Carreras WHERE nombre=?";
@@ -82,6 +80,6 @@ public class ManejadorDeCarreras {
             carreras=null;
         }
         return carreras;
-    }
+    }*/
     
 }

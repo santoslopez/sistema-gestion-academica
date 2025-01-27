@@ -1,5 +1,4 @@
 CREATE DATABASE sistemaeducativo;
-
 use sistemaeducativo;
 
 CREATE TABLE TipoUsuario(
@@ -28,7 +27,6 @@ CREATE TABLE Usuario(
     foreign key (idTipoUsuario) references TipoUsuario(idTipoUsuario)
 );
 
-
 INSERT INTO Usuario(nombres,apellidos,fechaNacimiento,correo,username,carnet,idTipoUsuario)
 VALUES ('Eva','Maria','1996-01-10','prueba2@gmail.com','eva','15002241',1);
 
@@ -50,6 +48,20 @@ CREATE TABLE Facultad(
     nombre VARCHAR(100) NOT NULL UNIQUE,
     PRIMARY KEY (idFacultad)
 );
+
+-- registrar facultad
+DELIMITER $$
+CREATE PROCEDURE registrarFacultad(IN nombreFacultad varchar(100))
+BEGIN
+	IF EXISTS(SELECT 1 FROM Facultad WHERE nombre=nombreFacultad) THEN
+		SELECT 'enuso' AS mensaje;
+    ELSE
+		INSERT INTO Facultad(nombre) VALUES(nombreFacultad);
+        COMMIT;
+		SELECT 'registrado' AS mensaje;
+    END IF;
+END $$
+DELIMITER ;
 
 -- Procedimiento almacenado para que muestre las carreras disponibles y que indique que facultad pertenece
 DELIMITER $$
@@ -75,9 +87,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-DROP PROCEDURE listarUsuarios;
-CALL listarUsuarios(2);
-
 -- procedimiento almacenado para registrar usuario
 DELIMITER $$
 CREATE PROCEDURE crearUsuario(
@@ -89,8 +98,15 @@ IN datosUsername varchar(128),
 IN datosCarnet varchar(10),
 IN datosTipoUsuario INT)
 BEGIN
-	INSERT INTO Usuario(nombres,apellidos,fechaNacimiento,correo,username,carnet,idTipoUsuario) VALUES (datosNombres,
-    datosApellidos,datosFechaNacimiento,datosCorreo,datosUsername,datosCarnet,datosTipoUsuario);
+	IF EXISTS(SELECT 1 FROM Usuario WHERE correo=datosCorreo OR username=datosUsername) THEN
+        SELECT 'enuso' AS 'mensaje' ;
+	ELSE
+		# agregado
+		INSERT INTO Usuario(nombres,apellidos,fechaNacimiento,correo,username,carnet,idTipoUsuario) VALUES (datosNombres,
+		datosApellidos,datosFechaNacimiento,datosCorreo,datosUsername,datosCarnet,datosTipoUsuario);
+        COMMIT;
+        SELECT 'registrado' AS 'mensaje';
+    END IF;
 END $$
 DELIMITER ;
 
@@ -103,9 +119,22 @@ CREATE TABLE Carreras(
     UNIQUE (nombre,idFacultad)
 );
 
-select * from usuario;
-
-use sistemaeducativo;
+-- procedimiento almacenado para guardar carreras
+DELIMITER $$
+CREATE PROCEDURE agregarCarreras(
+IN datosNombre varchar(15),
+IN datosIdFacultad int
+)
+BEGIN
+	IF EXISTS(SELECT 1 FROM Carreras WHERE nombre=datosNombre) THEN 
+		SELECT 'enuso' AS mensaje;
+    ELSE
+        INSERT INTO Carreras(nombre,idFacultad) VALUES(datosNombre,datosIdFacultad);
+        COMMIT;
+        SELECT 'registrado' AS mensaje;        
+    END IF;
+END $$
+DELIMITER ;
 
 -- representa el edificio donde se imparten las clases
 CREATE TABLE Edificio(
@@ -128,22 +157,38 @@ CREATE TABLE Aula(
 -- Muestra los salones y el edificio que le corresponde
 DELIMITER $$
 CREATE PROCEDURE listarSalonesDeEdificio()
-
 BEGIN
 SELECT a.idAula,a.salon,e.nombreEdificio,a.nivel FROM Aula AS a INNER JOIN Edificio AS e ON 
 A.idEdificio=E.idEdificio;
-
 END $$
 
 DELIMITER ;
-
 
 CREATE TABLE Ciclos(
 	idCiclo INT AUTO_INCREMENT NOT NULL,
     descripcion VARCHAR(30),
     PRIMARY KEY (idCiclo)
 );
+
+DELIMITER $$
+CREATE PROCEDURE agregarCiclo(
+	IN nombreCiclo varchar(30))
+BEGIN
+	-- verificar que el ciclo ya existe
+    IF EXISTS (SELECT 1 FROM Ciclos WHERE descripcion=nombreCiclo) THEN
+		SELECT 'enuso' AS mensaje; 
+    ELSE
+		INSERT INTO Ciclos(descripcion) VALUE (nombreCiclo);    
+        COMMIT;
+		SELECT 'registrado' AS mensaje;
+	END IF;
+END $$
+DELIMITER ;
+
 INSERT INTO Ciclos(descripcion) VALUES ("Semestre 1");
+
+CALL  agregarCiclo("Semestre 1");
+
 INSERT INTO Ciclos(descripcion) VALUES ("Semestre 2");
 INSERT INTO Ciclos(descripcion) VALUES ("Semestre 3");
 INSERT INTO Ciclos(descripcion) VALUES ("Semestre 4");
@@ -156,7 +201,6 @@ INSERT INTO Ciclos(descripcion) VALUES ("Trimestre 2");
 INSERT INTO Ciclos(descripcion) VALUES ("Trimestre 3");
 INSERT INTO Ciclos(descripcion) VALUES ("Trimestre 4");
 INSERT INTO Ciclos(descripcion) VALUES ("INTERCICLO");
-
 
 -- tabla que indica que cursos se van a impartir
 CREATE TABLE Cursos(

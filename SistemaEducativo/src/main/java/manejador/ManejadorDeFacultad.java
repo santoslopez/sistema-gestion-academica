@@ -54,7 +54,7 @@ public class ManejadorDeFacultad {
         return mostrarFacultad;
     }
     
-    public Facultad validarExistencia(String nombreFacultad){
+    /*public Facultad validarExistencia(String nombreFacultad){
         Facultad facultad = null;
         
         String query="SELECT * FROM Facultad WHERE nombre=?";
@@ -77,8 +77,7 @@ public class ManejadorDeFacultad {
             facultad=null;
         }
         
-        return facultad;
-        
-    }
+        return facultad; 
+    }*/
     
 }

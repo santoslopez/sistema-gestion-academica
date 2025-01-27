@@ -7,6 +7,7 @@ package jinternal;
 import db.Conexion;
 import bean.Carreras;
 import bean.LlenarComboBox;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import manejador.ManejadorDeCarreras;
 
@@ -128,9 +129,10 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
         
         int confirmarGuardar = JOptionPane.showConfirmDialog(null,"¿Deseas guardar los datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         
+        
         if(confirmarGuardar==JOptionPane.YES_OPTION){
            
-            carrera = ManejadorDeCarreras.getInstancia().verificarCarreras(nombreCarrera);
+            /*carrera = ManejadorDeCarreras.getInstancia().verificarCarreras(nombreCarrera);
             
             if(carrera!=null){
 
@@ -147,10 +149,39 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
                 Conexion.getInstancia().ejecutarSentencia(sentencia, params);
 
                 JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
-            }
+            }*/
+            LlenarComboBox combobox = (LlenarComboBox)cboFacultad.getSelectedItem();
+            int idFacultad = combobox.getId();
+            
+            String sentencia = "CALL agregarCarreras(?,?)";
+            Object[] params={nombreCarrera,idFacultad};
+            ResultSet consulta = Conexion.getInstancia().hacerConsulta(sentencia,params);
+            
+            try{
+                if (consulta!=null){
+                        System.out.println("estoy aqui: "+consulta);
 
+                    if(consulta.next()){
+                        String mensajeObtenido = consulta.getString("mensaje");
+                        System.out.println("estoy aqui: "+mensajeObtenido);
+                        if(mensajeObtenido.equals("enuso")){
+                            
+                            JOptionPane.showMessageDialog(null, "Error, nombre de carrera en uso.","Mensaje",JOptionPane.ERROR_MESSAGE);   
+                            
+                        }else if(mensajeObtenido.equals("registrado")){
+                            JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
+                            txtNombre.setText("");
+                            
+                        }else{
+                            
+                        }
+                    }
+                }                
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }            
         }
-               
+              
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 

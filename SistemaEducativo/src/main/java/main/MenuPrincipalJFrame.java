@@ -8,10 +8,12 @@ import javax.swing.JOptionPane;
 import jdialg.ModificarPerfil;
 import jinternal.ListadoAulas;
 import jinternal.ListadoCarreras;
+import jinternal.ListadoDeCiclos;
 import jinternal.ListadoEdificios;
 import jinternal.ListadoFacultad;
 import jinternal.ListadoUsuarios;
 import jinternal.RegistrarCarrera;
+import jinternal.RegistrarCiclos;
 import jinternal.RegistrarFacultad;
 import jinternal.RegistrarUsuario;
 
@@ -76,6 +78,9 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuItemListadoEdificios = new javax.swing.JMenuItem();
         jMenuAulas = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuCiclos = new javax.swing.JMenu();
+        jMenuItemRegistrarCiclos = new javax.swing.JMenuItem();
+        jMenuItemListadoDeCiclos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemActualizarPerfil = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -217,6 +222,26 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuAulas);
 
+        jMenuCiclos.setText("Ciclos");
+
+        jMenuItemRegistrarCiclos.setText("Registrar ciclos");
+        jMenuItemRegistrarCiclos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistrarCiclosActionPerformed(evt);
+            }
+        });
+        jMenuCiclos.add(jMenuItemRegistrarCiclos);
+
+        jMenuItemListadoDeCiclos.setText("Listado de ciclos");
+        jMenuItemListadoDeCiclos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListadoDeCiclosActionPerformed(evt);
+            }
+        });
+        jMenuCiclos.add(jMenuItemListadoDeCiclos);
+
+        jMenuBar1.add(jMenuCiclos);
+
         jMenu1.setText("Perfil");
 
         jMenuItemActualizarPerfil.setText("Actualizar perfil");
@@ -288,12 +313,14 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
        
         
-        if(!escritorio.isAncestorOf(ListadoFacultad.getInstancia())){
+        /*if(!escritorio.isAncestorOf(ListadoFacultad.getInstancia())){
             escritorio.add(ListadoFacultad.getInstancia());
             ListadoFacultad.getInstancia().setVisible(true);
         }else{
             escritorio.setSelectedFrame(ListadoFacultad.getInstancia());
-        }
+        }*/
+         escritorio.add(ListadoFacultad.getInstancia());
+         ListadoFacultad.getInstancia().setVisible(true);
         
     }//GEN-LAST:event_jMenuItemListarFacultadActionPerformed
 
@@ -362,6 +389,27 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItemListadoDeCiclosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListadoDeCiclosActionPerformed
+        // TODO add your handling code here:
+        if(!escritorio.isAncestorOf(ListadoDeCiclos.getInstancia())){
+            escritorio.add(ListadoDeCiclos.getInstancia());
+            ListadoDeCiclos.getInstancia().setVisible(true);
+            
+        }else{
+            escritorio.setSelectedFrame(ListadoDeCiclos.getInstancia());
+        }
+    }//GEN-LAST:event_jMenuItemListadoDeCiclosActionPerformed
+
+    private void jMenuItemRegistrarCiclosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarCiclosActionPerformed
+        // TODO add your handling code here:
+        if(!escritorio.isAncestorOf(RegistrarCiclos.getInstancia())){
+            escritorio.add(RegistrarCiclos.getInstancia());
+            RegistrarCiclos.getInstancia().setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(RegistrarCiclos.getInstancia());
+        }
+    }//GEN-LAST:event_jMenuItemRegistrarCiclosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -416,17 +464,20 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenu jMenuCarreras;
+    private javax.swing.JMenu jMenuCiclos;
     private javax.swing.JMenu jMenuEdificios;
     private javax.swing.JMenu jMenuFacultad;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemActualizarPerfil;
+    private javax.swing.JMenuItem jMenuItemListadoDeCiclos;
     private javax.swing.JMenuItem jMenuItemListadoEdificios;
     private javax.swing.JMenuItem jMenuItemListarCarreras;
     private javax.swing.JMenuItem jMenuItemListarFacultad;
     private javax.swing.JMenuItem jMenuItemListarUsuarios;
     private javax.swing.JMenuItem jMenuItemRegistrarCarreras;
+    private javax.swing.JMenuItem jMenuItemRegistrarCiclos;
     private javax.swing.JMenuItem jMenuItemRegistrarUsuarios;
     private javax.swing.JMenu jMenuUsuarios;
     private javax.swing.JPanel jPanel1;
