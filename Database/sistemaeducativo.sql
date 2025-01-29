@@ -111,7 +111,7 @@ DELIMITER ;
 
 CREATE TABLE Carreras(
 	idCarrera INT AUTO_INCREMENT,
-    nombre VARCHAR(15) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
     idFacultad INT NOT NULL,
     PRIMARY KEY (idCarrera),
     FOREIGN KEY (idFacultad) REFERENCES Facultad(idFacultad),
@@ -135,8 +135,9 @@ BEGIN
 END $$
 DELIMITER ;
 
+
 -- actualizar nombre carreras
-DELIMITER $$
+/**DELIMITER $$
 CREATE PROCEDURE modificarDatosCarreras(
 IN nuevosDatosNombre varchar(15),
 IN idCarreraModificar INT
@@ -147,7 +148,96 @@ BEGIN
     
     SELECT 'actualizado' AS mensaje;
 END $$
+DELIMITER ;**/
+
+
+DELIMITER $$
+CREATE PROCEDURE modificarDatosFacultad(
+	IN nuevosDatosFacultad varchar (100),
+    IN idFacultadModificar INT
+)
+BEGIN
+	-- necesario para devolver un mensaje personalizado
+    DECLARE mensaje VARCHAR(20);
+    
+    -- necesario para guardar el nombre actual
+    DECLARE nombreActualFacultad VARCHAR(50);
+    
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+		-- si surge errores
+        ROLLBACK;
+        set mensaje = 'errorproducido';
+        
+	-- empezar la transacción
+	START TRANSACTION;
+    SELECT nombre INTO nombreActualFacultad FROM Facultad WHERE idFacultad=idFacultadModificar;
+    
+    IF nombreActualFacultad  = nuevosDatosFacultad  THEN
+		set mensaje = 'mismosdatos';
+    ELSE
+		IF ROW_COUNT() = 0 THEN
+			set mensaje = 'noactualizado';
+        ELSE
+        
+			UPDATE Facultad SET nombre=nuevosDatosFacultad WHERE idFacultad=idFacultadModificar;
+			COMMIT;
+            
+            set mensaje = 'actualizado';
+        END IF;
+	END IF;
+    
+    SELECT mensaje as mensaje;
+END $$
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE modificarDatosCarreras(
+IN nuevosDatosNombre varchar(50),
+IN idCarreraModificar INT
+)
+BEGIN
+    -- necesario para devolver un mensaje personalizado
+    DECLARE mensaje varchar(20);
+    
+    -- necesario para comparar si el nombre es el mismo que tiene
+    DECLARE datosActuales varchar(50);
+    
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+		-- Si surge un error revertir la transacción
+        ROLLBACK;
+        set mensaje = 'errorproducido';
+
+	-- empezar la transacción
+    START TRANSACTION;
+    
+    -- comparar si es distinto el nombre que quiero guardar
+    SELECT nombre INTO datosActuales
+    FROM Carreras WHERE idCarrera=idCarreraModificar;
+    
+    
+    IF datosActuales = nuevosDatosNombre THEN 
+		set mensaje = 'mismosdatos';
+	
+    ELSE
+    
+		UPDATE Carreras SET nombre=nuevosDatosNombre WHERE idCarrera=idCarreraModificar;
+		
+		-- verificar que se actualizo alguna fila
+		IF ROW_COUNT() = 0 THEN
+			set mensaje = 'noactualizado';
+		ELSE
+			COMMIT;
+			set mensaje = 'actualizado';
+		END IF;
+    END IF;
+    
+    SELECT mensaje as mensaje;
+END $$
+
+DELIMITER ;
+
+select * from carreras;
+
 
 -- representa el edificio donde se imparten las clases
 CREATE TABLE Edificio(
@@ -203,6 +293,7 @@ select * from carreras;
 
 INSERT INTO Ciclos(descripcion) VALUES ("Semestre 1");
 
+
 -- tabla que indica que cursos se van a impartir
 CREATE TABLE Cursos(
 	idCurso INT AUTO_INCREMENT NOT NULL,
@@ -210,6 +301,7 @@ CREATE TABLE Cursos(
     nombre VARCHAR(100) NOT NULL UNIQUE,
     PRIMARY KEY (idCurso)
 );
+
 
 -- representa los cursos que se van a impartir, cada curso tiene asociado la carrera y la facultad a la que pertenece.
 -- fecha registro regresenta la fecha en que se hizo el insert

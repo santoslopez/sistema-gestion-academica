@@ -49,6 +49,7 @@ public class ManejadorDeCiclos {
         try{
                         while(consulta.next()){
                 ciclos = new Ciclos(
+                        Integer.parseInt(consulta.getString("idCiclo")),
                 consulta.getString(("descripcion"))
                 );
                 mostrarCiclos.add(ciclos);

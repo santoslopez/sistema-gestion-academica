@@ -116,9 +116,7 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
-            .addGroup(jPanelContenedorPrincipalLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanelContenedorPrincipalLayout.createSequentialGroup()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -141,6 +139,7 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
 
         jLabel1.setText("ID");
 
+        txtIDCarrera.setEditable(false);
         txtIDCarrera.setEnabled(false);
 
         jLabel2.setText("Nombre");
@@ -218,11 +217,27 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
 
     private void btnActualizarDatosCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDatosCarreraActionPerformed
         // TODO add your handling code here:
+        
+        // verificar que haya algun dato seleccionado
+        
+        String id=txtIDCarrera.getText();
+        
+        int longitudIDSeleecionado = id.length();
+        
+        
+        
+        if (id.length()<=0){
+            JOptionPane.showMessageDialog(null, "Error, debe seleccionar un dato para actualizar","Mensaje",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
+        
         int confirmarDatos = JOptionPane.showConfirmDialog(null, "¿Confirmar actualización de datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         
         if (confirmarDatos==JOptionPane.YES_OPTION){
             
-            int idCarrera=Integer.parseInt(txtIDCarrera.getText())
+            int idCarrera=Integer.parseInt(id)
 ;            
             
             String sentencia = "CALL modificarDatosCarreras(?,?)";
@@ -233,12 +248,22 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
                 if(consulta!=null){
                     if(consulta.next()){
                         String mensajeObtenido = consulta.getString("mensaje");
-                    
-                        if(mensajeObtenido.equals("actualizado")){
-                            JOptionPane.showMessageDialog(null, "Datos actualizado","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-                        }else{
-                            JOptionPane.showMessageDialog(null, "Error datos actualizado","Mensaje",JOptionPane.ERROR_MESSAGE);
-
+                            
+                        
+                        switch (mensajeObtenido) {
+                            case "actualizado":
+                                JOptionPane.showMessageDialog(null, "Datos actualizado","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                                break;
+                            case "noactualizado":
+                                JOptionPane.showMessageDialog(null, "No se efectuaron cambios","Mensaje",JOptionPane.ERROR_MESSAGE);
+                                break;
+                            
+                            case "mismosdatos":
+                                JOptionPane.showMessageDialog(null, "No se efectuaron cambios mismos datos","Mensaje",JOptionPane.ERROR_MESSAGE);
+                                break;
+                            default:
+                                JOptionPane.showMessageDialog(null, "Error capturado","Mensaje",JOptionPane.ERROR_MESSAGE);
+                                break;
                         }
                     }                  
                 }

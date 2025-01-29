@@ -27,6 +27,7 @@ public class ListadoDeCiclos extends javax.swing.JInternalFrame {
      */
     public ListadoDeCiclos() {
         initComponents();
+        setClosable(true);
     }
 
     /**
