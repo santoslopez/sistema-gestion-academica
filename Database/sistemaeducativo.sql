@@ -303,6 +303,8 @@ CREATE TABLE Cursos(
 );
 
 
+INSERT INTO Cursos(codigo,nombre) VALUES ('a1','Matematica 1');
+
 -- representa los cursos que se van a impartir, cada curso tiene asociado la carrera y la facultad a la que pertenece.
 -- fecha registro regresenta la fecha en que se hizo el insert
 CREATE TABLE CursosCicloProfesor(

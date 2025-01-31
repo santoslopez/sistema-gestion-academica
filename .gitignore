@@ -16,6 +16,8 @@ nb-configuration.xml
 *.tmp
 *.bak
 *.swp
+*.form
+
 
 # Ignorar archivos de sistema operativo
 **/.DS_Store
