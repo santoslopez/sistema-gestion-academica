@@ -15,6 +15,7 @@ import jinternal.ListadoFacultad;
 import jinternal.ListadoUsuarios;
 import jinternal.RegistrarCarrera;
 import jinternal.RegistrarCiclos;
+import jinternal.RegistrarCursos;
 import jinternal.RegistrarFacultad;
 import jinternal.RegistrarUsuario;
 
@@ -82,11 +83,12 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuCiclos = new javax.swing.JMenu();
         jMenuItemRegistrarCiclos = new javax.swing.JMenuItem();
         jMenuItemListadoDeCiclos = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItemListadoDeCursos = new javax.swing.JMenuItem();
+        jMenuItemRegistrarCursos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemActualizarPerfil = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItemListadoDeCursos = new javax.swing.JMenuItem();
 
         jMenu2.setText("File");
         jMenuBar2.add(jMenu2);
@@ -245,6 +247,26 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuCiclos);
 
+        jMenu4.setText("Cursos");
+
+        jMenuItemListadoDeCursos.setText("Listado de cursos");
+        jMenuItemListadoDeCursos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListadoDeCursosActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItemListadoDeCursos);
+
+        jMenuItemRegistrarCursos.setText("Registrar cursos");
+        jMenuItemRegistrarCursos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistrarCursosActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItemRegistrarCursos);
+
+        jMenuBar1.add(jMenu4);
+
         jMenu1.setText("Perfil");
 
         jMenuItemActualizarPerfil.setText("Actualizar perfil");
@@ -264,18 +286,6 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu4.setText("Cursos");
-
-        jMenuItemListadoDeCursos.setText("Listado de cursos");
-        jMenuItemListadoDeCursos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemListadoDeCursosActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItemListadoDeCursos);
-
-        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -437,6 +447,17 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemListadoDeCursosActionPerformed
 
+    private void jMenuItemRegistrarCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarCursosActionPerformed
+        // TODO add your handling code here:
+        
+        if(!escritorio.isAncestorOf(RegistrarCursos.getInstancia())){
+            escritorio.add(RegistrarCursos.getInstancia());
+            RegistrarCursos.getInstancia().setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(RegistrarCursos.getInstancia());
+        }
+    }//GEN-LAST:event_jMenuItemRegistrarCursosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -507,6 +528,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemListarUsuarios;
     private javax.swing.JMenuItem jMenuItemRegistrarCarreras;
     private javax.swing.JMenuItem jMenuItemRegistrarCiclos;
+    private javax.swing.JMenuItem jMenuItemRegistrarCursos;
     private javax.swing.JMenuItem jMenuItemRegistrarUsuarios;
     private javax.swing.JMenu jMenuUsuarios;
     private javax.swing.JPanel jPanel1;

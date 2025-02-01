@@ -190,6 +190,45 @@ BEGIN
 END $$
 DELIMITER ;
 
+
+DELIMITER $$
+CREATE PROCEDURE sp_modificarCursos(
+	IN cursoID INT,
+	IN nuevoCodigoCurso varchar(20),
+    IN nuevoNombreCurso varchar(100)
+)
+BEGIN
+	DECLARE mensaje varchar(20);
+    #DECLARE codCursoActual varchar(20);
+    #DECLARE nombreCursoActual varchar(100);
+    
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+		ROLLBACK;
+        set mensaje = 'errorproducido';
+	START TRANSACTION;
+	
+	#SELECT codigo INTO codCursoActual from cursos WHERE idCurso=cursoID;
+    #SELECT nombre INTO nombreCursoActual FROM Cursos WHERE idCurso=cursoID ;
+    
+    IF EXISTS(SELECT 1 FROM Cursos WHERE codigo=nuevoCodigoCurso OR nombre=nuevoNombreCurso) THEN
+		set mensaje = 'enuso';
+    ELSE
+		
+        UPDATE Cursos set codigo=nuevoCodigoCurso,nombre=nuevoNombreCurso WHERE 
+        idCurso=cursoID;
+		
+        IF ROW_COUNT() = 0 THEN
+			set mensaje = 'noactualizado';
+        ELSE
+			COMMIT;
+			set mensaje = 'actualizado';
+        END IF;
+	
+	END IF;
+    SELECT mensaje as mensaje;
+END $$
+DELIMITER ;
+
 DELIMITER $$
 CREATE PROCEDURE modificarDatosCarreras(
 IN nuevosDatosNombre varchar(50),
@@ -289,10 +328,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-select * from carreras;
-
 INSERT INTO Ciclos(descripcion) VALUES ("Semestre 1");
-
 
 -- tabla que indica que cursos se van a impartir
 CREATE TABLE Cursos(
@@ -301,6 +337,23 @@ CREATE TABLE Cursos(
     nombre VARCHAR(100) NOT NULL UNIQUE,
     PRIMARY KEY (idCurso)
 );
+
+DELIMITER $$
+CREATE PROCEDURE sp_agregarCursos(
+	IN codigoCurso varchar(20),
+	IN nombreCurso varchar(100)
+)
+BEGIN
+	IF EXISTS (SELECT 1 FROM Cursos WHERE codigo=codigoCurso OR nombre=nombreCurso) THEN
+		SELECT 'enuso' AS mensaje;
+    ELSE
+		INSERT INTO Cursos(codigo,nombre) VALUES (codigoCurso,nombreCurso);
+		SELECT 'registrado' as mensaje;
+    END IF;
+END $$
+DELIMITER ; 
+
+select * from cursos;
 
 
 INSERT INTO Cursos(codigo,nombre) VALUES ('a1','Matematica 1');

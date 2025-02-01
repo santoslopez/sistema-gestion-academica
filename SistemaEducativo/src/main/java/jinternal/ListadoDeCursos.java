@@ -4,6 +4,10 @@
  */
 package jinternal;
 
+import db.Conexion;
+import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import modelo.ModeloDeCursos;
 
 /**
@@ -11,6 +15,11 @@ import modelo.ModeloDeCursos;
  * @author santoslopeztzoy
  */
 public class ListadoDeCursos extends javax.swing.JInternalFrame {
+    
+    // necesario para recuperar el valor cuando se le da click a la fila
+    
+    private int row;
+    
     
     private ModeloDeCursos modelo;
     
@@ -43,27 +52,93 @@ public class ListadoDeCursos extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelTabs = new javax.swing.JPanel();
+        lblIDCurso = new javax.swing.JLabel();
+        txtIDCurso = new javax.swing.JTextField();
+        lblNombreCurso = new javax.swing.JLabel();
+        txtNombreCurso = new javax.swing.JTextField();
+        lblCodigoCurso = new javax.swing.JLabel();
+        txtCodigoCurso = new javax.swing.JTextField();
+        btnActualizarDatosCursos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableListadoDeCursos = new javax.swing.JTable();
 
         setTitle("Listado de cursos");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 254, Short.MAX_VALUE)
+        lblIDCurso.setText("ID curso");
+
+        txtIDCurso.setEditable(false);
+        txtIDCurso.setEnabled(false);
+
+        lblNombreCurso.setText("Nombre curso");
+
+        txtNombreCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreCursoActionPerformed(evt);
+            }
+        });
+
+        lblCodigoCurso.setText("Código curso");
+
+        txtCodigoCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoCursoActionPerformed(evt);
+            }
+        });
+
+        btnActualizarDatosCursos.setText("Actualizar datos");
+        btnActualizarDatosCursos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarDatosCursosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelTabsLayout = new javax.swing.GroupLayout(jPanelTabs);
+        jPanelTabs.setLayout(jPanelTabsLayout);
+        jPanelTabsLayout.setHorizontalGroup(
+            jPanelTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtIDCurso)
+            .addComponent(txtNombreCurso)
+            .addComponent(lblCodigoCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblNombreCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txtCodigoCurso)
+            .addComponent(btnActualizarDatosCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+            .addComponent(lblIDCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 239, Short.MAX_VALUE)
+        jPanelTabsLayout.setVerticalGroup(
+            jPanelTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTabsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblIDCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtIDCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblCodigoCurso)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCodigoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnActualizarDatosCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("tab1", jPanel2);
+        jTabbedPane1.addTab("Cursos", jPanelTabs);
 
         modelo= new ModeloDeCursos();
         jTableListadoDeCursos.setModel(modelo);
+        jTableListadoDeCursos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableListadoDeCursosMouseClicked(evt);
+            }
+        });
+        jTableListadoDeCursos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableListadoDeCursosKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableListadoDeCursos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -97,12 +172,119 @@ public class ListadoDeCursos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtNombreCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreCursoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreCursoActionPerformed
+
+    private void txtCodigoCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoCursoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoCursoActionPerformed
+
+    private void btnActualizarDatosCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDatosCursosActionPerformed
+        // TODO add your handling code here:
+        
+        String id = txtIDCurso.getText();
+        
+        int longitudIDSeleccionado = id.length();
+        
+        if (longitudIDSeleccionado<=0){
+            JOptionPane.showMessageDialog(null, "Error, no se puede actualizar debe seleccionar un dato.","Mensaje",JOptionPane.ERROR_MESSAGE);
+        }
+        
+        int confirmarDatos= JOptionPane.showConfirmDialog(null, "¿Confirmar actualización de datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        
+        if (confirmarDatos==JOptionPane.YES_OPTION){
+        
+            int idCurso = Integer.parseInt(id);
+            
+            String codigoCurso = txtCodigoCurso.getText();
+            
+            String nombreCurso = txtNombreCurso.getText();
+            
+            Object[] params = {idCurso,codigoCurso,nombreCurso};
+            
+            String query= "CALL sp_modificarCursos(?,?,?)";
+            ResultSet consulta = Conexion.getInstancia().hacerConsulta(query, params);
+            
+            try{
+                if(consulta!=null){
+                    if(consulta.next()){
+                        String mensajeObtenido = consulta.getString("mensaje");
+                        
+                        System.out.println("estoy aqui: "+mensajeObtenido);
+                        
+                        if (mensajeObtenido.equals("enuso")){
+                            JOptionPane.showMessageDialog(null, "No modificado porque el nombre del curso o codigo esta en uso","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                        }else if (mensajeObtenido.equals("actualizado")){
+                            JOptionPane.showMessageDialog(null, "Datos actualizado","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                        }else if (mensajeObtenido.equals("noactualizado")){
+                        
+                        }else if (mensajeObtenido.equals("noactualizado")){
+
+                        }else{
+                            
+                        }
+                        
+                    }
+                }
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+            
+            
+        }
+        
+    }//GEN-LAST:event_btnActualizarDatosCursosActionPerformed
+
+    private void jTableListadoDeCursosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableListadoDeCursosKeyPressed
+        // TODO add your handling code here:
+        
+        int fila = jTableListadoDeCursos.getSelectedRow();
+        
+        if (evt.getKeyCode()== evt.VK_UP && fila>0){
+            fila--;
+        }else if (evt.getKeyCode()==evt.VK_DOWN && fila< jTableListadoDeCursos.getRowCount()-1){
+            fila++;
+        }else{
+            return;
+        }
+        
+        txtIDCurso.setText(jTableListadoDeCursos.getValueAt(fila, 0).toString());
+        
+        txtCodigoCurso.setText(jTableListadoDeCursos.getValueAt(fila, 1).toString());
+        
+        txtNombreCurso.setText(jTableListadoDeCursos.getValueAt(fila, 2).toString());
+        
+        
+    }//GEN-LAST:event_jTableListadoDeCursosKeyPressed
+
+    private void jTableListadoDeCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListadoDeCursosMouseClicked
+        // TODO add your handling code here:
+        row = jTableListadoDeCursos.rowAtPoint(evt.getPoint());
+        
+        txtIDCurso.setText(jTableListadoDeCursos.getValueAt(row, 0).toString());
+        txtCodigoCurso.setText(jTableListadoDeCursos.getValueAt(row, 1).toString());
+
+        
+        txtNombreCurso.setText(jTableListadoDeCursos.getValueAt(row,2).toString());
+        
+        
+        
+    }//GEN-LAST:event_jTableListadoDeCursosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizarDatosCursos;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelTabs;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableListadoDeCursos;
+    private javax.swing.JLabel lblCodigoCurso;
+    private javax.swing.JLabel lblIDCurso;
+    private javax.swing.JLabel lblNombreCurso;
+    private javax.swing.JTextField txtCodigoCurso;
+    private javax.swing.JTextField txtIDCurso;
+    private javax.swing.JTextField txtNombreCurso;
     // End of variables declaration//GEN-END:variables
 }
