@@ -13,6 +13,7 @@ import jinternal.ListadoDeCursos;
 import jinternal.ListadoEdificios;
 import jinternal.ListadoFacultad;
 import jinternal.ListadoUsuarios;
+import jinternal.RegistrarAulas;
 import jinternal.RegistrarCarrera;
 import jinternal.RegistrarCiclos;
 import jinternal.RegistrarCursos;
@@ -70,15 +71,16 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuUsuarios = new javax.swing.JMenu();
         jMenuItemRegistrarUsuarios = new javax.swing.JMenuItem();
         jMenuItemListarUsuarios = new javax.swing.JMenuItem();
-        jMenuCarreras = new javax.swing.JMenu();
-        jMenuItemRegistrarCarreras = new javax.swing.JMenuItem();
-        jMenuItemListarCarreras = new javax.swing.JMenuItem();
         jMenuFacultad = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItemListarFacultad = new javax.swing.JMenuItem();
+        jMenuCarreras = new javax.swing.JMenu();
+        jMenuItemRegistrarCarreras = new javax.swing.JMenuItem();
+        jMenuItemListarCarreras = new javax.swing.JMenuItem();
         jMenuEdificios = new javax.swing.JMenu();
         jMenuItemListadoEdificios = new javax.swing.JMenuItem();
         jMenuAulas = new javax.swing.JMenu();
+        jMenuItemRegistrarAulas = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuCiclos = new javax.swing.JMenu();
         jMenuItemRegistrarCiclos = new javax.swing.JMenuItem();
@@ -165,27 +167,6 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuUsuarios);
 
-        jMenuCarreras.setText("Carreras");
-
-        jMenuItemRegistrarCarreras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
-        jMenuItemRegistrarCarreras.setText("Registrar");
-        jMenuItemRegistrarCarreras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemRegistrarCarrerasActionPerformed(evt);
-            }
-        });
-        jMenuCarreras.add(jMenuItemRegistrarCarreras);
-
-        jMenuItemListarCarreras.setText("Listar");
-        jMenuItemListarCarreras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemListarCarrerasActionPerformed(evt);
-            }
-        });
-        jMenuCarreras.add(jMenuItemListarCarreras);
-
-        jMenuBar1.add(jMenuCarreras);
-
         jMenuFacultad.setText("Facultad");
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
@@ -207,6 +188,27 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuFacultad);
 
+        jMenuCarreras.setText("Carreras");
+
+        jMenuItemRegistrarCarreras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
+        jMenuItemRegistrarCarreras.setText("Registrar");
+        jMenuItemRegistrarCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistrarCarrerasActionPerformed(evt);
+            }
+        });
+        jMenuCarreras.add(jMenuItemRegistrarCarreras);
+
+        jMenuItemListarCarreras.setText("Listar");
+        jMenuItemListarCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListarCarrerasActionPerformed(evt);
+            }
+        });
+        jMenuCarreras.add(jMenuItemListarCarreras);
+
+        jMenuBar1.add(jMenuCarreras);
+
         jMenuEdificios.setText("Edificios");
 
         jMenuItemListadoEdificios.setText("Listado de edificios");
@@ -220,6 +222,14 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenuEdificios);
 
         jMenuAulas.setText("Aulas");
+
+        jMenuItemRegistrarAulas.setText("Registrar aulas");
+        jMenuItemRegistrarAulas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistrarAulasActionPerformed(evt);
+            }
+        });
+        jMenuAulas.add(jMenuItemRegistrarAulas);
 
         jMenuItem3.setText("Listado de aulas");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -343,37 +353,37 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private void jMenuItemListarFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarFacultadActionPerformed
         // TODO add your handling code here:
        
-        
-        /*if(!escritorio.isAncestorOf(ListadoFacultad.getInstancia())){
-            escritorio.add(ListadoFacultad.getInstancia());
-            ListadoFacultad.getInstancia().setVisible(true);
+        ListadoFacultad listado = new ListadoFacultad();
+        if(!escritorio.isAncestorOf(listado)){
+            escritorio.add(listado);
+            listado.setVisible(true);
         }else{
-            escritorio.setSelectedFrame(ListadoFacultad.getInstancia());
-        }*/
-         escritorio.add(ListadoFacultad.getInstancia());
-         ListadoFacultad.getInstancia().setVisible(true);
+            escritorio.setSelectedFrame(listado);
+        }
         
     }//GEN-LAST:event_jMenuItemListarFacultadActionPerformed
 
     private void jMenuItemListarCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarCarrerasActionPerformed
         // TODO add your handling code here:        
-        if(!escritorio.isAncestorOf(ListadoCarreras.getInstancia())){
-            escritorio.add(ListadoCarreras.getInstancia());
-            ListadoCarreras.getInstancia().setVisible(true);
+        ListadoCarreras listado = new ListadoCarreras();
+        if(!escritorio.isAncestorOf(listado)){
+            escritorio.add(listado);
+            listado.setVisible(true);
         }else{
-            escritorio.setSelectedFrame(ListadoCarreras.getInstancia());
+            escritorio.setSelectedFrame(listado);
         }
         
     }//GEN-LAST:event_jMenuItemListarCarrerasActionPerformed
 
     private void jMenuItemRegistrarCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarCarrerasActionPerformed
         // TODO add your handling code here:
+        RegistrarCarrera reg = new RegistrarCarrera();
         
         if(!escritorio.isAncestorOf(RegistrarCarrera.getInstancia())){
-            escritorio.add(RegistrarCarrera.getInstancia());
-            RegistrarCarrera.getInstancia().setVisible(true);
+            escritorio.add(reg);
+            reg.setVisible(true);
         }else{
-            escritorio.setSelectedFrame(RegistrarCarrera.getInstancia());
+            escritorio.setSelectedFrame(reg);
         }
         
     }//GEN-LAST:event_jMenuItemRegistrarCarrerasActionPerformed
@@ -456,13 +466,29 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private void jMenuItemRegistrarCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarCursosActionPerformed
         // TODO add your handling code here:
         
-        if(!escritorio.isAncestorOf(RegistrarCursos.getInstancia())){
-            escritorio.add(RegistrarCursos.getInstancia());
-            RegistrarCursos.getInstancia().setVisible(true);
+        RegistrarCursos registrar = new RegistrarCursos();
+        if(!escritorio.isAncestorOf(registrar)){
+           escritorio.add(registrar);
+           registrar.setVisible(true);
         }else{
-            escritorio.setSelectedFrame(RegistrarCursos.getInstancia());
+            escritorio.setSelectedFrame(registrar);
         }
     }//GEN-LAST:event_jMenuItemRegistrarCursosActionPerformed
+
+    private void jMenuItemRegistrarAulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarAulasActionPerformed
+        // TODO add your handling code here:
+        RegistrarAulas registrar = new RegistrarAulas();
+        if(!escritorio.isAncestorOf(registrar)){
+           escritorio.add(registrar);
+           registrar.setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(registrar);
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_jMenuItemRegistrarAulasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -532,6 +558,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemListarCarreras;
     private javax.swing.JMenuItem jMenuItemListarFacultad;
     private javax.swing.JMenuItem jMenuItemListarUsuarios;
+    private javax.swing.JMenuItem jMenuItemRegistrarAulas;
     private javax.swing.JMenuItem jMenuItemRegistrarCarreras;
     private javax.swing.JMenuItem jMenuItemRegistrarCiclos;
     private javax.swing.JMenuItem jMenuItemRegistrarCursos;

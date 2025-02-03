@@ -27,9 +27,6 @@ CREATE TABLE Usuario(
     foreign key (idTipoUsuario) references TipoUsuario(idTipoUsuario)
 );
 
-INSERT INTO Usuario(nombres,apellidos,fechaNacimiento,correo,username,carnet,idTipoUsuario)
-VALUES ('Eva','Maria','1996-01-10','prueba2@gmail.com','eva','15002241',1);
-
 -- Triger para agregar una contraseña por default en la base de datos
 DELIMITER //
 CREATE TRIGGER createPasswordUser
@@ -42,51 +39,9 @@ BEGIN
 END //
 DELIMITER ;
 
-CREATE TABLE Facultad(
-	idFacultad INT AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL UNIQUE,
-    PRIMARY KEY (idFacultad)
-);
+INSERT INTO Usuario(nombres,apellidos,fechaNacimiento,correo,username,carnet,idTipoUsuario) 
+VALUES ('Santos2','López','1996-01-10','info@gmail.com','santoslopez','15002241',1);
 
--- registrar facultad
-DELIMITER $$
-CREATE PROCEDURE registrarFacultad(IN nombreFacultad varchar(100))
-BEGIN
-	IF EXISTS(SELECT 1 FROM Facultad WHERE nombre=nombreFacultad) THEN
-		SELECT 'enuso' AS mensaje;
-    ELSE
-		INSERT INTO Facultad(nombre) VALUES(nombreFacultad);
-        COMMIT;
-		SELECT 'registrado' AS mensaje;
-    END IF;
-END $$
-DELIMITER ;
-
--- Procedimiento almacenado para que muestre las carreras disponibles y que indique que facultad pertenece
-DELIMITER $$
-CREATE PROCEDURE listarCarrerasPorFacultad()
-BEGIN
-	SELECT c.idCarrera,c.nombre,f.nombre FROM Carreras AS c INNER JOIN Facultad AS f ON c.idFacultad=f.idFacultad;
-END $$
-DELIMITER ;
-
--- muestra el listado de facultades disponibles
-DELIMITER $$ 
-CREATE PROCEDURE listarFacultades()
-BEGIN
-	SELECT * FROM Facultad;
-END $$
-DELIMITER ;
-
--- muestra el listado de estudiantes
-DELIMITER $$
-CREATE PROCEDURE listarUsuarios(IN tipoUsuarioID INT)
-BEGIN
-	SELECT * FROM Usuario WHERE idTipoUsuario=tipoUsuarioID;
-END $$
-DELIMITER ;
-
--- procedimiento almacenado para registrar usuario
 DELIMITER $$
 CREATE PROCEDURE crearUsuario(
 IN datosNombres VARCHAR(100),
@@ -109,45 +64,33 @@ BEGIN
 END $$
 DELIMITER ;
 
-CREATE TABLE Carreras(
-	idCarrera INT AUTO_INCREMENT,
-    nombre VARCHAR(50) NOT NULL,
-    idFacultad INT NOT NULL,
-    PRIMARY KEY (idCarrera),
-    FOREIGN KEY (idFacultad) REFERENCES Facultad(idFacultad),
-    UNIQUE (nombre,idFacultad)
-);
-
--- procedimiento almacenado para guardar carreras
+-- muestra el listado de estudiantes
 DELIMITER $$
-CREATE PROCEDURE agregarCarreras(
-IN datosNombre varchar(15),
-IN datosIdFacultad int
-)
+CREATE PROCEDURE listarUsuarios(IN tipoUsuarioID INT)
 BEGIN
-	IF EXISTS(SELECT 1 FROM Carreras WHERE nombre=datosNombre) THEN 
-		SELECT 'enuso' AS mensaje;
-    ELSE
-        INSERT INTO Carreras(nombre,idFacultad) VALUES(datosNombre,datosIdFacultad);
-        COMMIT;
-        SELECT 'registrado' AS mensaje;        
-    END IF;
+	SELECT * FROM Usuario WHERE idTipoUsuario=tipoUsuarioID;
 END $$
 DELIMITER ;
 
--- actualizar nombre carreras
-/**DELIMITER $$
-CREATE PROCEDURE modificarDatosCarreras(
-IN nuevosDatosNombre varchar(15),
-IN idCarreraModificar INT
-)
+CREATE TABLE Facultad(
+	idFacultad INT AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    PRIMARY KEY (idFacultad)
+);
+
+-- registrar facultad
+DELIMITER $$
+CREATE PROCEDURE registrarFacultad(IN nombreFacultad varchar(100))
 BEGIN
-	UPDATE Carreras SET nombre=nuevosDatosNombre WHERE idCarrera=idCarreraModificar;
-    COMMIT;
-    
-    SELECT 'actualizado' AS mensaje;
+	IF EXISTS(SELECT 1 FROM Facultad WHERE nombre=nombreFacultad) THEN
+		SELECT 'enuso' AS mensaje;
+    ELSE
+		INSERT INTO Facultad(nombre) VALUES(nombreFacultad);
+        COMMIT;
+		SELECT 'registrado' AS mensaje;
+    END IF;
 END $$
-DELIMITER ;**/
+DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE modificarDatosFacultad(
@@ -188,45 +131,63 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- Procedimiento almacenado para que muestre las carreras disponibles y que indique que facultad pertenece
 DELIMITER $$
-CREATE PROCEDURE sp_modificarCursos(
-	IN cursoID INT,
-	IN nuevoCodigoCurso varchar(20),
-    IN nuevoNombreCurso varchar(100)
-)
+CREATE PROCEDURE listarCarrerasPorFacultad()
 BEGIN
-	DECLARE mensaje varchar(20);
-    DECLARE codCursoActual varchar(20);
-    DECLARE nombreCursoActual varchar(100);
-    
-    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
-		ROLLBACK;
-        set mensaje = 'errorproducido';
-	START TRANSACTION;
-	
-	SELECT codigo INTO codCursoActual from cursos WHERE idCurso=cursoID;
-    SELECT nombre INTO nombreCursoActual FROM Cursos WHERE idCurso=cursoID ;
-    
-    IF codCursoActual = nuevoCodigoCurso THEN
-		set mensaje = 'enusocodigo';
-	ELSEIF nombreCursoActual =  nuevoNombreCurso THEN
-		set mensaje = 'enusonombre';
-    ELSE
-
-        UPDATE Cursos set codigo=nuevoCodigoCurso,nombre=nuevoNombreCurso WHERE 
-        idCurso=cursoID;
-		
-        IF ROW_COUNT() = 0 THEN
-			set mensaje = 'noactualizado';
-        ELSE
-			COMMIT;
-			set mensaje = 'actualizado';
-        END IF;
-	
-	END IF;
-    SELECT mensaje as mensaje;
+	SELECT c.idCarrera,c.nombre,f.nombre FROM Carreras AS c INNER JOIN Facultad AS f ON c.idFacultad=f.idFacultad;
 END $$
 DELIMITER ;
+
+-- muestra el listado de facultades disponibles
+DELIMITER $$ 
+CREATE PROCEDURE listarFacultades()
+BEGIN
+	SELECT * FROM Facultad;
+END $$
+DELIMITER ;
+
+-- procedimiento almacenado para registrar usuario
+
+CREATE TABLE Carreras(
+	idCarrera INT AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
+    idFacultad INT NOT NULL,
+    PRIMARY KEY (idCarrera),
+    FOREIGN KEY (idFacultad) REFERENCES Facultad(idFacultad),
+    UNIQUE (nombre,idFacultad)
+);
+
+-- procedimiento almacenado para guardar carreras
+DELIMITER $$
+CREATE PROCEDURE agregarCarreras(
+IN datosNombre varchar(15),
+IN datosIdFacultad int
+)
+BEGIN
+	IF EXISTS(SELECT 1 FROM Carreras WHERE nombre=datosNombre) THEN 
+		SELECT 'enuso' AS mensaje;
+    ELSE
+        INSERT INTO Carreras(nombre,idFacultad) VALUES(datosNombre,datosIdFacultad);
+        COMMIT;
+        SELECT 'registrado' AS mensaje;        
+    END IF;
+END $$
+DELIMITER ;
+
+-- actualizar nombre carreras
+/**DELIMITER $$
+CREATE PROCEDURE modificarDatosCarreras(
+IN nuevosDatosNombre varchar(15),
+IN idCarreraModificar INT
+)
+BEGIN
+	UPDATE Carreras SET nombre=nuevosDatosNombre WHERE idCarrera=idCarreraModificar;
+    COMMIT;
+    
+    SELECT 'actualizado' AS mensaje;
+END $$
+DELIMITER ;**/
 
 DELIMITER $$
 CREATE PROCEDURE modificarDatosCarreras(
@@ -288,10 +249,48 @@ CREATE TABLE Aula(
 	idAula INT AUTO_INCREMENT NOT NULL,
     salon VARCHAR(20) NOT NULL UNIQUE,
     idEdificio INT NOT NULL,
-    nivel INT NOT NULL, 
+    nivel INT NOT NULL CHECK (nivel >=0), 
     PRIMARY KEY (idAula),
     FOREIGN KEY (idEdificio) REFERENCES Edificio(idEdificio)
 );
+
+
+-- 
+ DROP PROCEDURE  sp_agregarAulas;
+DELIMITER $$
+CREATE PROCEDURE sp_agregarAulas(
+	IN datosSalon varchar(20),
+    IN datosIdEdificio INT,
+    IN datosNivel INT
+)
+BEGIN
+	DECLARE mensaje varchar(20);
+    
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+		-- Si surge un error revertir la transacción
+        ROLLBACK;
+        set mensaje = 'errorproducido';
+
+	-- empezar la transacción
+    START TRANSACTION;
+    
+	IF EXISTS (SELECT 1 FROM Aula WHERE salon=datosSalon) THEN
+		set mensaje = 'salonexiste';
+    ELSE
+		-- Se verifica que exista el edificio
+		IF EXISTS (SELECT 1 FROM Edificio WHERE idEdificio=datosIdEdificio) THEN
+			INSERT INTO Aula(salon,idEdificio,nivel) VALUES (datosSalon,datosIdEdificio,datosNivel);
+			COMMIT;
+			set mensaje = 'registrado';        
+         ELSE
+			 set mensaje = 'edificionoexiste';
+        
+		 END IF;
+	END IF;
+    
+    select mensaje as mensaje;
+END $$
+DELIMITER ;
 
 -- Muestra los salones y el edificio que le corresponde
 DELIMITER $$
@@ -383,12 +382,52 @@ DELIMITER ;
 
 INSERT INTO Cursos(codigo,nombre) VALUES ('a1','Matematica 1');
 
+DELIMITER $$
+CREATE PROCEDURE sp_modificarCursos(
+	IN cursoID INT,
+	IN nuevoCodigoCurso varchar(20),
+    IN nuevoNombreCurso varchar(100)
+)
+BEGIN
+	DECLARE mensaje varchar(20);
+    DECLARE codCursoActual varchar(20);
+    DECLARE nombreCursoActual varchar(100);
+    
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+		ROLLBACK;
+        set mensaje = 'errorproducido';
+	START TRANSACTION;
+	
+	SELECT codigo INTO codCursoActual from cursos WHERE idCurso=cursoID;
+    SELECT nombre INTO nombreCursoActual FROM Cursos WHERE idCurso=cursoID ;
+    
+    IF codCursoActual = nuevoCodigoCurso THEN
+		set mensaje = 'enusocodigo';
+	ELSEIF nombreCursoActual =  nuevoNombreCurso THEN
+		set mensaje = 'enusonombre';
+    ELSE
+
+        UPDATE Cursos set codigo=nuevoCodigoCurso,nombre=nuevoNombreCurso WHERE 
+        idCurso=cursoID;
+		
+        IF ROW_COUNT() = 0 THEN
+			set mensaje = 'noactualizado';
+        ELSE
+			COMMIT;
+			set mensaje = 'actualizado';
+        END IF;
+	
+	END IF;
+    SELECT mensaje as mensaje;
+END $$
+DELIMITER ;
+
 -- representa los cursos que se van a impartir, cada curso tiene asociado la carrera y la facultad a la que pertenece.
 -- fecha registro regresenta la fecha en que se hizo el insert
 CREATE TABLE CursosCicloProfesor(
 	idCursoCiclo INT AUTO_INCREMENT NOT NULL,
     idCurso INT NOT NULL,
-    idCarreras INT NOT NULL,
+    idCarrera INT NOT NULL,
     añoImpartido DATE NOT NULL,
     fechaInicioClase DATE NOT NULL,
     fechaFinClase DATE NOT NULL,
@@ -396,7 +435,7 @@ CREATE TABLE CursosCicloProfesor(
     idAula INT NOT NULL,
 	idProfesor INT NOT NULL,
     PRIMARY KEY (idCursoCiclo),
-    FOREIGN KEY (idCarreras) REFERENCES Carreras(idCarreras),
+    FOREIGN KEY (idCarrera) REFERENCES Carreras(idCarrera),
     FOREIGN KEY (idCiclo) REFERENCES Ciclos(idCiclo),
 	FOREIGN KEY (idCurso) REFERENCES Cursos(idCurso),
     FOREIGN KEY (idAula) REFERENCES Aula(idAula),

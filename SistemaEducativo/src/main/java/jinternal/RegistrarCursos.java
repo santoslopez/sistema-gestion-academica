@@ -112,6 +112,17 @@ public class RegistrarCursos extends javax.swing.JInternalFrame {
         
         String nombreCurso = txtCurso.getText();
         
+        
+        int longituCodigoCurso = codigoCurso.length();
+        int longitudNombreCurso = nombreCurso.length();
+        
+        if ((longituCodigoCurso<=0) || (longitudNombreCurso<=0)){
+            JOptionPane.showMessageDialog(null, "Error, el codigo de curso o nombre de curso no pueden estar vacíos","Mensaje",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
+        
         int confirmarGuardar = JOptionPane.showConfirmDialog(null, "¿Deseas guardar el curso?","Mensaje",JOptionPane.YES_NO_OPTION);
         
         if (confirmarGuardar==JOptionPane.YES_OPTION){

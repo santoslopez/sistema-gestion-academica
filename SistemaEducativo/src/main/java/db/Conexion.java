@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class Conexion {
     private static Conexion instancia;
@@ -48,12 +49,16 @@ public class Conexion {
             if (conection != null) {
                 System.out.println("Conexión exitosa a la base de datos.");
             } else {
-                System.out.println("Fallo la conexión a la base de datos.");
+                //System.out.println("Fallo la conexión a la base de datos.");
+                JOptionPane.showMessageDialog(null, "Error capturado "+conection, "Mensaje", JOptionPane.ERROR_MESSAGE);
+
             }
             statement = conection.createStatement();
 
         } catch (SQLException e) {
-            System.out.println("Error en la conexión: " + e.getMessage());
+            //System.out.println("Error en la conexión: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error capturado "+e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
+
         }
     }
     
@@ -69,7 +74,8 @@ public class Conexion {
             }
             resultSet = p.executeQuery();
         }catch(SQLException ex){
-            ex.getStackTrace();
+            JOptionPane.showMessageDialog(null, "Error capturado "+ex.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
+            //ex.getStackTrace();
         }
         return resultSet;
         

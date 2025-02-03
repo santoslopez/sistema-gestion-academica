@@ -28,6 +28,7 @@ public class RegistrarCiclos extends javax.swing.JInternalFrame {
      */
     public RegistrarCiclos() {
         initComponents();
+        setClosable(true);
     }
 
     /**
@@ -96,6 +97,16 @@ public class RegistrarCiclos extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         String nombreCiclo=txtNombreCiclo.getText();
+        
+        
+        int longitudNombreCiclo = nombreCiclo.length();
+        
+        if (longitudNombreCiclo<=0){
+            
+            JOptionPane.showMessageDialog(null, "Error, debes ingresar un nombre del ciclo","Mensaje",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         
         int confirmarGuardar = JOptionPane.showConfirmDialog(null,"¿Confirmar registrar ciclo?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         

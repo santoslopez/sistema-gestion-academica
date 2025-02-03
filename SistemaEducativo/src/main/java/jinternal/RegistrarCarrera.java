@@ -30,7 +30,7 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
     
     
     public void llenarComboBox(){
-        String consulta="SELECT DISTINCT f.idFacultad,f.nombre FROM Carreras AS c INNER JOIN Facultad AS f ON c.idFacultad=c.idFacultad;";
+        String consulta="SELECT DISTINCT idFacultad,nombre FROM Facultad";
         // no hace nada debido a que no es relevante para la consulta que estamos haciendo
         Object[] params={};
         LlenarComboBox.getInstancia().tipoCuenta(cboFacultad,consulta,params,"idFacultad","nombre");
@@ -127,7 +127,20 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String nombreCarrera = txtNombre.getText();
         
+        int longitudNombreCarrera = nombreCarrera.length();
+        
+        
+        
+        if (longitudNombreCarrera<=0){
+            JOptionPane.showMessageDialog(null, "Error, debe ingresar un nombre de la carrera","Mensaje",JOptionPane.ERROR_MESSAGE);
+            
+            return;
+        }
+        
+        LlenarComboBox combobox = (LlenarComboBox)cboFacultad.getSelectedItem();
+        
         int confirmarGuardar = JOptionPane.showConfirmDialog(null,"¿Deseas guardar los datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        
         
         
         if(confirmarGuardar==JOptionPane.YES_OPTION){
@@ -150,7 +163,14 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
 
                 JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
             }*/
-            LlenarComboBox combobox = (LlenarComboBox)cboFacultad.getSelectedItem();
+            
+            if (combobox==null){
+                
+                JOptionPane.showMessageDialog(null,"Error, actualmente no existen facultades registrados","Mensaje",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            
             int idFacultad = combobox.getId();
             
             String sentencia = "CALL agregarCarreras(?,?)";

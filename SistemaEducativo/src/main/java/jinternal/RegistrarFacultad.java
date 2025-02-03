@@ -115,6 +115,12 @@ public class RegistrarFacultad extends javax.swing.JInternalFrame {
         
         if(confirmarGuardar==JOptionPane.YES_OPTION){
             
+            int longitudNombreFacultad = nombreFacultad.length();
+            if (longitudNombreFacultad<=0){
+                JOptionPane.showMessageDialog(null, "Error, nombre de facultad no puede ser vacío","Mensaje",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
             Object[] params = {nombreFacultad};
 
             String sentencia= "CALL registrarFacultad(?)";
