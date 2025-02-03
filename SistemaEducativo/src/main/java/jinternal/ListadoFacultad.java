@@ -203,7 +203,7 @@ public class ListadoFacultad extends javax.swing.JInternalFrame {
         
         if (longitudIDSeleccionado<=0){
             JOptionPane.showMessageDialog(null, "Error, no se puede actualizar debe seleccionar un dato.","Mensaje",JOptionPane.ERROR_MESSAGE);
-                        
+            return;           
         }
         
         int confirmarDatos= JOptionPane.showConfirmDialog(null, "¿Confirmar actualización de datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);

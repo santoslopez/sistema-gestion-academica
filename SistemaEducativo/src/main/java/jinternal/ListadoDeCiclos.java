@@ -1,6 +1,10 @@
 
 package jinternal;
 
+import db.Conexion;
+import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import modelo.ModeloDeCiclos;
 
 /**
@@ -8,6 +12,12 @@ import modelo.ModeloDeCiclos;
  * @author santoslopeztzoy
  */
 public class ListadoDeCiclos extends javax.swing.JInternalFrame {
+    
+    
+    // necesario para recuperar el valor cuando se le da click a la fila
+
+    private int row;
+    
 
     private ModeloDeCiclos modelo;
     
@@ -43,29 +53,107 @@ public class ListadoDeCiclos extends javax.swing.JInternalFrame {
         jLabelTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableListadoDeCiclos = new javax.swing.JTable();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        lblID = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
+        lblDescripcion = new javax.swing.JLabel();
+        txtDescripcion = new javax.swing.JTextField();
+        btnActualizarDatos = new javax.swing.JButton();
 
         setTitle("Listado de ciclos");
 
+        jLabelTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Listado de ciclos");
 
         modelo = new ModeloDeCiclos();
         jTableListadoDeCiclos.setModel(modelo);
+        jTableListadoDeCiclos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableListadoDeCiclosMouseClicked(evt);
+            }
+        });
+        jTableListadoDeCiclos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableListadoDeCiclosKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableListadoDeCiclos);
+
+        lblID.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        lblID.setText("ID");
+
+        txtID.setEditable(false);
+        txtID.setEnabled(false);
+
+        lblDescripcion.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        lblDescripcion.setText("Descripción");
+
+        txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescripcionActionPerformed(evt);
+            }
+        });
+
+        btnActualizarDatos.setText("Actualizar datos");
+        btnActualizarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarDatosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnActualizarDatos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtID))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnActualizarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(84, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Ciclos", jPanel1);
 
         javax.swing.GroupLayout jPanelContenedorLayout = new javax.swing.GroupLayout(jPanelContenedor);
         jPanelContenedor.setLayout(jPanelContenedorLayout);
         jPanelContenedorLayout.setHorizontalGroup(
             jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+            .addGroup(jPanelContenedorLayout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanelContenedorLayout.setVerticalGroup(
             jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelContenedorLayout.createSequentialGroup()
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+            .addGroup(jPanelContenedorLayout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -82,11 +170,103 @@ public class ListadoDeCiclos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescripcionActionPerformed
+
+    private void btnActualizarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDatosActionPerformed
+        // TODO add your handling code here:
+        String id = txtID.getText();
+        int longitudID= id.length();
+        
+        if(longitudID<=0){
+            JOptionPane.showMessageDialog(null, "Error, debes seleccionar una fila para modificar","Mensaje",JOptionPane.ERROR_MESSAGE);
+            
+            return;
+        }
+        
+        int confirmarDatos = JOptionPane.showConfirmDialog(null, "¿Deseas actualizar los datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        
+        if (confirmarDatos==JOptionPane.YES_OPTION){
+            
+            int cicloID=Integer.parseInt(id);
+            
+            String ciclo = txtDescripcion.getText();
+            
+            Object[] params = {cicloID,ciclo};
+            
+            String query= "CALL sp_modificarCiclos(?,?)";
+            
+            ResultSet consulta = Conexion.getInstancia().hacerConsulta(query, params);
+            
+            
+            try{
+                if(consulta!=null){
+                    if(consulta.next()){
+                        String mensajeObtenido = consulta.getString("mensaje");
+                        
+                        if(mensajeObtenido.equals("mismosdatos")){
+                            JOptionPane.showMessageDialog(null, "No modificado porque el nombre del ciclo es el mismo.","Mensaje",JOptionPane.ERROR_MESSAGE);
+
+                        }else if (mensajeObtenido.equals("actualizado")){
+                            JOptionPane.showMessageDialog(null, "Datos actualizado","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                        
+                        }else if (mensajeObtenido.equals("errorproducido")){
+                            JOptionPane.showMessageDialog(null, "Error producido y capturado.","Mensaje",JOptionPane.ERROR_MESSAGE);
+  
+                        }else{
+                            
+                        }
+                        
+                    }
+                }
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+            
+        }
+        
+        
+    }//GEN-LAST:event_btnActualizarDatosActionPerformed
+
+    private void jTableListadoDeCiclosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableListadoDeCiclosKeyPressed
+        // TODO add your handling code here:
+        
+        int fila = jTableListadoDeCiclos.getSelectedRow();
+        
+        if(evt.getKeyCode()==KeyEvent.VK_UP && fila>0){
+            fila--;
+        }else if (evt.getKeyCode()==KeyEvent.VK_DOWN && fila<jTableListadoDeCiclos.getRowCount()-1){
+            fila++;
+        }else{
+            return;
+        }
+        
+        txtID.setText(jTableListadoDeCiclos.getValueAt(fila, 0).toString());
+        txtDescripcion.setText(jTableListadoDeCiclos.getValueAt(fila, 1).toString());
+    }//GEN-LAST:event_jTableListadoDeCiclosKeyPressed
+
+    private void jTableListadoDeCiclosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListadoDeCiclosMouseClicked
+        // TODO add your handling code here:
+        
+        row = jTableListadoDeCiclos.rowAtPoint(evt.getPoint());
+        txtID.setText(jTableListadoDeCiclos.getValueAt(row, 0).toString());
+        txtDescripcion.setText(jTableListadoDeCiclos.getValueAt(row, 1).toString());
+        
+    }//GEN-LAST:event_jTableListadoDeCiclosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizarDatos;
     private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelContenedor;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableListadoDeCiclos;
+    private javax.swing.JLabel lblDescripcion;
+    private javax.swing.JLabel lblID;
+    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables
 }

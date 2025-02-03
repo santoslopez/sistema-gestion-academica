@@ -135,7 +135,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-
 -- actualizar nombre carreras
 /**DELIMITER $$
 CREATE PROCEDURE modificarDatosCarreras(
@@ -149,7 +148,6 @@ BEGIN
     SELECT 'actualizado' AS mensaje;
 END $$
 DELIMITER ;**/
-
 
 DELIMITER $$
 CREATE PROCEDURE modificarDatosFacultad(
@@ -190,7 +188,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-
 DELIMITER $$
 CREATE PROCEDURE sp_modificarCursos(
 	IN cursoID INT,
@@ -199,21 +196,23 @@ CREATE PROCEDURE sp_modificarCursos(
 )
 BEGIN
 	DECLARE mensaje varchar(20);
-    #DECLARE codCursoActual varchar(20);
-    #DECLARE nombreCursoActual varchar(100);
+    DECLARE codCursoActual varchar(20);
+    DECLARE nombreCursoActual varchar(100);
     
     DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
 		ROLLBACK;
         set mensaje = 'errorproducido';
 	START TRANSACTION;
 	
-	#SELECT codigo INTO codCursoActual from cursos WHERE idCurso=cursoID;
-    #SELECT nombre INTO nombreCursoActual FROM Cursos WHERE idCurso=cursoID ;
+	SELECT codigo INTO codCursoActual from cursos WHERE idCurso=cursoID;
+    SELECT nombre INTO nombreCursoActual FROM Cursos WHERE idCurso=cursoID ;
     
-    IF EXISTS(SELECT 1 FROM Cursos WHERE codigo=nuevoCodigoCurso OR nombre=nuevoNombreCurso) THEN
-		set mensaje = 'enuso';
+    IF codCursoActual = nuevoCodigoCurso THEN
+		set mensaje = 'enusocodigo';
+	ELSEIF nombreCursoActual =  nuevoNombreCurso THEN
+		set mensaje = 'enusonombre';
     ELSE
-		
+
         UPDATE Cursos set codigo=nuevoCodigoCurso,nombre=nuevoNombreCurso WHERE 
         idCurso=cursoID;
 		
@@ -275,9 +274,6 @@ END $$
 
 DELIMITER ;
 
-select * from carreras;
-
-
 -- representa el edificio donde se imparten las clases
 CREATE TABLE Edificio(
 	idEdificio INT AUTO_INCREMENT,
@@ -330,6 +326,38 @@ DELIMITER ;
 
 INSERT INTO Ciclos(descripcion) VALUES ("Semestre 1");
 
+DELIMITER $$
+CREATE PROCEDURE sp_modificarCiclos(
+	IN cicloID INT,
+    IN datosCiclo VARCHAR(30)
+    
+)
+BEGIN 
+	DECLARE mensaje VARCHAR(20);
+	DECLARE cicloDatos VARCHAR(30);
+    
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+		ROLLBACK;
+		set mensaje='errorproducido';
+	
+    START TRANSACTION;
+    
+		SELECT descripcion INTO cicloDatos from ciclos;
+        
+        IF datosCiclo = cicloDatos THEN
+			set mensaje='mismosdatos';
+        ELSE
+			UPDATE Ciclos SET descripcion=datosCiclo WHERE idCiclo=cicloID;
+            
+            COMMIT;
+            set mensaje = 'actualizado';
+		END IF;
+        
+        SELECT mensaje AS mensaje;
+END $$
+
+DELIMITER ;
+
 -- tabla que indica que cursos se van a impartir
 CREATE TABLE Cursos(
 	idCurso INT AUTO_INCREMENT NOT NULL,
@@ -352,9 +380,6 @@ BEGIN
     END IF;
 END $$
 DELIMITER ; 
-
-select * from cursos;
-
 
 INSERT INTO Cursos(codigo,nombre) VALUES ('a1','Matematica 1');
 

@@ -223,14 +223,11 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
         String id=txtIDCarrera.getText();
         
         int longitudIDSeleecionado = id.length();
-        
-        
-        
+                
         if (id.length()<=0){
             JOptionPane.showMessageDialog(null, "Error, debe seleccionar un dato para actualizar","Mensaje",JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
         
         
         int confirmarDatos = JOptionPane.showConfirmDialog(null, "¿Confirmar actualización de datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);

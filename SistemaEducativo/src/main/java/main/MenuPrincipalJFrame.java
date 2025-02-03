@@ -145,6 +145,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuUsuarios.setText("Usuarios");
 
+        jMenuItemRegistrarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItemRegistrarUsuarios.setText("Registrar");
         jMenuItemRegistrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,6 +154,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenuUsuarios.add(jMenuItemRegistrarUsuarios);
 
+        jMenuItemListarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/work-order.png"))); // NOI18N
         jMenuItemListarUsuarios.setText("Lista estudiantes");
         jMenuItemListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,6 +167,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuCarreras.setText("Carreras");
 
+        jMenuItemRegistrarCarreras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItemRegistrarCarreras.setText("Registrar");
         jMenuItemRegistrarCarreras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,6 +188,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuFacultad.setText("Facultad");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItem1.setText("Registrar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,6 +233,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuCiclos.setText("Ciclos");
 
+        jMenuItemRegistrarCiclos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItemRegistrarCiclos.setText("Registrar ciclos");
         jMenuItemRegistrarCiclos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,6 +262,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItemListadoDeCursos);
 
+        jMenuItemRegistrarCursos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItemRegistrarCursos.setText("Registrar cursos");
         jMenuItemRegistrarCursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

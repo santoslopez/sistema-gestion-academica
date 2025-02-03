@@ -189,6 +189,7 @@ public class ListadoDeCursos extends javax.swing.JInternalFrame {
         
         if (longitudIDSeleccionado<=0){
             JOptionPane.showMessageDialog(null, "Error, no se puede actualizar debe seleccionar un dato.","Mensaje",JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
         int confirmarDatos= JOptionPane.showConfirmDialog(null, "¿Confirmar actualización de datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
@@ -213,8 +214,10 @@ public class ListadoDeCursos extends javax.swing.JInternalFrame {
                         
                         System.out.println("estoy aqui: "+mensajeObtenido);
                         
-                        if (mensajeObtenido.equals("enuso")){
-                            JOptionPane.showMessageDialog(null, "No modificado porque el nombre del curso o codigo esta en uso","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                        if (mensajeObtenido.equals("enusocodigo")){
+                            JOptionPane.showMessageDialog(null, "No modificado porque el código del curso es el mismo","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                        }else if (mensajeObtenido.equals("enusonombre")){
+                            JOptionPane.showMessageDialog(null, "No modificado porque el nombre del curso es el mismo","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                         }else if (mensajeObtenido.equals("actualizado")){
                             JOptionPane.showMessageDialog(null, "Datos actualizado","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                         }else if (mensajeObtenido.equals("noactualizado")){

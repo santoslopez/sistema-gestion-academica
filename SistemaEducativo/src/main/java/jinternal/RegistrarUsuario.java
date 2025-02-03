@@ -105,6 +105,8 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
 
         lblCorreo.setText("Correo");
 
+        txtUsuario.setEditable(false);
+        txtUsuario.setEnabled(false);
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuarioActionPerformed(evt);
