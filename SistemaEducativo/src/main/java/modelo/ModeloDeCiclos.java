@@ -66,4 +66,13 @@ public class ModeloDeCiclos extends AbstractTableModel {
         
     }
     
+    
+    
+    public void actualizarJTable(){
+        listarCiclos = new ManejadorDeCiclos().getInstancia().listarCiclosGuardados();
+        /* notifica al JTable que los datos en el modelo han cambiado, 
+        y que debe actualizar su visualización para reflejar esos cambios.*/
+        fireTableDataChanged();
+        
+    }
 }

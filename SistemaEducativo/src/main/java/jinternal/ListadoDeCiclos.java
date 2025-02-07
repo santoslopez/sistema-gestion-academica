@@ -210,7 +210,8 @@ public class ListadoDeCiclos extends javax.swing.JInternalFrame {
 
                         }else if (mensajeObtenido.equals("actualizado")){
                             JOptionPane.showMessageDialog(null, "Datos actualizado","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-                        
+                            modelo.actualizarJTable();
+                            //jTableListadoDeCiclos.repaint();
                         }else if (mensajeObtenido.equals("errorproducido")){
                             JOptionPane.showMessageDialog(null, "Error producido y capturado.","Mensaje",JOptionPane.ERROR_MESSAGE);
   

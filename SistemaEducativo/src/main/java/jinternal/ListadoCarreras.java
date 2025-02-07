@@ -250,6 +250,10 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
                         switch (mensajeObtenido) {
                             case "actualizado":
                                 JOptionPane.showMessageDialog(null, "Datos actualizado","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                                
+                                modelo.actualizarJTable();
+                                //jTableListadoCarreras.repaint();
+                                
                                 break;
                             case "noactualizado":
                                 JOptionPane.showMessageDialog(null, "No se efectuaron cambios","Mensaje",JOptionPane.ERROR_MESSAGE);

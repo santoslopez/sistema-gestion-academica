@@ -64,4 +64,12 @@ public class ModeloDeCursos extends AbstractTableModel {
         }
         return resultado;
     }
+    
+    public void actualizarJTable(){
+        listadoDeCursos = new ManejadorDeCursos().getInstancia().listarCursosGuardados();
+        
+        /* notifica al JTable que los datos en el modelo han cambiado, 
+        y que debe actualizar su visualización para reflejar esos cambios.*/
+        fireTableDataChanged();
+    }
 }

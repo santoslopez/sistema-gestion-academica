@@ -61,4 +61,17 @@ public class ModeloDeCarreras extends AbstractTableModel {
         
         return resultado;
     }
+    
+    public void actualizarJTable(){
+        listadoDeCarreras = new ManejadorDeCarreras().getInstancia().listarCarrerasGuardadas();
+        
+        /*notificar al JTable que los datos en el modelo han cambiado, 
+        
+        y que debe actualizar su visualización para reflejar esos cambios.*/
+        
+        fireTableDataChanged();
+        
+    }
+    
+    
 }

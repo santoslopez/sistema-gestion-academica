@@ -220,6 +220,11 @@ public class ListadoDeCursos extends javax.swing.JInternalFrame {
                             JOptionPane.showMessageDialog(null, "No modificado porque el nombre del curso es el mismo","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                         }else if (mensajeObtenido.equals("actualizado")){
                             JOptionPane.showMessageDialog(null, "Datos actualizado","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                            // actualizamos el jtable
+                            modelo.actualizarJTable();
+        
+                            // forzar actualización debido que jtable ya esta
+                            //jTableListadoDeCursos.repaint();
                         }else if (mensajeObtenido.equals("noactualizado")){
                         
                         }else if (mensajeObtenido.equals("noactualizado")){

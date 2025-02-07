@@ -60,6 +60,14 @@ public class ModeloDeFacultad extends AbstractTableModel {
         
         return resultado;
     }
+    
+    public void actualizarJTable(){
+        listadoDeFacultad = new ManejadorDeFacultad().getInstancia().listarFacultadesGuardados();
+        
+        /* notifica al JTable que los datos en el modelo han cambiado, 
+        y que debe actualizar su visualización para reflejar esos cambios.*/
+        fireTableDataChanged();  //
+    }
             
     
 }
