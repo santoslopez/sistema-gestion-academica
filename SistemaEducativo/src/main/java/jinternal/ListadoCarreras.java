@@ -306,8 +306,11 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
     // Mostrar los valores de la fila en los campos de texto
     txtIDCarrera.setText(jTableListadoCarreras.getValueAt(fila, 0).toString());
     txtNombreCarrera.setText(jTableListadoCarreras.getValueAt(fila, 1).toString());
-    
+        
+        
         //System.out.println("holxxxa:; "+row);
+        
+        
     }//GEN-LAST:event_jTableListadoCarrerasKeyPressed
 
 

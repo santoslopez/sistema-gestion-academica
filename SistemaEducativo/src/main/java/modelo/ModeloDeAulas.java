@@ -76,8 +76,11 @@ public class ModeloDeAulas extends AbstractTableModel {
         
     }
     
-    
-    
+    // actualizar JTable
+    public void actualizarJTable(){
+        listadoDeAulas = new ManejadorDeAulas().getInstancia().listarAulasGuardados();
+        fireTableDataChanged();
+    }
     
     
 }
