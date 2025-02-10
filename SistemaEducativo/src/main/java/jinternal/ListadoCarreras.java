@@ -8,6 +8,7 @@ import db.Conexion;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import modelo.ModeloDeCarreras;
@@ -36,6 +37,16 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
         }
         return instancia;
     }
+    
+    
+    // se utiliza para actualizar el JTable, se invoca cuando se registra la carrera en RegistrarCarrera.java
+    public ModeloDeCarreras getModelo(){
+        return modelo;
+    }
+    
+    /*public JTable getTablaListadoCarreras(){
+        return jTableListadoCarreras;
+    }*/
 
     /**
      * Creates new form ListadoCarreras

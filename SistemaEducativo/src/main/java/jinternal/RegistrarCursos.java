@@ -142,6 +142,8 @@ public class RegistrarCursos extends javax.swing.JInternalFrame {
                             JOptionPane.showMessageDialog(null, "Curso registrado.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                             txtCodigo.setText("");
                             txtCurso.setText("");
+                            
+                            ListadoDeCiclos.getInstancia().getModelo().actualizarJTable();
                         }else if (mensajeObtenido.equals("enuso")){
                             JOptionPane.showMessageDialog(null, "Curso o código en uso.","Mensaje",JOptionPane.ERROR_MESSAGE);
 

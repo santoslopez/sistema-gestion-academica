@@ -19,6 +19,10 @@ public class ListadoAulas extends javax.swing.JInternalFrame {
     
     private ModeloDeAulas modelo;
     
+    public ModeloDeAulas getModelo(){
+        return modelo;
+    }
+    
     
     private static ListadoAulas instancia;
     public static ListadoAulas getInstancia(){
@@ -91,6 +95,9 @@ public class ListadoAulas extends javax.swing.JInternalFrame {
 
         jLabel4.setText("ID");
 
+        txtID.setEditable(false);
+        txtID.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -130,6 +137,11 @@ public class ListadoAulas extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("Aulas", jPanel1);
 
         btnActualizarDatos.setText("Actualizar datos");
+        btnActualizarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarDatosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelContenedorPrincipalLayout = new javax.swing.GroupLayout(jPanelContenedorPrincipal);
         jPanelContenedorPrincipal.setLayout(jPanelContenedorPrincipalLayout);
@@ -202,6 +214,19 @@ public class ListadoAulas extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_jTableListadoAulasKeyPressed
+
+    private void btnActualizarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDatosActionPerformed
+        // TODO add your handling code here:
+        String id = txtID.getText();
+        
+        String salon = txtNombreSalon.getText();
+        
+        String nivel = txtNivel.getText();
+        
+        //String edificio = cboEdificio.getSelectedItem();
+        
+        
+    }//GEN-LAST:event_btnActualizarDatosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

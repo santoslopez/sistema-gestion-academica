@@ -177,6 +177,8 @@ public class RegistrarAulas extends javax.swing.JInternalFrame {
                             txtNombreSalon.setText("");
                             txtNivel.setText("");
                             
+                            ListadoAulas.getInstancia().getModelo().actualizarJTable();
+                            
                         }else if (mensajeObtenido.equals("edificionoexiste")){
                             JOptionPane.showMessageDialog(null, "Error, el edificio no está registrado.","Mensaje",JOptionPane.ERROR_MESSAGE);   
 
@@ -189,67 +191,7 @@ public class RegistrarAulas extends javax.swing.JInternalFrame {
                 ex.printStackTrace();
             }  
         }
-        
-        
-
-            
-            
-            
-            //ResultSet consulta = Conexion.getInstancia().hacerConsulta(sentencia,params);
-            
-            
-        
-        /*if (confirmarGuardar==JOptionPane.YES_OPTION){
-            if (combobox==null){
-                JOptionPane.showMessageDialog(null,"Error, actualmente no existen facultades registrados","Mensaje",JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            int idEdificio = combobox.getId();
-            
-           
-            
-            String sentencia = "CALL sp_agregarAulas(?,?,?)";
-            
-            Object[] params= {nombreSalon,idEdificio,Integer.parseInt(nivel)};
-            
-            
-            
-            ResultSet consulta = Conexion.getInstancia().hacerConsulta(sentencia,params);
-            
-            System.out.println("estoy aquiiiii consulta: "+consulta );
-            try{
-                if (consulta!=null){
-
-                    if(consulta.next()){
-                        String mensajeObtenido = consulta.getString("mensaje");
-                        
-                        System.out.println("estoy aquiiiii: "+mensajeObtenido);
-                        if(mensajeObtenido.equals("salonexiste")){
-                            
-                            JOptionPane.showMessageDialog(null, "Error, nombre de carrera en uso.","Mensaje",JOptionPane.ERROR_MESSAGE);   
-                            
-                        }else if(mensajeObtenido.equals("registrado")){
-                            JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
-                            txtNombreSalon.setText("");
-                            txtNivel.setText("");
-                        }else if(mensajeObtenido.equals("edificionoexiste")){
-
-                            JOptionPane.showMessageDialog(null, "Error, edificio no existe.","Mensaje",JOptionPane.ERROR_MESSAGE);   
-
-                        }else{
-                            //return;
-                        }
-                    }
-                }                
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }  
-            
-        }*/
-            
-
-        
+         
     }//GEN-LAST:event_btnRegistrarAulasActionPerformed
 
 

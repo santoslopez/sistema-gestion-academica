@@ -145,24 +145,6 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
         
         if(confirmarGuardar==JOptionPane.YES_OPTION){
            
-            /*carrera = ManejadorDeCarreras.getInstancia().verificarCarreras(nombreCarrera);
-            
-            if(carrera!=null){
-
-                JOptionPane.showMessageDialog(null, "Error, nombre de carrera ya existe","Mensaje",JOptionPane.ERROR_MESSAGE);
-            }else{
-                String sentencia="INSERT INTO Carreras(nombre,idFacultad) VALUES(?,?)"; 
-
-                // necesario para recuperar el ID del combobox seleccionado
-                LlenarComboBox combobox = (LlenarComboBox)cboFacultad.getSelectedItem();
-                
-                int idFacultad = combobox.getId();
-
-                Object[] params = {nombreCarrera,idFacultad};
-                Conexion.getInstancia().ejecutarSentencia(sentencia, params);
-
-                JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
-            }*/
             
             if (combobox==null){
                 
@@ -191,6 +173,8 @@ public class RegistrarCarrera extends javax.swing.JInternalFrame {
                             JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
                             txtNombre.setText("");
                             
+                            ListadoCarreras.getInstancia().getModelo().actualizarJTable();
+                           
                         }else{
                             
                         }

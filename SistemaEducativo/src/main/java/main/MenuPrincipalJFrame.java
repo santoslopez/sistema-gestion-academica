@@ -17,6 +17,7 @@ import jinternal.RegistrarAulas;
 import jinternal.RegistrarCarrera;
 import jinternal.RegistrarCiclos;
 import jinternal.RegistrarCursos;
+import jinternal.RegistrarEdificio;
 import jinternal.RegistrarFacultad;
 import jinternal.RegistrarUsuario;
 
@@ -78,6 +79,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuItemRegistrarCarreras = new javax.swing.JMenuItem();
         jMenuItemListarCarreras = new javax.swing.JMenuItem();
         jMenuEdificios = new javax.swing.JMenu();
+        jMenuItemRegistrarEdificios = new javax.swing.JMenuItem();
         jMenuItemListadoEdificios = new javax.swing.JMenuItem();
         jMenuAulas = new javax.swing.JMenu();
         jMenuItemRegistrarAulas = new javax.swing.JMenuItem();
@@ -210,6 +212,14 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenuCarreras);
 
         jMenuEdificios.setText("Edificios");
+
+        jMenuItemRegistrarEdificios.setText("Registrar");
+        jMenuItemRegistrarEdificios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistrarEdificiosActionPerformed(evt);
+            }
+        });
+        jMenuEdificios.add(jMenuItemRegistrarEdificios);
 
         jMenuItemListadoEdificios.setText("Listado de edificios");
         jMenuItemListadoEdificios.addActionListener(new java.awt.event.ActionListener() {
@@ -490,6 +500,18 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItemRegistrarAulasActionPerformed
 
+    private void jMenuItemRegistrarEdificiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarEdificiosActionPerformed
+        // TODO add your handling code here:
+        RegistrarEdificio registrarEdificio = new RegistrarEdificio();
+        if(!escritorio.isAncestorOf(registrarEdificio)){
+            escritorio.add(registrarEdificio);
+            registrarEdificio.setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(registrarEdificio);
+        }
+        
+    }//GEN-LAST:event_jMenuItemRegistrarEdificiosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -562,6 +584,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRegistrarCarreras;
     private javax.swing.JMenuItem jMenuItemRegistrarCiclos;
     private javax.swing.JMenuItem jMenuItemRegistrarCursos;
+    private javax.swing.JMenuItem jMenuItemRegistrarEdificios;
     private javax.swing.JMenuItem jMenuItemRegistrarUsuarios;
     private javax.swing.JMenu jMenuUsuarios;
     private javax.swing.JPanel jPanel1;

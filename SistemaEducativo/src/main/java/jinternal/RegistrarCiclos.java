@@ -131,6 +131,7 @@ public class RegistrarCiclos extends javax.swing.JInternalFrame {
                             JOptionPane.showMessageDialog(null,"Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                             txtNombreCiclo.setText("");
 
+                            ListadoDeCiclos.getInstancia().getModelo().actualizarJTable();
                         }else{
                             
                         }

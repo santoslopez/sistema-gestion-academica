@@ -40,7 +40,7 @@ END //
 DELIMITER ;
 
 INSERT INTO Usuario(nombres,apellidos,fechaNacimiento,correo,username,carnet,idTipoUsuario) 
-VALUES ('Santos2','López','1996-01-10','info@gmail.com','santoslopez','15002241',1);
+VALUES ('Santos','López','1996-01-10','info@gmail.com','santoslopez','15002241',1);
 
 DELIMITER $$
 CREATE PROCEDURE crearUsuario(
@@ -175,20 +175,6 @@ BEGIN
 END $$
 DELIMITER ;
 
--- actualizar nombre carreras
-/**DELIMITER $$
-CREATE PROCEDURE modificarDatosCarreras(
-IN nuevosDatosNombre varchar(15),
-IN idCarreraModificar INT
-)
-BEGIN
-	UPDATE Carreras SET nombre=nuevosDatosNombre WHERE idCarrera=idCarreraModificar;
-    COMMIT;
-    
-    SELECT 'actualizado' AS mensaje;
-END $$
-DELIMITER ;**/
-
 DELIMITER $$
 CREATE PROCEDURE modificarDatosCarreras(
 IN nuevosDatosNombre varchar(50),
@@ -242,7 +228,27 @@ CREATE TABLE Edificio(
     PRIMARY KEY (idEdificio)
 );
 
-INSERT INTO Edificio(nombreEdificio) VALUES ("TORRE GALILEO");
+DELIMITER $$
+CREATE PROCEDURE sp_agregarEdificio(
+	IN datosNombreEdificio VARCHAR(20)
+)
+BEGIN
+	DECLARE mensaje VARCHAR(20);
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION 
+		ROLLBACK;
+        set mensaje = 'errorproducido';
+		
+	START TRANSACTION;
+		IF EXISTS (SELECT 1 FROM Edificio WHERE nombreEdificio=datosNombreEdificio) THEN
+			set mensaje='yaexiste';
+        ELSE
+            INSERT Edificio (nombreEdificio) VALUES (datosNombreEdificio);
+            COMMIT;
+            set mensaje='registrado';
+		END IF;
+        select mensaje as mensaje;
+END $$ 
+DELIMITER ; 
 
 -- representa el aula donde se imparten las clases
 CREATE TABLE Aula(
@@ -254,9 +260,7 @@ CREATE TABLE Aula(
     FOREIGN KEY (idEdificio) REFERENCES Edificio(idEdificio)
 );
 
-
--- 
- DROP PROCEDURE  sp_agregarAulas;
+-- DROP PROCEDURE  sp_agregarAulas;
 DELIMITER $$
 CREATE PROCEDURE sp_agregarAulas(
 	IN datosSalon varchar(20),
@@ -322,8 +326,6 @@ BEGIN
 	END IF;
 END $$
 DELIMITER ;
-
-INSERT INTO Ciclos(descripcion) VALUES ("Semestre 1");
 
 DELIMITER $$
 CREATE PROCEDURE sp_modificarCiclos(
@@ -439,7 +441,7 @@ CREATE TABLE CursosCicloProfesor(
     FOREIGN KEY (idCiclo) REFERENCES Ciclos(idCiclo),
 	FOREIGN KEY (idCurso) REFERENCES Cursos(idCurso),
     FOREIGN KEY (idAula) REFERENCES Aula(idAula),
-	FOREIGN KEY (idProfesor) REFERENCES Usuario(idProfesor)
+	FOREIGN KEY (idProfesor) REFERENCES Usuario(idUsuario)
 );
 
 CREATE TABLE DiasSemana(

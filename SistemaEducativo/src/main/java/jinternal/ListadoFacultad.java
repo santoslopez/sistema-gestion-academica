@@ -32,6 +32,10 @@ public class ListadoFacultad extends javax.swing.JInternalFrame {
         return instancia;
     }
     
+    public ModeloDeFacultad getModelo(){
+        return modelo;
+    }
+    
     /**
      * Creates new form ListadoFacultad
      */
@@ -67,7 +71,6 @@ public class ListadoFacultad extends javax.swing.JInternalFrame {
         txtNombreFacultad = new javax.swing.JTextField();
         btnModificarDatosFacultad = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
-        btnActualizar = new javax.swing.JButton();
 
         setTitle("Listado de facultad");
 
@@ -142,13 +145,6 @@ public class ListadoFacultad extends javax.swing.JInternalFrame {
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Listado de facultades");
 
-        btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelContenedorLayout = new javax.swing.GroupLayout(jPanelContenedor);
         jPanelContenedor.setLayout(jPanelContenedorLayout);
         jPanelContenedorLayout.setHorizontalGroup(
@@ -165,10 +161,8 @@ public class ListadoFacultad extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnActualizar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)))
         );
         jPanelContenedorLayout.setVerticalGroup(
             jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,8 +172,7 @@ public class ListadoFacultad extends javax.swing.JInternalFrame {
                 .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnActualizar))
+                    .addComponent(btnBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
             .addComponent(jTabbedPane1)
@@ -282,17 +275,8 @@ public class ListadoFacultad extends javax.swing.JInternalFrame {
         txtNombreFacultad.setText(jTableListadoFacultad.getValueAt(fila, 1).toString());
     }//GEN-LAST:event_jTableListadoFacultadKeyPressed
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
-        modelo.actualizarJTable();
-        
-        // forzar actualización debido que jtable ya esta
-        jTableListadoFacultad.repaint();
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnModificarDatosFacultad;
     private javax.swing.JLabel jLabel1;

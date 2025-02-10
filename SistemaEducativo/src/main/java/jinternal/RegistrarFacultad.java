@@ -139,6 +139,9 @@ public class RegistrarFacultad extends javax.swing.JInternalFrame {
                         }else if (mensajeObtenido.equals("registrado")){
                             JOptionPane.showMessageDialog(null,"Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);  
                             txtNombreFacultad.setText("");
+                            
+                            ListadoFacultad.getInstancia().getModelo().actualizarJTable();
+                            
                         }else{
                             
                         }

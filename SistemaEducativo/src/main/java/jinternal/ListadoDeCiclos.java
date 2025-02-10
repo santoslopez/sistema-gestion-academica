@@ -20,6 +20,11 @@ public class ListadoDeCiclos extends javax.swing.JInternalFrame {
     
 
     private ModeloDeCiclos modelo;
+    public ModeloDeCiclos getModelo(){
+        return modelo;
+    }
+    
+    
     
     private static ListadoDeCiclos instancia;
     

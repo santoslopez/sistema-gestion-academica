@@ -54,30 +54,6 @@ public class ManejadorDeFacultad {
         return mostrarFacultad;
     }
     
-    /*public Facultad validarExistencia(String nombreFacultad){
-        Facultad facultad = null;
-        
-        String query="SELECT * FROM Facultad WHERE nombre=?";
-        
-        Object[] params={nombreFacultad};
-        
-        ResultSet consulta = Conexion.getInstancia().hacerConsulta(query, params);
-        
-        if(consulta!=null){
-            try{
-                while(consulta.next()){
-                    facultad=new Facultad(
-                    consulta.getString("nombre")
-                    );
-                }
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }
-        }else{
-            facultad=null;
-        }
-        
-        return facultad; 
-    }*/
+    
     
 }

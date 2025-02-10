@@ -54,32 +54,4 @@ public class ManejadorDeCarreras {
         return mostrarCarreras;
     }
     
-    
-    // valida si la carrera ya existe
-    /*public Carreras verificarCarreras(String nombreCarrera){
-        Carreras carreras = null;
-        
-        String query="SELECT * FROM Carreras WHERE nombre=?";
-        Object[] params = {nombreCarrera};
-        
-        ResultSet consulta= Conexion.getInstancia().hacerConsulta(query, params);
-        
-        if(consulta!=null){
-            try{
-                while(consulta.next()){
-                    carreras=new Carreras(
-                            Integer.parseInt(consulta.getString("idCarrera")),
-                            consulta.getString("nombre"),
-                            Integer.parseInt(consulta.getString("idFacultad"))
-                    );
-                }
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }
-        }else{
-            carreras=null;
-        }
-        return carreras;
-    }*/
-    
 }

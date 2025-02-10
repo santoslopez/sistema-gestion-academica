@@ -60,4 +60,9 @@ public class ModeloDeEdificio extends AbstractTableModel {
         
         return resultado;
     }
+    
+    public void actualizarJTable(){
+        listadoDeEdificio = new ManejadorDeEdificio().getInstancia().listarEdificiosGuardados();
+        fireTableDataChanged();
+    }
 }

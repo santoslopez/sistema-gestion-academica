@@ -13,6 +13,7 @@ import modelo.ModeloDeEdificio;
 public class ListadoEdificios extends javax.swing.JInternalFrame {
 
     private ModeloDeEdificio modelo;
+    
     private static ListadoEdificios instancia;
     
     public static ListadoEdificios getInstancia(){
@@ -20,6 +21,10 @@ public class ListadoEdificios extends javax.swing.JInternalFrame {
             instancia=new ListadoEdificios();
         }
         return instancia;
+    }
+    
+    public ModeloDeEdificio getModelo(){
+        return modelo;
     }
     
     /**
