@@ -367,6 +367,7 @@ CREATE TABLE Cursos(
     PRIMARY KEY (idCurso)
 );
 
+
 DELIMITER $$
 CREATE PROCEDURE sp_agregarCursos(
 	IN codigoCurso varchar(20),
@@ -401,14 +402,20 @@ BEGIN
 	START TRANSACTION;
 	
 	SELECT codigo INTO codCursoActual from cursos WHERE idCurso=cursoID;
-    SELECT nombre INTO nombreCursoActual FROM Cursos WHERE idCurso=cursoID ;
+    SELECT nombre INTO nombreCursoActual FROM Cursos WHERE idCurso=cursoID;
     
     IF codCursoActual = nuevoCodigoCurso THEN
+		UPDATE Cursos set codigo=nuevoCodigoCurso,nombre=nuevoNombreCurso WHERE 
+        idCurso=cursoID;
+        COMMIT;
 		set mensaje = 'enusocodigo';
+        
 	ELSEIF nombreCursoActual =  nuevoNombreCurso THEN
-		set mensaje = 'enusonombre';
+        UPDATE Cursos set codigo=nuevoCodigoCurso,nombre=nuevoNombreCurso WHERE 
+        idCurso=cursoID;
+        commit;
+        set mensaje = 'enusonombre';
     ELSE
-
         UPDATE Cursos set codigo=nuevoCodigoCurso,nombre=nuevoNombreCurso WHERE 
         idCurso=cursoID;
 		
@@ -418,11 +425,11 @@ BEGIN
 			COMMIT;
 			set mensaje = 'actualizado';
         END IF;
-	
 	END IF;
     SELECT mensaje as mensaje;
 END $$
-DELIMITER ;
+DELIMITER ; 
+
 
 -- representa los cursos que se van a impartir, cada curso tiene asociado la carrera y la facultad a la que pertenece.
 -- fecha registro regresenta la fecha en que se hizo el insert
@@ -449,6 +456,13 @@ CREATE TABLE DiasSemana(
     dia VARCHAR(15) NOT NULL,
     PRIMARY KEY (idDiasSemana)
 );
+
+INSERT INTO DiasSemana (dia)  VALUES ('Lunes');
+INSERT INTO DiasSemana (dia)  VALUES ('Martes');
+INSERT INTO DiasSemana (dia)  VALUES ('Miércoles');
+INSERT INTO DiasSemana (dia)  VALUES ('Jueves');
+INSERT INTO DiasSemana (dia)  VALUES ('Viernes');
+INSERT INTO DiasSemana (dia)  VALUES ('Sábado');
 
 CREATE TABLE HorarioClaseProfesor(
 	idHorarioClaseProfesor INT AUTO_INCREMENT NOT NULL,

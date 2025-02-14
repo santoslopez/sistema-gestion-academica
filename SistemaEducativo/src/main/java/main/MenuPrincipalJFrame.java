@@ -68,6 +68,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jLabelTitulo = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        lblImagenFondo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuUsuarios = new javax.swing.JMenu();
         jMenuItemRegistrarUsuarios = new javax.swing.JMenuItem();
@@ -104,26 +105,35 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
-        jLabelTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabelTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 28)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(0, 51, 255));
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("SISTEMA EDUCATIVO");
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("Helvetica Neue", 0, 20)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
         jLabel1.setText("Bienvenido:");
+
+        lblImagenFondo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImagenFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/university.png"))); // NOI18N
+        lblImagenFondo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         escritorio.setLayer(jLabelTitulo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lblImagenFondo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+            .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblImagenFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +143,8 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsuario)
                     .addComponent(jLabel1))
-                .addGap(0, 173, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblImagenFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -147,9 +158,12 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
             .addComponent(escritorio)
         );
 
+        jMenuUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/user-5.png"))); // NOI18N
         jMenuUsuarios.setText("Usuarios");
+        jMenuUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuUsuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jMenuItemRegistrarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
+        jMenuItemRegistrarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/incorporation.png"))); // NOI18N
         jMenuItemRegistrarUsuarios.setText("Registrar");
         jMenuItemRegistrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +172,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenuUsuarios.add(jMenuItemRegistrarUsuarios);
 
-        jMenuItemListarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/work-order.png"))); // NOI18N
+        jMenuItemListarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/male-student.png"))); // NOI18N
         jMenuItemListarUsuarios.setText("Lista estudiantes");
         jMenuItemListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,7 +183,10 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuUsuarios);
 
+        jMenuFacultad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/education.png"))); // NOI18N
         jMenuFacultad.setText("Facultad");
+        jMenuFacultad.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuFacultad.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItem1.setText("Registrar");
@@ -190,7 +207,10 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuFacultad);
 
+        jMenuCarreras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/graduation-ceremony.png"))); // NOI18N
         jMenuCarreras.setText("Carreras");
+        jMenuCarreras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuCarreras.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jMenuItemRegistrarCarreras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItemRegistrarCarreras.setText("Registrar");
@@ -201,6 +221,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenuCarreras.add(jMenuItemRegistrarCarreras);
 
+        jMenuItemListarCarreras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/graduated.png"))); // NOI18N
         jMenuItemListarCarreras.setText("Listar");
         jMenuItemListarCarreras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,8 +232,12 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuCarreras);
 
+        jMenuEdificios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/building.png"))); // NOI18N
         jMenuEdificios.setText("Edificios");
+        jMenuEdificios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuEdificios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+        jMenuItemRegistrarEdificios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItemRegistrarEdificios.setText("Registrar");
         jMenuItemRegistrarEdificios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,6 +246,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenuEdificios.add(jMenuItemRegistrarEdificios);
 
+        jMenuItemListadoEdificios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/skyscraper.png"))); // NOI18N
         jMenuItemListadoEdificios.setText("Listado de edificios");
         jMenuItemListadoEdificios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,8 +257,12 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuEdificios);
 
+        jMenuAulas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/classroom-2.png"))); // NOI18N
         jMenuAulas.setText("Aulas");
+        jMenuAulas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuAulas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+        jMenuItemRegistrarAulas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItemRegistrarAulas.setText("Registrar aulas");
         jMenuItemRegistrarAulas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,6 +271,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenuAulas.add(jMenuItemRegistrarAulas);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/classroom.png"))); // NOI18N
         jMenuItem3.setText("Listado de aulas");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +282,10 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuAulas);
 
+        jMenuCiclos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/calendar-2.png"))); // NOI18N
         jMenuCiclos.setText("Ciclos");
+        jMenuCiclos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuCiclos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jMenuItemRegistrarCiclos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItemRegistrarCiclos.setText("Registrar ciclos");
@@ -262,6 +296,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenuCiclos.add(jMenuItemRegistrarCiclos);
 
+        jMenuItemListadoDeCiclos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/calendar.png"))); // NOI18N
         jMenuItemListadoDeCiclos.setText("Listado de ciclos");
         jMenuItemListadoDeCiclos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,8 +307,12 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuCiclos);
 
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/online-education.png"))); // NOI18N
         jMenu4.setText("Cursos");
+        jMenu4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenu4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+        jMenuItemListadoDeCursos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/courses.png"))); // NOI18N
         jMenuItemListadoDeCursos.setText("Listado de cursos");
         jMenuItemListadoDeCursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,8 +332,12 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/user-6.png"))); // NOI18N
         jMenu1.setText("Perfil");
+        jMenu1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenu1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+        jMenuItemActualizarPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/gear.png"))); // NOI18N
         jMenuItemActualizarPerfil.setText("Actualizar perfil");
         jMenuItemActualizarPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,6 +346,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItemActualizarPerfil);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/logout.png"))); // NOI18N
         jMenuItem2.setText("Cerrar sesión");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -588,6 +632,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRegistrarUsuarios;
     private javax.swing.JMenu jMenuUsuarios;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblImagenFondo;
     private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }

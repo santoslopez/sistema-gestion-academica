@@ -23,6 +23,10 @@ public class ListadoDeCursos extends javax.swing.JInternalFrame {
     
     private ModeloDeCursos modelo;
     
+    // necesario para actualizar el JTable
+    public ModeloDeCursos getModelo(){
+        return modelo;
+    }
     
     private static ListadoDeCursos instancia;
     public static ListadoDeCursos getInstancia(){
@@ -215,22 +219,23 @@ public class ListadoDeCursos extends javax.swing.JInternalFrame {
                         System.out.println("estoy aqui: "+mensajeObtenido);
                         
                         if (mensajeObtenido.equals("enusocodigo")){
-                            JOptionPane.showMessageDialog(null, "No modificado porque el código del curso es el mismo","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "El código no fue modificado porque es el mismo.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                            ListadoDeCursos.getInstancia().getModelo().actualizarJTable();
+
                         }else if (mensajeObtenido.equals("enusonombre")){
-                            JOptionPane.showMessageDialog(null, "No modificado porque el nombre del curso es el mismo","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "El nombre no fue modificado porque es el mismo.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                            ListadoDeCursos.getInstancia().getModelo().actualizarJTable();
                         }else if (mensajeObtenido.equals("actualizado")){
-                            JOptionPane.showMessageDialog(null, "Datos actualizado","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Datos actualizados","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                             // actualizamos el jtable
-                            modelo.actualizarJTable();
+                            ListadoDeCursos.getInstancia().getModelo().actualizarJTable();
         
-                            // forzar actualización debido que jtable ya esta
-                            //jTableListadoDeCursos.repaint();
                         }else if (mensajeObtenido.equals("noactualizado")){
-                        
-                        }else if (mensajeObtenido.equals("noactualizado")){
+                            JOptionPane.showMessageDialog(null, "El mensaje obtenido es: "+mensajeObtenido,"Mensaje",JOptionPane.ERROR_MESSAGE);
 
                         }else{
-                            
+                            JOptionPane.showMessageDialog(null, "Error, se produjo error capturado: "+mensajeObtenido + ". Es probable que el código este en uso.","Mensaje",JOptionPane.ERROR_MESSAGE);
+
                         }
                         
                     }
