@@ -1,7 +1,7 @@
 # 🧑‍💻 Santos López 
 
 <div align="center">
-  <img src="img/santoslopez.png" alt="Foto de Perfil de Santos" width="150"/>
+  <img src="imagen-proyecto/1.webp" alt="Sistema gestión académica" width="150"/>
   <h3>Sistema gestión académica en Java Swing y MySQL</h3>
   <!--p>
     <strong>Ingeniero de Software y Desarrollador Web</strong><br/>
