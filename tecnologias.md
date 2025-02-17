@@ -1,7 +1,7 @@
-# 🧑‍💻 Santos López 
+# 🧑‍💻 Tecnologías utilizadas
 
 <div align="center">
-  <img src="imagen-proyecto/1.webp" alt="Sistema gestión académica" width="150"/>
+  <img src="imagen-proyecto/2.webp" alt="Sistema gestión académica" width="150"/>
   <h3>Sistema gestión académica en Java Swing y MySQL</h3>
   <!--p>
     <strong>Ingeniero de Software y Desarrollador Web</strong><br/>
