@@ -148,7 +148,6 @@ END $$
 DELIMITER ;
 
 -- procedimiento almacenado para registrar usuario
-
 CREATE TABLE Carreras(
 	idCarrera INT AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL UNIQUE,
@@ -161,7 +160,7 @@ CREATE TABLE Carreras(
 -- procedimiento almacenado para guardar carreras
 DELIMITER $$
 CREATE PROCEDURE agregarCarreras(
-IN datosNombre varchar(15),
+IN datosNombre varchar(50),
 IN datosIdFacultad int
 )
 BEGIN
@@ -296,6 +295,7 @@ BEGIN
 END $$
 DELIMITER ;
 
+
 -- Muestra los salones y el edificio que le corresponde
 DELIMITER $$
 CREATE PROCEDURE listarSalonesDeEdificio()
@@ -367,7 +367,6 @@ CREATE TABLE Cursos(
     PRIMARY KEY (idCurso)
 );
 
-
 DELIMITER $$
 CREATE PROCEDURE sp_agregarCursos(
 	IN codigoCurso varchar(20),
@@ -431,25 +430,65 @@ END $$
 DELIMITER ; 
 
 
+select * from CursosCicloImpartir;
+
 -- representa los cursos que se van a impartir, cada curso tiene asociado la carrera y la facultad a la que pertenece.
 -- fecha registro regresenta la fecha en que se hizo el insert
-CREATE TABLE CursosCicloProfesor(
+CREATE TABLE CursosCicloImpartir(
 	idCursoCiclo INT AUTO_INCREMENT NOT NULL,
     idCurso INT NOT NULL,
     idCarrera INT NOT NULL,
-    añoImpartido DATE NOT NULL,
-    fechaInicioClase DATE NOT NULL,
-    fechaFinClase DATE NOT NULL,
+    yearImpartido YEAR NOT NULL,
+    fechaInicioClase varchar(10) NOT NULL,
+    fechaFinClase varchar(10) NOT NULL,
     idCiclo INT NOT NULL,
     idAula INT NOT NULL,
-	idProfesor INT NOT NULL,
+	#idProfesor INT NOT NULL,
     PRIMARY KEY (idCursoCiclo),
     FOREIGN KEY (idCarrera) REFERENCES Carreras(idCarrera),
     FOREIGN KEY (idCiclo) REFERENCES Ciclos(idCiclo),
 	FOREIGN KEY (idCurso) REFERENCES Cursos(idCurso),
-    FOREIGN KEY (idAula) REFERENCES Aula(idAula),
-	FOREIGN KEY (idProfesor) REFERENCES Usuario(idUsuario)
+    FOREIGN KEY (idAula) REFERENCES Aula(idAula)
+	#FOREIGN KEY (idProfesor) REFERENCES Usuario(idUsuario)
 );
+
+DELIMITER $$
+CREATE PROCEDURE sp_detallesCursosCicloImpartir()
+
+BEGIN
+select cursos.nombre,car.nombre,cursoimp.yearImpartido,cursoimp.fechaInicioClase,
+cursoimp.fechaFinClase,cic.descripcion,au.salon from CursosCicloImpartir AS cursoimp
+inner join cursos on cursos.idCurso=cursoimp.idCurso
+inner join carreras as car on car.idCarrera=cursoimp.idCarrera
+inner join ciclos as cic on cic.idCiclo=cursoimp.idCiclo
+inner join aula as au on au.idAula=cursoimp.idAula;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE sp_agregarCursosCicloImpartir(
+	IN cursoID INT,
+    IN carreraID INT,
+    IN inicioClaseFecha VARCHAR(10),
+    IN finClaseFecha VARCHAR(10),
+    IN cicloID INT,
+    IN aulaID INT
+)
+BEGIN
+	DECLARE mensaje varchar(20);
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+		ROLLBACK;
+        SET mensaje='errorproducido';
+	
+    START TRANSACTION;
+    
+		INSERT INTO CursosCicloImpartir(idCurso,idCarrera,yearImpartido,fechaInicioClase,fechaFinClase,idCiclo,idAula)
+		VALUES (cursoID,carreraID,2025,inicioClaseFecha,finClaseFecha,cicloID,aulaID);
+		COMMIT;
+		set mensaje = 'registrado';
+		select mensaje as mensaje;
+END $$
+DELIMITER ;
 
 CREATE TABLE DiasSemana(
 	idDiasSemana INT AUTO_INCREMENT NOT NULL,
@@ -472,5 +511,7 @@ CREATE TABLE HorarioClaseProfesor(
     horarioClaseFin TIME NOT NULL,
     PRIMARY KEY (idHorarioClaseProfesor),
     FOREIGN KEY (idCursoCiclo) REFERENCES CursosCicloProfesor(idCursoCiclo),
-    FOREIGN KEY (idDiasSemana) REFERENCES DiasSemana(idDiasSemana)
+    FOREIGN KEY (idDiasSemana) REFERENCES DiasSemana(idDiasSemana),
+    idProfesor INT NOT NULL,
+    FOREIGN KEY (idProfesor) REFERENCES Usuario(idUsuario)
 );

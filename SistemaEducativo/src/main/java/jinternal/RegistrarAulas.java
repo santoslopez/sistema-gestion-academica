@@ -131,6 +131,12 @@ public class RegistrarAulas extends javax.swing.JInternalFrame {
         String nombreSalon = txtNombreSalon.getText();
         
         String nivel = txtNivel.getText();
+        
+        if (nombreSalon.length()<=0 || nivel.length()<=0){
+            JOptionPane.showMessageDialog(null,"Error, debe ingresar un salon y nivel a impartir la clase","Mensaje",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         LlenarComboBox combobox = (LlenarComboBox)cboEdificio.getSelectedItem();
         
         

@@ -4,6 +4,7 @@
  */
 package jinternal;
 
+import bean.LlenarComboBox;
 import java.awt.event.KeyEvent;
 import modelo.ModeloDeAulas;
 
@@ -33,12 +34,19 @@ public class ListadoAulas extends javax.swing.JInternalFrame {
     }
     
     
+    public void cargarComboboxEdificio(){
+        String consulta = "SELECT * FROM Edificio";
+        Object[] params={};
+        LlenarComboBox.getInstancia().tipoCuenta(cboEdificio, consulta, params, "idEdificio","nombreEdificio");
+    }
+    
     /**
      * Creates new form ListadoAulas
      */
     public ListadoAulas() {
         initComponents();
         setClosable(true);
+        cargarComboboxEdificio();
     }
 
     /**
@@ -223,7 +231,7 @@ public class ListadoAulas extends javax.swing.JInternalFrame {
         
         String nivel = txtNivel.getText();
         
-        //String edificio = cboEdificio.getSelectedItem();
+        
         
         
     }//GEN-LAST:event_btnActualizarDatosActionPerformed
