@@ -106,6 +106,14 @@ public class RegistrarFacultad extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         String nombreFacultad = txtNombreFacultad.getText();
+        
+        int longitudNombreFacultad = nombreFacultad.length();
+        if (longitudNombreFacultad<=0){
+            JOptionPane.showMessageDialog(null, "Error, nombre de facultad no puede ser vacío","Mensaje",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
         int confirmarGuardar = JOptionPane.showConfirmDialog(null,
                 "¿Deseas guardar los datos?"
                 ,"Mensaje"
@@ -115,11 +123,7 @@ public class RegistrarFacultad extends javax.swing.JInternalFrame {
         
         if(confirmarGuardar==JOptionPane.YES_OPTION){
             
-            int longitudNombreFacultad = nombreFacultad.length();
-            if (longitudNombreFacultad<=0){
-                JOptionPane.showMessageDialog(null, "Error, nombre de facultad no puede ser vacío","Mensaje",JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            
             
             Object[] params = {nombreFacultad};
 

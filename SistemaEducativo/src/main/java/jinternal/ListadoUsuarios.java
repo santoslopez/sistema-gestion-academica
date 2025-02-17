@@ -59,6 +59,7 @@ public class ListadoUsuarios extends javax.swing.JInternalFrame {
         btnBuscar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setTitle("Listado de usuarios");
 
         jPanelContenedor.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -27,12 +27,12 @@ import jinternal.RegistrarUsuario;
  *
  * @author santoslopeztzoy
  */
-public class MenuPrincipalJFrame extends javax.swing.JFrame {
+public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
     
-    private static MenuPrincipalJFrame instancia;
-    public static MenuPrincipalJFrame getInstancia(){
+    private static MenuPrincipalJFrameAdministrador instancia;
+    public static MenuPrincipalJFrameAdministrador getInstancia(){
         if(instancia==null){
-            instancia=new MenuPrincipalJFrame();
+            instancia=new MenuPrincipalJFrameAdministrador();
         }
         return instancia;
     }
@@ -47,7 +47,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipalJFrame
      */
-    public MenuPrincipalJFrame() {
+    public MenuPrincipalJFrameAdministrador() {
         initComponents();
         this.setSize(ancho-dimensionRestar,alto-dimensionRestar);
         this.setLocationRelativeTo(null);
@@ -91,14 +91,17 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuItemRegistrarCiclos = new javax.swing.JMenuItem();
         jMenuItemListadoDeCiclos = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItemListadoDeCursos = new javax.swing.JMenuItem();
         jMenuItemRegistrarCursos = new javax.swing.JMenuItem();
+        jMenuItemListadoDeCursos = new javax.swing.JMenuItem();
         jMenuCursosCicloImpartir = new javax.swing.JMenu();
         jMenuItemRegistrarCursosCicloImpartir = new javax.swing.JMenuItem();
         jMenuItemListadoCursosCiclos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemActualizarPerfil = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuHorarioClaseProfesor = new javax.swing.JMenu();
+        jMenuItemRegistrarHorarioClaseProfesor = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         jMenu2.setText("File");
         jMenuBar2.add(jMenu2);
@@ -133,7 +136,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+            .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -202,7 +205,8 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenuFacultad.add(jMenuItem1);
 
-        jMenuItemListarFacultad.setText("Listar");
+        jMenuItemListarFacultad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/list.png"))); // NOI18N
+        jMenuItemListarFacultad.setText("Listar facultades");
         jMenuItemListarFacultad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemListarFacultadActionPerformed(evt);
@@ -227,7 +231,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenuCarreras.add(jMenuItemRegistrarCarreras);
 
         jMenuItemListarCarreras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/graduated.png"))); // NOI18N
-        jMenuItemListarCarreras.setText("Listar");
+        jMenuItemListarCarreras.setText("Listado de carreras");
         jMenuItemListarCarreras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemListarCarrerasActionPerformed(evt);
@@ -317,15 +321,6 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenu4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenu4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jMenuItemListadoDeCursos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/courses.png"))); // NOI18N
-        jMenuItemListadoDeCursos.setText("Listado de cursos");
-        jMenuItemListadoDeCursos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemListadoDeCursosActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItemListadoDeCursos);
-
         jMenuItemRegistrarCursos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItemRegistrarCursos.setText("Registrar cursos");
         jMenuItemRegistrarCursos.addActionListener(new java.awt.event.ActionListener() {
@@ -335,13 +330,23 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItemRegistrarCursos);
 
+        jMenuItemListadoDeCursos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/courses.png"))); // NOI18N
+        jMenuItemListadoDeCursos.setText("Listado de cursos");
+        jMenuItemListadoDeCursos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListadoDeCursosActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItemListadoDeCursos);
+
         jMenuBar1.add(jMenu4);
 
         jMenuCursosCicloImpartir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/teaching.png"))); // NOI18N
-        jMenuCursosCicloImpartir.setText("Cursos ciclos");
+        jMenuCursosCicloImpartir.setText("Cursos ciclos impartir");
         jMenuCursosCicloImpartir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenuCursosCicloImpartir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+        jMenuItemRegistrarCursosCicloImpartir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItemRegistrarCursosCicloImpartir.setText("Registrar");
         jMenuItemRegistrarCursosCicloImpartir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,6 +355,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         });
         jMenuCursosCicloImpartir.add(jMenuItemRegistrarCursosCicloImpartir);
 
+        jMenuItemListadoCursosCiclos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/note.png"))); // NOI18N
         jMenuItemListadoCursosCiclos.setText("Listado");
         jMenuItemListadoCursosCiclos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,6 +390,26 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
+
+        jMenuHorarioClaseProfesor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/school.png"))); // NOI18N
+        jMenuHorarioClaseProfesor.setText("Horario clase profesor");
+        jMenuHorarioClaseProfesor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuHorarioClaseProfesor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        jMenuItemRegistrarHorarioClaseProfesor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
+        jMenuItemRegistrarHorarioClaseProfesor.setText("Registrar");
+        jMenuItemRegistrarHorarioClaseProfesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistrarHorarioClaseProfesorActionPerformed(evt);
+            }
+        });
+        jMenuHorarioClaseProfesor.add(jMenuItemRegistrarHorarioClaseProfesor);
+
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/clipboard.png"))); // NOI18N
+        jMenuItem4.setText("Listado de clases profesor");
+        jMenuHorarioClaseProfesor.add(jMenuItem4);
+
+        jMenuBar1.add(jMenuHorarioClaseProfesor);
 
         setJMenuBar(jMenuBar1);
 
@@ -605,6 +631,10 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemListadoCursosCiclosActionPerformed
 
+    private void jMenuItemRegistrarHorarioClaseProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarHorarioClaseProfesorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemRegistrarHorarioClaseProfesorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -622,20 +652,21 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipalJFrameAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipalJFrameAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipalJFrameAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipalJFrameAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipalJFrame().setVisible(true);
+                new MenuPrincipalJFrameAdministrador().setVisible(true);
             }
         });
     }
@@ -664,9 +695,11 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuCursosCicloImpartir;
     private javax.swing.JMenu jMenuEdificios;
     private javax.swing.JMenu jMenuFacultad;
+    private javax.swing.JMenu jMenuHorarioClaseProfesor;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItemActualizarPerfil;
     private javax.swing.JMenuItem jMenuItemListadoCursosCiclos;
     private javax.swing.JMenuItem jMenuItemListadoDeCiclos;
@@ -681,6 +714,7 @@ public class MenuPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRegistrarCursos;
     private javax.swing.JMenuItem jMenuItemRegistrarCursosCicloImpartir;
     private javax.swing.JMenuItem jMenuItemRegistrarEdificios;
+    private javax.swing.JMenuItem jMenuItemRegistrarHorarioClaseProfesor;
     private javax.swing.JMenuItem jMenuItemRegistrarUsuarios;
     private javax.swing.JMenu jMenuUsuarios;
     private javax.swing.JPanel jPanel1;

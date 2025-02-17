@@ -55,6 +55,7 @@ public class RegistrarAulas extends javax.swing.JInternalFrame {
         btnRegistrarAulas = new javax.swing.JButton();
 
         setClosable(true);
+        setTitle("Registrar salones");
 
         lblTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

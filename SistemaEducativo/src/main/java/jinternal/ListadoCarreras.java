@@ -84,6 +84,8 @@ public class ListadoCarreras extends javax.swing.JInternalFrame {
         txtNombreCarrera = new javax.swing.JTextField();
         btnActualizarDatosCarrera = new javax.swing.JButton();
 
+        setTitle("Listado de carreras");
+
         lblTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Listado de carreras");

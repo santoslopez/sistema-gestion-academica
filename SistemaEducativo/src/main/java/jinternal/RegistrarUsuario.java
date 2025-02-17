@@ -105,8 +105,6 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
 
         lblCorreo.setText("Correo");
 
-        txtUsuario.setEditable(false);
-        txtUsuario.setEnabled(false);
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuarioActionPerformed(evt);
@@ -219,6 +217,14 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
         String usuario=txtUsuario.getText();
         String carnet="default";
         String correo=txtCorreo.getText();
+        
+        if (nombres.length()<=0 || apellidos.length()<=0 || fechaNacimiento.length()<=0 || usuario.length()<=0 
+                || carnet.length()<=0 || correo.length()<=0){
+            
+            JOptionPane.showMessageDialog(null, "Error, debe ingresar todos los datos","Mensaje",JOptionPane.ERROR_MESSAGE);
+
+            return;
+        }
         
         
         int confirmarGuardar = JOptionPane.showConfirmDialog(null, 

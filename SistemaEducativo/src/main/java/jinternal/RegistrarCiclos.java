@@ -46,6 +46,8 @@ public class RegistrarCiclos extends javax.swing.JInternalFrame {
         txtNombreCiclo = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
 
+        setTitle("Registrar ciclos");
+
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Listado de ciclos");
 

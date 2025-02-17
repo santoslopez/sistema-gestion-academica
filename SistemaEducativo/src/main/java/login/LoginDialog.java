@@ -8,8 +8,8 @@ import bean.Usuario;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import jdialg.ModificarPerfil;
-import main.MenuPrincipalEstudianteJFrame;
-import main.MenuPrincipalJFrame;
+import main.MenuPrincipalJFrameEstudiante;
+import main.MenuPrincipalJFrameAdministrador;
 import manejador.ManejadorDeUsuario;
 
 /**
@@ -50,10 +50,12 @@ public class LoginDialog extends javax.swing.JDialog {
         btnIniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Iniciar sesión");
+        setResizable(false);
 
         jPanelContenedor.setBackground(new java.awt.Color(204, 204, 204));
 
-        lblTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("INICIAR SESIÓN");
 
@@ -78,6 +80,7 @@ public class LoginDialog extends javax.swing.JDialog {
             }
         });
 
+        btnIniciarSesion.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         btnIniciarSesion.setText("Iniciar sesión");
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,13 +164,13 @@ public class LoginDialog extends javax.swing.JDialog {
         if(userAdmin!=null){
             //JOptionPane.showMessageDialog(null, "GOOODrrectos", "Mensaje", JOptionPane.ERROR_MESSAGE,iconError);
 
-            MenuPrincipalJFrame.getInstancia().setVisible(true);
-            MenuPrincipalJFrame.getInstancia().setUsuario(username);
+            MenuPrincipalJFrameAdministrador.getInstancia().setVisible(true);
+            MenuPrincipalJFrameAdministrador.getInstancia().setUsuario(username);
             ModificarPerfil.getInstancia().setApellidos(userAdmin.getCorreo());
             limpiarFormularioLogin();
             this.dispose();
         }else if(userEstudiante!=null){
-            MenuPrincipalEstudianteJFrame.getInstancia().setVisible(true);
+            MenuPrincipalJFrameEstudiante.getInstancia().setVisible(true);
             limpiarFormularioLogin();
             this.dispose();
         }else{
