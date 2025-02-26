@@ -48,7 +48,9 @@ public class ManejadorCursosCicloImpartir {
                 cursosCiclo = new CursosCicloImpartir(
                         consulta.getString("cursos.nombre"),
                         consulta.getString("car.nombre"),
-                        Year.of(consulta.getInt("cursoimp.yearImpartido")),
+                        //Year.of(consulta.getInt("cursoimp.yearImpartido")),
+                        consulta.getString("cursoimp.horarioClaseInicio"),
+                        consulta.getString("cursoimp.horarioClaseFin"),
                         consulta.getString("cursoimp.fechaInicioClase"),
                         consulta.getString("cursoimp.fechaFinClase"),
                         consulta.getString("cic.descripcion"),

@@ -16,9 +16,11 @@ public class CursosCicloImpartir {
     
     private int idCurso;
     private int idCarrera;
-    private Year yearImpartido;
+    //private Year yearImpartido;
     private String fechaInicioClase;
     private String fechaFinClase;
+    private String horarioClaseInicio;
+    private String horarioClaseFin;
     private int idCiclo;
     private int idAula;
 
@@ -46,24 +48,28 @@ public class CursosCicloImpartir {
     }
     
     
-    public CursosCicloImpartir(int idCurso, int idCarrera, Year yearImpartido, String fechaInicioClase, String fechaFinClase, int idCiclo, int idAula) {
+    public CursosCicloImpartir(int idCurso, int idCarrera, String fechaInicioClase, String fechaFinClase, String horarioClaseInicio,String horarioClaseFin, int idCiclo, int idAula) {
         //this.idCursoCiclo = idCursoCiclo;
         this.idCurso = idCurso;
         this.idCarrera = idCarrera;
-        this.yearImpartido = yearImpartido;
+        //this.yearImpartido = yearImpartido;
         this.fechaInicioClase = fechaInicioClase;
         this.fechaFinClase = fechaFinClase;
+        this.horarioClaseInicio=horarioClaseInicio;
+        this.horarioClaseFin=horarioClaseFin;
         this.idCiclo = idCiclo;
         this.idAula = idAula;
     }
 
-    public CursosCicloImpartir(String cursoNombre,String carreraNombre,Year yearImpartido,String fechaInicioClase,String fechaFinClase,String cicloDescripcion,String aulaSalon) {
+    public CursosCicloImpartir(String cursoNombre,String carreraNombre,String fechaInicioClase,String fechaFinClase,String horarioClaseInicio,String horarioClaseFin,String cicloDescripcion,String aulaSalon) {
         
         this.cursoNombre=cursoNombre;
         this.carreraNombre=carreraNombre;
-        this.yearImpartido=yearImpartido;
+        //this.yearImpartido=yearImpartido;
         this.fechaInicioClase=fechaInicioClase;
         this.fechaFinClase=fechaFinClase;
+        this.horarioClaseInicio=horarioClaseInicio;
+        this.horarioClaseFin=horarioClaseFin;
         this.cicloDescripcion=cicloDescripcion;
         this.aulaSalon=aulaSalon;
     }
@@ -85,13 +91,13 @@ public class CursosCicloImpartir {
         this.idCarrera = idCarrera;
     }
 
-    public Year getYearImpartido() {
+    /*public Year getYearImpartido() {
         return yearImpartido;
     }
 
-    public void setYear(Year year) {
+    public void setYear(Year yearImpartido) {
         this.yearImpartido = yearImpartido;
-    }
+    }*/
 
     public String getFechaInicioClase() {
         return fechaInicioClase;
@@ -104,7 +110,22 @@ public class CursosCicloImpartir {
     public String getFechaFinClase() {
         return fechaFinClase;
     }
-
+    
+    public void setHorarioClaseInicio(String horarioClaseInicio){
+        this.horarioClaseInicio=horarioClaseInicio;
+    }
+    public String getHorarioClaseInicio(){
+        return horarioClaseInicio;
+    }
+    
+    public void setHorarioClaseFin(String horarioClaseFin){
+        this.horarioClaseFin=horarioClaseFin;
+    }
+    
+    public String getHorarioClaseFin(){
+        return horarioClaseFin;
+    }
+    
     public void setFechaFinClase(String fechaFinClase) {
         this.fechaFinClase = fechaFinClase;
     }

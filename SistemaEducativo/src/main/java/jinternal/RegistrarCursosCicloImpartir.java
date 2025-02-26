@@ -78,6 +78,10 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
         lblSalon = new javax.swing.JLabel();
         cboSalon = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
+        lblHorarioClase = new javax.swing.JLabel();
+        txtHorarioClaseInicio = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        txtHorarioClaseFin = new javax.swing.JTextField();
 
         setTitle("Registrar cursos ciclo impartir");
 
@@ -111,19 +115,30 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
             }
         });
 
+        lblHorarioClase.setText("Horario de clase inicio");
+
+        jLabel1.setText("Horario de clase fin");
+
         javax.swing.GroupLayout jPanelContenedorLayout = new javax.swing.GroupLayout(jPanelContenedor);
         jPanelContenedor.setLayout(jPanelContenedorLayout);
         jPanelContenedorLayout.setHorizontalGroup(
             jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenedorLayout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addGap(125, 125, 125))
             .addGroup(jPanelContenedorLayout.createSequentialGroup()
-                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblSalon, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblCiclo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblFechaFinClase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblFechaInicioClase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                    .addComponent(lblCurso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCarrera, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblSalon, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblCiclo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblFechaFinClase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblFechaInicioClase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                        .addComponent(lblCurso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCarrera, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblHorarioClase)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cboCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -131,11 +146,11 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
                     .addComponent(txtFechaInicioClase)
                     .addComponent(txtFechaFinClase)
                     .addComponent(cboCiclo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cboSalon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenedorLayout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                .addGap(125, 125, 125))
+                    .addComponent(cboSalon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelContenedorLayout.createSequentialGroup()
+                        .addComponent(txtHorarioClaseInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtHorarioClaseFin)))
         );
         jPanelContenedorLayout.setVerticalGroup(
             jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,16 +173,24 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
                     .addComponent(lblFechaFinClase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtFechaFinClase, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCiclo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cboCiclo, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblHorarioClase)
+                    .addComponent(txtHorarioClaseInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblSalon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cboSalon, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(txtHorarioClaseFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSalon, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboSalon, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,9 +213,14 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
         LlenarComboBox carrera = (LlenarComboBox)cboCarrera.getSelectedItem();
         String fechaInicioClase = txtFechaInicioClase.getText();
         String fechaFinClase = txtFechaFinClase.getText();
+       
+        
         LlenarComboBox ciclos = (LlenarComboBox)cboCiclo.getSelectedItem();
         LlenarComboBox salon = (LlenarComboBox)cboSalon.getSelectedItem();
         
+        String horarioClaseInicio = txtHorarioClaseInicio.getText();
+        
+        String horarioClaseFin = txtHorarioClaseFin.getText();
         
         if(curso==null || carrera==null || salon==null || ciclos==null){
         
@@ -209,9 +237,9 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
         int confirmar = JOptionPane.showConfirmDialog(null,"¿Deseas guardar los datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         
         if (confirmar==JOptionPane.YES_OPTION){
-            String consulta = "CALL sp_agregarCursosCicloImpartir(?,?,?,?,?,?)";
+            String consulta = "CALL sp_agregarCursosCicloImpartir(?,?,?,?,?,?,?,?)";
             
-            Object[] params = {curso.getId(),carrera.getId(),fechaInicioClase,fechaFinClase,ciclos.getId(),salon.getId()};
+            Object[] params = {curso.getId(),carrera.getId(),fechaInicioClase,fechaFinClase,horarioClaseInicio,horarioClaseFin,ciclos.getId(),salon.getId()};
             
             ResultSet ejecutar = Conexion.getInstancia().hacerConsulta(consulta, params);
             
@@ -221,7 +249,11 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
                         String mensajeObtenido = ejecutar.getString("mensaje");
                         
                         if (mensajeObtenido.equals("registrado")){
+                            txtFechaInicioClase.setText("");
+                            txtFechaFinClase.setText("");
+                            txtHorarioClaseInicio.setText("");
                             JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
+                            
                             ListadoCursosCicloImpartir.getInstancia().getModelo().actualizarJTable();
                         }else if (mensajeObtenido.equals("errorproducido")){
                             JOptionPane.showMessageDialog(null, "Error controlado","Mensaje",JOptionPane.ERROR_MESSAGE);   
@@ -242,15 +274,19 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cboCiclo;
     private javax.swing.JComboBox<String> cboCurso;
     private javax.swing.JComboBox<String> cboSalon;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelContenedor;
     private javax.swing.JLabel lblCarrera;
     private javax.swing.JLabel lblCiclo;
     private javax.swing.JLabel lblCurso;
     private javax.swing.JLabel lblFechaFinClase;
     private javax.swing.JLabel lblFechaInicioClase;
+    private javax.swing.JLabel lblHorarioClase;
     private javax.swing.JLabel lblSalon;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtFechaFinClase;
     private javax.swing.JTextField txtFechaInicioClase;
+    private javax.swing.JTextField txtHorarioClaseFin;
+    private javax.swing.JTextField txtHorarioClaseInicio;
     // End of variables declaration//GEN-END:variables
 }

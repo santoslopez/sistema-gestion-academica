@@ -1,6 +1,7 @@
 CREATE DATABASE sistemaeducativo;
 use sistemaeducativo;
 
+
 CREATE TABLE TipoUsuario(
 	idTipoUsuario INT AUTO_INCREMENT,
     nombreTipo varchar(20) NOT NULL UNIQUE,
@@ -26,6 +27,7 @@ CREATE TABLE Usuario(
     primary key(idUsuario),
     foreign key (idTipoUsuario) references TipoUsuario(idTipoUsuario)
 );
+
 
 -- Triger para agregar una contraseña por default en la base de datos
 DELIMITER //
@@ -64,11 +66,12 @@ BEGIN
 END $$
 DELIMITER ;
 
+
 -- muestra el listado de estudiantes
 DELIMITER $$
 CREATE PROCEDURE listarUsuarios(IN tipoUsuarioID INT)
 BEGIN
-	SELECT * FROM Usuario WHERE idTipoUsuario=tipoUsuarioID;
+	SELECT * FROM Usuario ;
 END $$
 DELIMITER ;
 
@@ -295,7 +298,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-
 -- Muestra los salones y el edificio que le corresponde
 DELIMITER $$
 CREATE PROCEDURE listarSalonesDeEdificio()
@@ -430,17 +432,17 @@ END $$
 DELIMITER ; 
 
 
-select * from CursosCicloImpartir;
-
 -- representa los cursos que se van a impartir, cada curso tiene asociado la carrera y la facultad a la que pertenece.
 -- fecha registro regresenta la fecha en que se hizo el insert
 CREATE TABLE CursosCicloImpartir(
 	idCursoCiclo INT AUTO_INCREMENT NOT NULL,
     idCurso INT NOT NULL,
     idCarrera INT NOT NULL,
-    yearImpartido YEAR NOT NULL,
+    #yearImpartido YEAR NOT NULL,
     fechaInicioClase varchar(10) NOT NULL,
     fechaFinClase varchar(10) NOT NULL,
+    horarioClaseInicio varchar(5) NOT NULL,
+    horarioClaseFin varchar(5) NOT NULL,
     idCiclo INT NOT NULL,
     idAula INT NOT NULL,
 	#idProfesor INT NOT NULL,
@@ -456,8 +458,8 @@ DELIMITER $$
 CREATE PROCEDURE sp_detallesCursosCicloImpartir()
 
 BEGIN
-select cursos.nombre,car.nombre,cursoimp.yearImpartido,cursoimp.fechaInicioClase,
-cursoimp.fechaFinClase,cic.descripcion,au.salon from CursosCicloImpartir AS cursoimp
+select cursos.nombre,car.nombre,cursoimp.fechaInicioClase,
+cursoimp.fechaFinClase,cursoimp.horarioClaseInicio,cursoimp.horarioClaseFin,cic.descripcion,au.salon from CursosCicloImpartir AS cursoimp
 inner join cursos on cursos.idCurso=cursoimp.idCurso
 inner join carreras as car on car.idCarrera=cursoimp.idCarrera
 inner join ciclos as cic on cic.idCiclo=cursoimp.idCiclo
@@ -465,12 +467,15 @@ inner join aula as au on au.idAula=cursoimp.idAula;
 END $$
 DELIMITER ;
 
+
 DELIMITER $$
 CREATE PROCEDURE sp_agregarCursosCicloImpartir(
 	IN cursoID INT,
     IN carreraID INT,
     IN inicioClaseFecha VARCHAR(10),
     IN finClaseFecha VARCHAR(10),
+    IN claseHorarioInicio VARCHAR(5),
+    IN claseHorarioFin VARCHAR(5),
     IN cicloID INT,
     IN aulaID INT
 )
@@ -481,9 +486,10 @@ BEGIN
         SET mensaje='errorproducido';
 	
     START TRANSACTION;
-    
-		INSERT INTO CursosCicloImpartir(idCurso,idCarrera,yearImpartido,fechaInicioClase,fechaFinClase,idCiclo,idAula)
-		VALUES (cursoID,carreraID,2025,inicioClaseFecha,finClaseFecha,cicloID,aulaID);
+		
+        
+		INSERT INTO CursosCicloImpartir(idCurso,idCarrera,fechaInicioClase,fechaFinClase,horarioClaseInicio,horarioClaseFin,idCiclo,idAula)
+		VALUES (cursoID,carreraID,inicioClaseFecha,finClaseFecha,claseHorarioInicio,claseHorarioFin,cicloID,aulaID);
 		COMMIT;
 		set mensaje = 'registrado';
 		select mensaje as mensaje;
@@ -503,15 +509,17 @@ INSERT INTO DiasSemana (dia)  VALUES ('Jueves');
 INSERT INTO DiasSemana (dia)  VALUES ('Viernes');
 INSERT INTO DiasSemana (dia)  VALUES ('Sábado');
 
+
+# drop table HorarioClaseProfesor;
+
 CREATE TABLE HorarioClaseProfesor(
 	idHorarioClaseProfesor INT AUTO_INCREMENT NOT NULL,
     idCursoCiclo INT NOT NULL,
     idDiasSemana INT NOT NULL,
-	horacioClaseInicio TIME NOT NULL,
-    horarioClaseFin TIME NOT NULL,
-    PRIMARY KEY (idHorarioClaseProfesor),
-    FOREIGN KEY (idCursoCiclo) REFERENCES CursosCicloProfesor(idCursoCiclo),
-    FOREIGN KEY (idDiasSemana) REFERENCES DiasSemana(idDiasSemana),
     idProfesor INT NOT NULL,
+    PRIMARY KEY (idHorarioClaseProfesor),
+    FOREIGN KEY (idCursoCiclo) REFERENCES CursosCicloImpartir(idCursoCiclo),
+    FOREIGN KEY (idDiasSemana) REFERENCES DiasSemana(idDiasSemana),
     FOREIGN KEY (idProfesor) REFERENCES Usuario(idUsuario)
 );
+
