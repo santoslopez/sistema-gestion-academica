@@ -4,6 +4,7 @@
  */
 package jinternal;
 
+import bean.LlenarComboBox;
 import modelo.ModeloCursosCicloImpartir;
 
 /**
@@ -11,14 +12,33 @@ import modelo.ModeloCursosCicloImpartir;
  * @author santoslopeztzoy
  */
 public class ListadoCursosCicloImpartir extends javax.swing.JInternalFrame {
-
+    
+    // necesario para recuperar el valor cuando se le da click a la fila
+    private int row;
+    
     private ModeloCursosCicloImpartir modelo;
+    
     private static ListadoCursosCicloImpartir instancia;
     public static ListadoCursosCicloImpartir getInstancia(){
         if(instancia==null){
             instancia=new ListadoCursosCicloImpartir();
         }
         return instancia;
+    }
+    
+    
+    // llenar en dias el combobox con dias
+    public void llenarComboBoxDias(){
+        String consulta="SELECT * FROM DiasSemana";
+        Object[] params = {};
+        LlenarComboBox.getInstancia().tipoCuenta(cboDias,consulta,params,"idDiasSemana","dia");
+    }
+    
+    
+    public void llenarComboBoxProfesores(){
+        String consulta="call listarProfesores()";
+        Object[] params={};
+        LlenarComboBox.getInstancia().tipoCuenta(cboProfesor,consulta,params,"idUsuario","username");
     }
     
     
@@ -32,6 +52,8 @@ public class ListadoCursosCicloImpartir extends javax.swing.JInternalFrame {
     public ListadoCursosCicloImpartir() {
         initComponents();
         setClosable(true);
+        llenarComboBoxDias();
+        llenarComboBoxProfesores();
     }
 
     /**
@@ -46,6 +68,13 @@ public class ListadoCursosCicloImpartir extends javax.swing.JInternalFrame {
         jPanelContenedor = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelCursosCicloImpartir = new javax.swing.JPanel();
+        lblID = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        cboDias = new javax.swing.JComboBox<>();
+        lblProfesor = new javax.swing.JLabel();
+        cboProfesor = new javax.swing.JComboBox<>();
+        btnGuardar = new javax.swing.JButton();
         jScrollPaneListadoCursosCicloImpartir = new javax.swing.JScrollPane();
         jTableListadoCursosCicloImpartir = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -54,21 +83,72 @@ public class ListadoCursosCicloImpartir extends javax.swing.JInternalFrame {
 
         setTitle("Listado de cursos con sus ciclos para impartir");
 
+        lblID.setText("ID");
+
+        txtID.setEditable(false);
+        txtID.setEnabled(false);
+
+        jLabel2.setText("Dia");
+
+        cboDias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblProfesor.setText("Profesor");
+
+        cboProfesor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCursosCicloImpartirLayout = new javax.swing.GroupLayout(jPanelCursosCicloImpartir);
         jPanelCursosCicloImpartir.setLayout(jPanelCursosCicloImpartirLayout);
         jPanelCursosCicloImpartirLayout.setHorizontalGroup(
             jPanelCursosCicloImpartirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 254, Short.MAX_VALUE)
+            .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txtID)
+            .addComponent(cboDias, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblProfesor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cboProfesor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
         );
         jPanelCursosCicloImpartirLayout.setVerticalGroup(
             jPanelCursosCicloImpartirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 239, Short.MAX_VALUE)
+            .addGroup(jPanelCursosCicloImpartirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cboDias, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cboProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", jPanelCursosCicloImpartir);
 
         modelo = new ModeloCursosCicloImpartir();
         jTableListadoCursosCicloImpartir.setModel(modelo);
+        jTableListadoCursosCicloImpartir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableListadoCursosCicloImpartirMouseClicked(evt);
+            }
+        });
+        jTableListadoCursosCicloImpartir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableListadoCursosCicloImpartirKeyPressed(evt);
+            }
+        });
         jScrollPaneListadoCursosCicloImpartir.setViewportView(jTableListadoCursosCicloImpartir);
 
         jLabel1.setText("Buscar");
@@ -126,15 +206,51 @@ public class ListadoCursosCicloImpartir extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void jTableListadoCursosCicloImpartirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListadoCursosCicloImpartirMouseClicked
+        // TODO add your handling code here:
+        row = jTableListadoCursosCicloImpartir.rowAtPoint(evt.getPoint());
+        txtID.setText(jTableListadoCursosCicloImpartir.getValueAt(row, 0).toString());
+        
+    }//GEN-LAST:event_jTableListadoCursosCicloImpartirMouseClicked
+
+    private void jTableListadoCursosCicloImpartirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableListadoCursosCicloImpartirKeyPressed
+        // TODO add your handling code here:
+        
+        int fila = jTableListadoCursosCicloImpartir.getSelectedRow();
+        
+        if(evt.getKeyCode() == evt.VK_UP && fila>0){
+            fila--;
+        }else if(evt.getKeyCode()==evt.VK_DOWN && fila<jTableListadoCursosCicloImpartir.getRowCount()-1){
+            fila++;
+        }else{
+            return;
+        }
+        txtID.setText(jTableListadoCursosCicloImpartir.getValueAt(0, fila).toString());
+        //cboDias.setT
+        
+    }//GEN-LAST:event_jTableListadoCursosCicloImpartirKeyPressed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<String> cboDias;
+    private javax.swing.JComboBox<String> cboProfesor;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanelContenedor;
     private javax.swing.JPanel jPanelCursosCicloImpartir;
     private javax.swing.JScrollPane jScrollPaneListadoCursosCicloImpartir;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableListadoCursosCicloImpartir;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblID;
+    private javax.swing.JLabel lblProfesor;
+    private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables
 }

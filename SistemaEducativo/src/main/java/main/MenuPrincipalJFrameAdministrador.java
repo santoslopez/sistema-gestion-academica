@@ -100,7 +100,6 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
         jMenuItemActualizarPerfil = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuHorarioClaseProfesor = new javax.swing.JMenu();
-        jMenuItemRegistrarHorarioClaseProfesor = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
 
         jMenu2.setText("File");
@@ -396,15 +395,6 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
         jMenuHorarioClaseProfesor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenuHorarioClaseProfesor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jMenuItemRegistrarHorarioClaseProfesor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
-        jMenuItemRegistrarHorarioClaseProfesor.setText("Registrar");
-        jMenuItemRegistrarHorarioClaseProfesor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemRegistrarHorarioClaseProfesorActionPerformed(evt);
-            }
-        });
-        jMenuHorarioClaseProfesor.add(jMenuItemRegistrarHorarioClaseProfesor);
-
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/clipboard.png"))); // NOI18N
         jMenuItem4.setText("Listado de clases profesor");
         jMenuHorarioClaseProfesor.add(jMenuItem4);
@@ -606,19 +596,6 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItemRegistrarEdificiosActionPerformed
 
-    private void jMenuItemRegistrarCursosCicloImpartirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarCursosCicloImpartirActionPerformed
-        // TODO add your handling code here:
-        RegistrarCursosCicloImpartir reg = new RegistrarCursosCicloImpartir();
-        
-        if(!escritorio.isAncestorOf(reg)){
-            escritorio.add(reg);
-            reg.setVisible(true);
-        }else{
-            escritorio.setSelectedFrame(reg);
-        }
-        
-    }//GEN-LAST:event_jMenuItemRegistrarCursosCicloImpartirActionPerformed
-
     private void jMenuItemListadoCursosCiclosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListadoCursosCiclosActionPerformed
         // TODO add your handling code here:
         ListadoCursosCicloImpartir list = new ListadoCursosCicloImpartir();
@@ -631,9 +608,18 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemListadoCursosCiclosActionPerformed
 
-    private void jMenuItemRegistrarHorarioClaseProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarHorarioClaseProfesorActionPerformed
+    private void jMenuItemRegistrarCursosCicloImpartirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarCursosCicloImpartirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemRegistrarHorarioClaseProfesorActionPerformed
+        RegistrarCursosCicloImpartir reg = new RegistrarCursosCicloImpartir();
+
+        if(!escritorio.isAncestorOf(reg)){
+            escritorio.add(reg);
+            reg.setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(reg);
+        }
+
+    }//GEN-LAST:event_jMenuItemRegistrarCursosCicloImpartirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -714,7 +700,6 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRegistrarCursos;
     private javax.swing.JMenuItem jMenuItemRegistrarCursosCicloImpartir;
     private javax.swing.JMenuItem jMenuItemRegistrarEdificios;
-    private javax.swing.JMenuItem jMenuItemRegistrarHorarioClaseProfesor;
     private javax.swing.JMenuItem jMenuItemRegistrarUsuarios;
     private javax.swing.JMenu jMenuUsuarios;
     private javax.swing.JPanel jPanel1;

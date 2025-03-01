@@ -28,7 +28,6 @@ CREATE TABLE Usuario(
     foreign key (idTipoUsuario) references TipoUsuario(idTipoUsuario)
 );
 
-
 -- Triger para agregar una contraseña por default en la base de datos
 DELIMITER //
 CREATE TRIGGER createPasswordUser
@@ -523,3 +522,12 @@ CREATE TABLE HorarioClaseProfesor(
     FOREIGN KEY (idProfesor) REFERENCES Usuario(idUsuario)
 );
 
+DELIMITER $$
+CREATE PROCEDURE listarProfesores()
+BEGIN
+SELECT idUsuario,nombres,apellidos,correo,username FROM Usuario AS u INNER JOIN TipoUsuario AS t ON u.idTipoUsuario=t.idTipoUsuario
+WHERE u.estado='A';
+END $$
+DELIMITER ;
+
+CALL listarProfesores();
