@@ -5,6 +5,9 @@
 package jinternal;
 
 import bean.LlenarComboBox;
+import db.Conexion;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import modelo.ModeloCursosCicloImpartir;
 
 /**
@@ -232,7 +235,56 @@ public class ListadoCursosCicloImpartir extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        LlenarComboBox dias = (LlenarComboBox)cboDias.getSelectedItem();
+        LlenarComboBox profesor = (LlenarComboBox)cboProfesor.getSelectedItem();
         
+        String id= txtID.getText();
+        
+        if (dias== null || profesor==null){
+            JOptionPane.showMessageDialog(null, "Error, no se permiten campos vacios, debe haber profesor y dia registrado.","Mensaje",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(id.length()<=0){
+            JOptionPane.showMessageDialog(null, "Error, no se permite registrar debido a que no hay un ID seleccionado","Mensaje",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        
+        int confirmar = JOptionPane.showConfirmDialog(null,"¿Deseas guardar los datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        
+        if(confirmar==JOptionPane.YES_OPTION){
+            
+            String consulta = "CALL sp_agregarProfesorCurso(?,?,?)";
+            
+            Object[] params = {id,dias.getId(),profesor.getId()};
+            
+            ResultSet ejecutar = Conexion.getInstancia().hacerConsulta(consulta, params);
+            
+            try{
+                
+                if(ejecutar!=null){
+                    while(ejecutar.next()){
+                        String mensajeObtenido = ejecutar.getString("mensaje");
+                        
+                        if (mensajeObtenido.equals("registrado")){
+                            
+                            JOptionPane.showMessageDialog(null,"Registro exitoso.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                            
+                        }else if(mensajeObtenido.equals("errorproducido")){
+                            
+                        }else{
+                            
+                        }
+                    }
+                }
+                
+            }catch(Exception ex){
+                
+            }
+            
+            
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 

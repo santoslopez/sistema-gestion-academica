@@ -453,11 +453,15 @@ CREATE TABLE CursosCicloImpartir(
 	#FOREIGN KEY (idProfesor) REFERENCES Usuario(idUsuario)
 );
 
+select * from CursosCicloImpartir;
+
+
 DELIMITER $$
 CREATE PROCEDURE sp_detallesCursosCicloImpartir()
 
+
 BEGIN
-select cursos.nombre,car.nombre,cursoimp.fechaInicioClase,
+select cursoimp.idCursoCiclo,cursos.nombre,car.nombre,cursoimp.fechaInicioClase,
 cursoimp.fechaFinClase,cursoimp.horarioClaseInicio,cursoimp.horarioClaseFin,cic.descripcion,au.salon from CursosCicloImpartir AS cursoimp
 inner join cursos on cursos.idCurso=cursoimp.idCurso
 inner join carreras as car on car.idCarrera=cursoimp.idCarrera
@@ -508,9 +512,7 @@ INSERT INTO DiasSemana (dia)  VALUES ('Jueves');
 INSERT INTO DiasSemana (dia)  VALUES ('Viernes');
 INSERT INTO DiasSemana (dia)  VALUES ('Sábado');
 
-
 # drop table HorarioClaseProfesor;
-
 CREATE TABLE HorarioClaseProfesor(
 	idHorarioClaseProfesor INT AUTO_INCREMENT NOT NULL,
     idCursoCiclo INT NOT NULL,
@@ -522,6 +524,33 @@ CREATE TABLE HorarioClaseProfesor(
     FOREIGN KEY (idProfesor) REFERENCES Usuario(idUsuario)
 );
 
+select * from horarioclaseprofesor;
+select * from usuario;
+
+
+DELIMITER $$
+CREATE PROCEDURE sp_agregarProfesorCurso(
+	IN cicloCursoID INT,
+    IN diaSemana INT,
+    IN codigoProfesor INT
+)
+BEGIN
+
+DECLARE mensaje varchar(20);
+
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+	ROLLBACK;
+	set mensaje='errorproducido';
+	
+START TRANSACTION;
+	INSERT INTO HorarioClaseProfesor(idCursoCiclo,idDiasSemana,idProfesor) 
+	VALUES (cicloCursoID,diaSemana,codigoProfesor);
+	COMMIT;
+    set mensaje='registrado';
+END $$
+DELIMITER ;
+
+
 DELIMITER $$
 CREATE PROCEDURE listarProfesores()
 BEGIN
@@ -530,4 +559,3 @@ WHERE u.estado='A';
 END $$
 DELIMITER ;
 
-CALL listarProfesores();

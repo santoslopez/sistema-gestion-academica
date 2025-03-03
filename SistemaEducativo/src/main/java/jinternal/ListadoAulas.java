@@ -6,6 +6,7 @@ package jinternal;
 
 import bean.LlenarComboBox;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import modelo.ModeloDeAulas;
 
 /**
@@ -231,6 +232,11 @@ public class ListadoAulas extends javax.swing.JInternalFrame {
         
         String nivel = txtNivel.getText();
         
+        
+        if (id.length()<=0){
+            JOptionPane.showMessageDialog(null,"Error no se puede actualizar. Debe seleccionar un dato","Mensaje",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
         
         

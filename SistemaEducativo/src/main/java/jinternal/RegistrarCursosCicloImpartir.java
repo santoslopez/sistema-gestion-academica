@@ -255,8 +255,13 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
                             JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
                             
                             ListadoCursosCicloImpartir.getInstancia().getModelo().actualizarJTable();
+                        }else if (mensajeObtenido.equals("yaexiste")){
+                            JOptionPane.showMessageDialog(null, "Error los datos ya existen.","Mensaje",JOptionPane.ERROR_MESSAGE);   
                         }else if (mensajeObtenido.equals("errorproducido")){
                             JOptionPane.showMessageDialog(null, "Error controlado","Mensaje",JOptionPane.ERROR_MESSAGE);   
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Error controlado: "+mensajeObtenido,"Mensaje",JOptionPane.ERROR_MESSAGE);   
 
                         }
                     }

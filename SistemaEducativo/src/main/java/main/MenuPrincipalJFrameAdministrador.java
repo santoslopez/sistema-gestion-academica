@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import jdialg.ModificarPerfil;
 import jinternal.ListadoAulas;
 import jinternal.ListadoCarreras;
+import jinternal.ListadoClasesProfesor;
 import jinternal.ListadoCursosCicloImpartir;
 import jinternal.ListadoDeCiclos;
 import jinternal.ListadoDeCursos;
@@ -100,7 +101,7 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
         jMenuItemActualizarPerfil = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuHorarioClaseProfesor = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItemListadoClasesProfesor = new javax.swing.JMenuItem();
 
         jMenu2.setText("File");
         jMenuBar2.add(jMenu2);
@@ -395,9 +396,14 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
         jMenuHorarioClaseProfesor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenuHorarioClaseProfesor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/clipboard.png"))); // NOI18N
-        jMenuItem4.setText("Listado de clases profesor");
-        jMenuHorarioClaseProfesor.add(jMenuItem4);
+        jMenuItemListadoClasesProfesor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/clipboard.png"))); // NOI18N
+        jMenuItemListadoClasesProfesor.setText("Listado de clases profesor");
+        jMenuItemListadoClasesProfesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListadoClasesProfesorActionPerformed(evt);
+            }
+        });
+        jMenuHorarioClaseProfesor.add(jMenuItemListadoClasesProfesor);
 
         jMenuBar1.add(jMenuHorarioClaseProfesor);
 
@@ -621,6 +627,18 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItemRegistrarCursosCicloImpartirActionPerformed
 
+    private void jMenuItemListadoClasesProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListadoClasesProfesorActionPerformed
+        // TODO add your handling code here:
+        ListadoClasesProfesor list = new ListadoClasesProfesor();
+        
+        if(!escritorio.isAncestorOf(list)){
+            escritorio.add(list);
+            list.setVisible(true);
+        }else{
+            escritorio.setSelectedFrame(list);
+        }
+    }//GEN-LAST:event_jMenuItemListadoClasesProfesorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -685,8 +703,8 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItemActualizarPerfil;
+    private javax.swing.JMenuItem jMenuItemListadoClasesProfesor;
     private javax.swing.JMenuItem jMenuItemListadoCursosCiclos;
     private javax.swing.JMenuItem jMenuItemListadoDeCiclos;
     private javax.swing.JMenuItem jMenuItemListadoDeCursos;

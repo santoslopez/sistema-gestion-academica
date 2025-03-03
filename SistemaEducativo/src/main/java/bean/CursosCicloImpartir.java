@@ -12,7 +12,7 @@ import java.util.Date;
  * @author santoslopeztzoy
  */
 public class CursosCicloImpartir {
-    //private int idCursoCiclo;
+    private int idCursoCiclo;
     
     private int idCurso;
     private int idCarrera;
@@ -31,6 +31,10 @@ public class CursosCicloImpartir {
     private String cicloDescripcion;
     private String aulaSalon;
     
+    public int getIdCursoCiclo(){
+        return idCursoCiclo;
+    }
+    
     public String getCursoNombre(){
         return cursoNombre;
     }
@@ -47,7 +51,6 @@ public class CursosCicloImpartir {
         return aulaSalon;
     }
     
-    
     public CursosCicloImpartir(int idCurso, int idCarrera, String fechaInicioClase, String fechaFinClase, String horarioClaseInicio,String horarioClaseFin, int idCiclo, int idAula) {
         //this.idCursoCiclo = idCursoCiclo;
         this.idCurso = idCurso;
@@ -61,8 +64,8 @@ public class CursosCicloImpartir {
         this.idAula = idAula;
     }
 
-    public CursosCicloImpartir(String cursoNombre,String carreraNombre,String fechaInicioClase,String fechaFinClase,String horarioClaseInicio,String horarioClaseFin,String cicloDescripcion,String aulaSalon) {
-        
+    public CursosCicloImpartir(int idCursoCiclo,String cursoNombre,String carreraNombre,String fechaInicioClase,String fechaFinClase,String horarioClaseInicio,String horarioClaseFin,String cicloDescripcion,String aulaSalon) {
+        this.idCursoCiclo=idCursoCiclo;
         this.cursoNombre=cursoNombre;
         this.carreraNombre=carreraNombre;
         //this.yearImpartido=yearImpartido;

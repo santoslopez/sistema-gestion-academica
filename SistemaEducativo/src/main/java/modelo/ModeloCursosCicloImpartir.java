@@ -34,7 +34,7 @@ public class ModeloCursosCicloImpartir extends AbstractTableModel{
         listado=new ManejadorCursosCicloImpartir().getInstancia().listarCursosCicloImpartirGuardados();
     }
     
-    private String[] encabezado = {"Curso","Carrera","Horario de clase inicio","Horario clase fin","Fecha inicio","Fecha fin","Ciclo","Salón"};
+    private String[] encabezado = {"ID","Curso","Carrera","Horario de clase inicio","Horario clase fin","Fecha inicio","Fecha fin","Ciclo","Salón"};
     
     public String getColumnName(int column){
         return encabezado[column];
@@ -56,10 +56,14 @@ public class ModeloCursosCicloImpartir extends AbstractTableModel{
         
         switch(column){
             case 0:
-                resultado = String.valueOf(cursos.getCursoNombre());
+                resultado = String.valueOf(cursos.getIdCursoCiclo());
             break;
             
             case 1:
+                resultado = String.valueOf(cursos.getCursoNombre());
+            break;
+            
+            case 2:
                 resultado = String.valueOf(cursos.getCarreraNombre());
             break;
             
@@ -68,28 +72,28 @@ public class ModeloCursosCicloImpartir extends AbstractTableModel{
                 
             break;*/
             
-            case 2:
+            case 3:
                 resultado = String.valueOf(cursos.getFechaInicioClase());
             break;
             
-            case 3:
+            case 4:
                 resultado =  String.valueOf(cursos.getFechaFinClase());
             break;
             
-            case 4:
+            case 5:
                 resultado = String.valueOf(cursos.getHorarioClaseInicio());
             break;
             
                         
-            case 5:
+            case 6:
                 resultado = String.valueOf(cursos.getHorarioClaseFin());
             break;
             
-            case 6:
+            case 7:
                 resultado = String.valueOf(cursos.getCicloDescripcion());
             break;
             
-            case 7:
+            case 8:
                 resultado = String.valueOf(cursos.getAulaSalon());
             break;
 
