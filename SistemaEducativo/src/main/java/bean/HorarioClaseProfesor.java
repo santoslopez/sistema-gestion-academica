@@ -9,48 +9,120 @@ package bean;
  * @author santoslopeztzoy
  */
 public class HorarioClaseProfesor {
-    private int idHorarioClaseProfesor;
-    private int idCursoCiclo;
-    private int idDiasSemana;
-    private int idProfesor;
+   
+    
+    private String profesor;
+    private String facultad;
+    private String carrera;
+    private String fechaInicioClase;
+    private String fechaFinClase;
+    private String nombreCurso;
+    private String ciclo;
+    private String salon;
+    private String nombreEdificio;
+    private String horarioClaseInicio;
+    private String horarioClaseFin;
 
-    public HorarioClaseProfesor(int idHorarioClaseProfesor, int idCursoCiclo, int idDiasSemana, int idProfesor) {
-        this.idHorarioClaseProfesor = idHorarioClaseProfesor;
-        this.idCursoCiclo = idCursoCiclo;
-        this.idDiasSemana = idDiasSemana;
-        this.idProfesor = idProfesor;
+    public String getProfesor() {
+        return profesor;
     }
 
-    public int getIdHorarioClaseProfesor() {
-        return idHorarioClaseProfesor;
+    public void setProfesor(String profesor) {
+        this.profesor = profesor;
     }
 
-    public void setIdHorarioClaseProfesor(int idHorarioClaseProfesor) {
-        this.idHorarioClaseProfesor = idHorarioClaseProfesor;
+    public String getFacultad() {
+        return facultad;
     }
 
-    public int getIdCursoCiclo() {
-        return idCursoCiclo;
+    public void setFacultad(String facultad) {
+        this.facultad = facultad;
     }
 
-    public void setIdCursoCiclo(int idCursoCiclo) {
-        this.idCursoCiclo = idCursoCiclo;
+    public String getCarrera() {
+        return carrera;
     }
 
-    public int getIdDiasSemana() {
-        return idDiasSemana;
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
     }
 
-    public void setIdDiasSemana(int idDiasSemana) {
-        this.idDiasSemana = idDiasSemana;
+    public String getFechaInicioClase() {
+        return fechaInicioClase;
     }
 
-    public int getIdProfesor() {
-        return idProfesor;
+    public void setFechaInicioClase(String fechaInicioClase) {
+        this.fechaInicioClase = fechaInicioClase;
     }
 
-    public void setIdProfesor(int idProfesor) {
-        this.idProfesor = idProfesor;
+    public String getFechaFinClase() {
+        return fechaFinClase;
+    }
+
+    public void setFechaFinClase(String fechaFinClase) {
+        this.fechaFinClase = fechaFinClase;
+    }
+
+    public String getNombreCurso() {
+        return nombreCurso;
+    }
+
+    public void setNombreCurso(String nombreCurso) {
+        this.nombreCurso = nombreCurso;
+    }
+
+    public String getCiclo() {
+        return ciclo;
+    }
+
+    public void setCiclo(String ciclo) {
+        this.ciclo = ciclo;
+    }
+
+    public String getSalon() {
+        return salon;
+    }
+
+    public void setSalon(String salon) {
+        this.salon = salon;
+    }
+
+    public String getNombreEdificio() {
+        return nombreEdificio;
+    }
+
+    public void setNombreEdificio(String nombreEdificio) {
+        this.nombreEdificio = nombreEdificio;
+    }
+
+    public String getHorarioClaseInicio() {
+        return horarioClaseInicio;
+    }
+
+    public void setHorarioClaseInicio(String horarioClaseInicio) {
+        this.horarioClaseInicio = horarioClaseInicio;
+    }
+
+    public String getHorarioClaseFin() {
+        return horarioClaseFin;
+    }
+
+    public void setHorarioClaseFin(String horarioClaseFin) {
+        this.horarioClaseFin = horarioClaseFin;
+    }
+
+    public HorarioClaseProfesor(String profesor, String facultad, String carrera, String fechaInicioClase, String fechaFinClase, String nombreCurso, String ciclo, String salon, String nombreEdificio, String horarioClaseInicio, String horarioClaseFin) {
+        this.profesor = profesor;
+        this.facultad = facultad;
+        this.carrera = carrera;
+        this.fechaInicioClase = fechaInicioClase;
+        this.fechaFinClase = fechaFinClase;
+        this.nombreCurso = nombreCurso;
+        this.ciclo = ciclo;
+        this.salon = salon;
+        this.nombreEdificio = nombreEdificio;
+        this.horarioClaseInicio = horarioClaseInicio;
+        this.horarioClaseFin = horarioClaseFin;
     }
     
 }

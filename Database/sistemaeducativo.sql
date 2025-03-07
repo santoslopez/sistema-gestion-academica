@@ -1,7 +1,6 @@
 CREATE DATABASE sistemaeducativo;
 use sistemaeducativo;
 
-
 CREATE TABLE TipoUsuario(
 	idTipoUsuario INT AUTO_INCREMENT,
     nombreTipo varchar(20) NOT NULL UNIQUE,
@@ -458,8 +457,6 @@ select * from CursosCicloImpartir;
 
 DELIMITER $$
 CREATE PROCEDURE sp_detallesCursosCicloImpartir()
-
-
 BEGIN
 select cursoimp.idCursoCiclo,cursos.nombre,car.nombre,cursoimp.fechaInicioClase,
 cursoimp.fechaFinClase,cursoimp.horarioClaseInicio,cursoimp.horarioClaseFin,cic.descripcion,au.salon from CursosCicloImpartir AS cursoimp
@@ -490,11 +487,17 @@ BEGIN
 	
     START TRANSACTION;
 		
-        
-		INSERT INTO CursosCicloImpartir(idCurso,idCarrera,fechaInicioClase,fechaFinClase,horarioClaseInicio,horarioClaseFin,idCiclo,idAula)
-		VALUES (cursoID,carreraID,inicioClaseFecha,finClaseFecha,claseHorarioInicio,claseHorarioFin,cicloID,aulaID);
-		COMMIT;
-		set mensaje = 'registrado';
+		IF EXISTS (SELECT 1 FROM CursosCicloImpartir WHERE idCurso=cursoID AND idCarrera=carreraID
+        AND fechaInicioClase=inicioClaseFecha AND idCiclo=cicloID AND idAula=aulaID 
+        AND horarioClaseInicio=claseHorarioInicio) THEN
+			set mensaje = 'yaexiste';
+		ELSE
+			INSERT INTO CursosCicloImpartir(idCurso,idCarrera,fechaInicioClase,fechaFinClase,horarioClaseInicio,horarioClaseFin,idCiclo,idAula)
+			VALUES (cursoID,carreraID,inicioClaseFecha,finClaseFecha,claseHorarioInicio,claseHorarioFin,cicloID,aulaID);
+			COMMIT;
+            set mensaje = 'registrado';
+		END IF;
+		
 		select mensaje as mensaje;
 END $$
 DELIMITER ;
@@ -512,7 +515,6 @@ INSERT INTO DiasSemana (dia)  VALUES ('Jueves');
 INSERT INTO DiasSemana (dia)  VALUES ('Viernes');
 INSERT INTO DiasSemana (dia)  VALUES ('Sábado');
 
-# drop table HorarioClaseProfesor;
 CREATE TABLE HorarioClaseProfesor(
 	idHorarioClaseProfesor INT AUTO_INCREMENT NOT NULL,
     idCursoCiclo INT NOT NULL,
@@ -523,10 +525,6 @@ CREATE TABLE HorarioClaseProfesor(
     FOREIGN KEY (idDiasSemana) REFERENCES DiasSemana(idDiasSemana),
     FOREIGN KEY (idProfesor) REFERENCES Usuario(idUsuario)
 );
-
-select * from horarioclaseprofesor;
-select * from usuario;
-
 
 DELIMITER $$
 CREATE PROCEDURE sp_agregarProfesorCurso(
@@ -547,9 +545,9 @@ START TRANSACTION;
 	VALUES (cicloCursoID,diaSemana,codigoProfesor);
 	COMMIT;
     set mensaje='registrado';
+select mensaje as mensaje;
 END $$
 DELIMITER ;
-
 
 DELIMITER $$
 CREATE PROCEDURE listarProfesores()
@@ -559,3 +557,25 @@ WHERE u.estado='A';
 END $$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE listarDatosHorarioProfesor()
+BEGIN
+
+SELECT DISTINCT CONCAT(usu.nombres, ' ',usu.apellidos) AS Profesor,fac.nombre as Facultad,carre.nombre as Carrera,
+cursosCicloI.fechaInicioClase,cursosCicloI.fechaFinClase,
+curs.nombre as 'Curso',cic.descripcion as Ciclo,aul.salon,edif.nombreEdificio,cursosCicloI.horarioClaseInicio,
+cursosCicloI.horarioClaseFin
+  FROM HorarioClaseProfesor AS horar
+INNER JOIN Usuario AS usu ON
+horar.idProfesor=usu.idUsuario 
+INNER JOIN CursosCicloImpartir AS cursosCicloI ON 
+horar.idCursoCiclo=cursosCicloI.idCursoCiclo
+INNER JOIN Cursos AS curs ON cursosCicloI.idCurso=curs.idCurso
+INNER JOIN Carreras AS carre ON cursosCicloI.idCarrera=carre.idCarrera
+INNER JOIN Facultad AS fac ON carre.idFacultad=fac.idFacultad
+INNER JOIN Ciclos AS cic ON cursosCicloI.idCiclo=cic.idCiclo
+INNER JOIN Aula AS aul ON cursosCicloI.idAula=aul.idAula
+INNER JOIN Edificio AS edif ON aul.idEdificio=edif.idEdificio
+WHERE usu.idTipoUsuario=1 AND horar.idProfesor=2;
+END $$
+DELIMITER ;

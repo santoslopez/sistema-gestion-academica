@@ -14,6 +14,7 @@ import bean.HorarioClaseProfesor;
 import db.Conexion;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class ManejadorHorarioClaseProfesor {
     
@@ -41,7 +42,7 @@ public class ManejadorHorarioClaseProfesor {
         
         mostrar.removeAll(mostrar);
         
-        String query = "SELECT * FROM HorarioClaseProfesor";
+        String query = "CALL listarDatosHorarioProfesor()";
         Object[] params ={};
         
         ResultSet consulta = Conexion.getInstancia().hacerConsulta(query, params);
@@ -49,16 +50,24 @@ public class ManejadorHorarioClaseProfesor {
         try{
             while(consulta.next()){
                 horario=new HorarioClaseProfesor(
-                consulta.getInt("idHorarioClaseProfesor"),
-                        consulta.getInt("idCursoCiclo"),
-                        consulta.getInt("idDiasSemana"),
-                        consulta.getInt("idProfesor")
+                  consulta.getString("Profesor"),
+                        consulta.getString("Facultad"),
+                        consulta.getString("Carrera"),
+                        consulta.getString("cursosCicloI.fechaInicioClase"),
+                        consulta.getString("cursosCicloI.fechaFinClase"),
+                        consulta.getString("Curso"),
+                        consulta.getString("Ciclo"),
+                        consulta.getString("aul.salon"),
+                        consulta.getString("edif.nombreEdificio"),
+                        consulta.getString("cursosCicloI.horarioClaseInicio"),
+                        consulta.getString("cursosCicloI.horarioClaseFin")
                 );
                 
                 mostrar.add(horario);
             }
         }catch(Exception ex){
-            ex.printStackTrace();
+            //ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Se produjo el siguiente error: "+ex.getMessage(),"Mensaje",JOptionPane.ERROR_MESSAGE);
         }
         
         return mostrar;

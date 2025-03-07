@@ -30,7 +30,7 @@ public class ModeloHorarioClaseProfesor extends AbstractTableModel {
         listado = new ManejadorHorarioClaseProfesor().getInstancia().listarHorariosClaseProfesor();
     }
     
-    private String[] encabezado = {"ID","Curso ciclo","Dias impartir","Profesor"};
+    private String[] encabezado = {"Profesor","Facultad","Carrera","Inicio clase","Fin clase","Curso","Ciclo","Salon","Edificio","Horario inicio","Horario fin"};
     
     public String getColumnName(int column){
         return encabezado[column];
@@ -51,19 +51,47 @@ public class ModeloHorarioClaseProfesor extends AbstractTableModel {
         
         switch(column){
             case 0:
-                resultado = String.valueOf(horario.getIdHorarioClaseProfesor());
+                resultado = String.valueOf(horario.getProfesor());
             break;
             
             case 1:
-                resultado = String.valueOf(horario.getIdCursoCiclo());
+                resultado = String.valueOf(horario.getFacultad());
             break;
             
             case 2:
-                resultado = String.valueOf(horario.getIdDiasSemana());
+                resultado = String.valueOf(horario.getCarrera());
             break;
             
             case 3:
-                resultado = String.valueOf(horario.getIdProfesor());
+                resultado = String.valueOf(horario.getFechaInicioClase());
+            break;
+            
+            case 4:
+                resultado = String.valueOf(horario.getFechaFinClase());
+            break;
+            
+            case 5:
+                resultado = String.valueOf(horario.getNombreCurso());
+            break;
+            
+            case 6:
+                resultado = String.valueOf(horario.getCiclo());
+            break;
+            
+            case 7:
+                resultado = String.valueOf(horario.getSalon());
+            break;
+            
+            case 8:
+                resultado = String.valueOf(horario.getNombreEdificio());
+            break;
+            
+            case 9:
+                resultado = String.valueOf(horario.getHorarioClaseInicio());
+            break;
+            
+            case 10:
+                resultado = String.valueOf(horario.getHorarioClaseFin());
             break;
         }
         
