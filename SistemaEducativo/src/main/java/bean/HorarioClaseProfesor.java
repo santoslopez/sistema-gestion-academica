@@ -125,4 +125,19 @@ public class HorarioClaseProfesor {
         this.horarioClaseFin = horarioClaseFin;
     }
     
+    
+    public HorarioClaseProfesor(String profesor, String facultad, String carrera, String fechaInicioClase, String fechaFinClase, String ciclo, String nombreEdificio) {
+        this.profesor = profesor;
+        this.facultad = facultad;
+        this.carrera = carrera;
+        this.fechaInicioClase = fechaInicioClase;
+        this.fechaFinClase = fechaFinClase;
+        //this.nombreCurso = nombreCurso;
+        this.ciclo = ciclo;
+        //this.salon = salon;
+        this.nombreEdificio = nombreEdificio;
+        //this.horarioClaseInicio = horarioClaseInicio;
+        //this.horarioClaseFin = horarioClaseFin;
+    }
+    
 }

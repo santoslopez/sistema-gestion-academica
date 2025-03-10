@@ -55,12 +55,12 @@ public class ManejadorHorarioClaseProfesor {
                         consulta.getString("Carrera"),
                         consulta.getString("cursosCicloI.fechaInicioClase"),
                         consulta.getString("cursosCicloI.fechaFinClase"),
-                        consulta.getString("Curso"),
+                        //consulta.getString("Curso"),
                         consulta.getString("Ciclo"),
-                        consulta.getString("aul.salon"),
-                        consulta.getString("edif.nombreEdificio"),
-                        consulta.getString("cursosCicloI.horarioClaseInicio"),
-                        consulta.getString("cursosCicloI.horarioClaseFin")
+                        //consulta.getString("aul.salon"),
+                        consulta.getString("edif.nombreEdificio")
+                        //consulta.getString("cursosCicloI.horarioClaseInicio"),
+                        //consulta.getString("cursosCicloI.horarioClaseFin")
                 );
                 
                 mostrar.add(horario);

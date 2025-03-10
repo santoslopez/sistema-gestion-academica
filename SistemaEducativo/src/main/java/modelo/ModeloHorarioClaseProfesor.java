@@ -30,7 +30,7 @@ public class ModeloHorarioClaseProfesor extends AbstractTableModel {
         listado = new ManejadorHorarioClaseProfesor().getInstancia().listarHorariosClaseProfesor();
     }
     
-    private String[] encabezado = {"Profesor","Facultad","Carrera","Inicio clase","Fin clase","Curso","Ciclo","Salon","Edificio","Horario inicio","Horario fin"};
+    private String[] encabezado = {"Profesor","Facultad","Carrera","Inicio clase","Fin clase","Ciclo","Edificio"};
     
     public String getColumnName(int column){
         return encabezado[column];
@@ -70,29 +70,29 @@ public class ModeloHorarioClaseProfesor extends AbstractTableModel {
                 resultado = String.valueOf(horario.getFechaFinClase());
             break;
             
-            case 5:
+            /*case 5:
                 resultado = String.valueOf(horario.getNombreCurso());
-            break;
+            break;*/
             
-            case 6:
+            case 5:
                 resultado = String.valueOf(horario.getCiclo());
             break;
             
-            case 7:
+            /*case 7:
                 resultado = String.valueOf(horario.getSalon());
-            break;
+            break;*/
             
-            case 8:
+            case 6:
                 resultado = String.valueOf(horario.getNombreEdificio());
             break;
             
-            case 9:
+            /*case 9:
                 resultado = String.valueOf(horario.getHorarioClaseInicio());
             break;
             
             case 10:
                 resultado = String.valueOf(horario.getHorarioClaseFin());
-            break;
+            break;*/
         }
         
         return resultado;

@@ -4,6 +4,7 @@
  */
 package jinternal;
 
+import javax.swing.SwingUtilities;
 import modelo.ModeloHorarioClaseProfesor;
 
 /**
@@ -46,6 +47,8 @@ public class ListadoClasesProfesor extends javax.swing.JInternalFrame {
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableListado = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuVerHorarioProfesor = new javax.swing.JMenu();
 
         setClosable(true);
 
@@ -72,6 +75,16 @@ public class ListadoClasesProfesor extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10))
         );
 
+        jMenuVerHorarioProfesor.setText("Ver calendario");
+        jMenuVerHorarioProfesor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuVerHorarioProfesorMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenuVerHorarioProfesor);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,8 +99,15 @@ public class ListadoClasesProfesor extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuVerHorarioProfesorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuVerHorarioProfesorMouseClicked
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(HorarioProfesor::new);
+    }//GEN-LAST:event_jMenuVerHorarioProfesorMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuVerHorarioProfesor;
     private javax.swing.JPanel jPanelContenedor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableListado;

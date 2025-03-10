@@ -9,11 +9,11 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HorarioProfesor extends JFrame {
+public class HorarioProfesorEjemploNOUTILIZADO extends JFrame {
     private JPanel panelCalendario;
     private Map<String, String> horario;
 
-    public HorarioProfesor() {
+    public HorarioProfesorEjemploNOUTILIZADO() {
         setTitle("Horario del Profesor");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,6 +49,6 @@ public class HorarioProfesor extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(HorarioProfesor::new);
+        SwingUtilities.invokeLater(HorarioProfesorEjemploNOUTILIZADO::new);
     }
 }

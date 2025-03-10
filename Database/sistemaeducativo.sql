@@ -557,14 +557,40 @@ WHERE u.estado='A';
 END $$
 DELIMITER ;
 
-DELIMITER $$
+/*DELIMITER $$
 CREATE PROCEDURE listarDatosHorarioProfesor()
 BEGIN
 
 SELECT DISTINCT CONCAT(usu.nombres, ' ',usu.apellidos) AS Profesor,fac.nombre as Facultad,carre.nombre as Carrera,
 cursosCicloI.fechaInicioClase,cursosCicloI.fechaFinClase,
 curs.nombre as 'Curso',cic.descripcion as Ciclo,aul.salon,edif.nombreEdificio,cursosCicloI.horarioClaseInicio,
-cursosCicloI.horarioClaseFin
+cursosCicloI.horarioClaseFin,dias.dia
+  FROM HorarioClaseProfesor AS horar
+INNER JOIN Usuario AS usu ON
+horar.idProfesor=usu.idUsuario 
+INNER JOIN CursosCicloImpartir AS cursosCicloI ON 
+horar.idCursoCiclo=cursosCicloI.idCursoCiclo
+INNER JOIN Cursos AS curs ON cursosCicloI.idCurso=curs.idCurso
+INNER JOIN Carreras AS carre ON cursosCicloI.idCarrera=carre.idCarrera
+INNER JOIN Facultad AS fac ON carre.idFacultad=fac.idFacultad
+INNER JOIN Ciclos AS cic ON cursosCicloI.idCiclo=cic.idCiclo
+INNER JOIN Aula AS aul ON cursosCicloI.idAula=aul.idAula
+INNER JOIN Edificio AS edif ON aul.idEdificio=edif.idEdificio
+INNER JOIN DiasSemana AS dias ON horar.idDiasSemana=dias.idDiasSemana ;
+WHERE usu.idTipoUsuario=1 AND horar.idProfesor=2;
+END $$
+DELIMITER ;*/
+
+
+use sistemaeducativo;
+call listarDatosHorarioProfesor;
+
+DELIMITER $$
+CREATE PROCEDURE listarDatosHorarioProfesor()
+BEGIN
+
+SELECT DISTINCT CONCAT(usu.nombres, ' ',usu.apellidos) AS Profesor,fac.nombre as Facultad,carre.nombre as Carrera,
+cursosCicloI.fechaInicioClase,cursosCicloI.fechaFinClase,cic.descripcion as Ciclo,edif.nombreEdificio
   FROM HorarioClaseProfesor AS horar
 INNER JOIN Usuario AS usu ON
 horar.idProfesor=usu.idUsuario 
@@ -579,3 +605,26 @@ INNER JOIN Edificio AS edif ON aul.idEdificio=edif.idEdificio
 WHERE usu.idTipoUsuario=1 AND horar.idProfesor=2;
 END $$
 DELIMITER ;
+
+/* se recupera todos los cursos que imparte el profesor, con sus respectivos horarios, salones, dias*/
+DELIMITER $$
+CREATE PROCEDURE sp_DetallesHorarioProfesor()
+BEGIN
+SELECT DISTINCT aul.salon,edif.nombreEdificio,cursosCicloI.horarioClaseInicio,
+cursosCicloI.horarioClaseFin,dias.dia,curs.nombre as nombre
+  FROM HorarioClaseProfesor AS horar
+INNER JOIN Usuario AS usu ON
+horar.idProfesor=usu.idUsuario 
+INNER JOIN CursosCicloImpartir AS cursosCicloI ON 
+horar.idCursoCiclo=cursosCicloI.idCursoCiclo
+INNER JOIN Cursos AS curs ON cursosCicloI.idCurso=curs.idCurso
+INNER JOIN Carreras AS carre ON cursosCicloI.idCarrera=carre.idCarrera
+INNER JOIN Facultad AS fac ON carre.idFacultad=fac.idFacultad
+INNER JOIN Ciclos AS cic ON cursosCicloI.idCiclo=cic.idCiclo
+INNER JOIN Aula AS aul ON cursosCicloI.idAula=aul.idAula
+INNER JOIN Edificio AS edif ON aul.idEdificio=edif.idEdificio
+INNER JOIN DiasSemana AS dias ON horar.idDiasSemana=dias.idDiasSemana 
+WHERE usu.idTipoUsuario=1 AND horar.idProfesor=2;
+END $$
+DELIMITER ;
+
