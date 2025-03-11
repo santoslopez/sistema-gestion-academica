@@ -21,25 +21,48 @@ import manejador.ManejadorHorarioProfesor;
 
 
 public class HorarioProfesor extends JFrame{
+    // necesario para recuperar el valor del id profesor que se pasa desde la otra ventana
+    private int idProfesorRecuperado;
+    
+    public int getIDProfesorRecuperado(){
+        return idProfesorRecuperado;
+    }
+    
     
     private JPanel panelCalendario;
     private Map<String,String> horario;
     
-    public HorarioProfesor(){
+  
+    
+    public HorarioProfesor(int idProfesor,String carrera,String facultad,String ciclo){
+        
+        //idProfesorRecuperado=2;
         setTitle("Horario de profesor");
         setSize(900,900);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // para cerrar solo esta ventana o JFrame
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       
         // Obtener horas únicas desde la BD
        horario = new HashMap<>();
+        horario.clear();
         
-        panelCalendario = new JPanel(new GridLayout(8,6));
+        
+        // se crea o limpia el panel antes de agregar nuevos componentes
+        
+        if(panelCalendario!=null){
+            panelCalendario.removeAll();
+        }else{
+            panelCalendario = new JPanel(new GridLayout(8,6));
+
+        }
+        
         
         String[] dias = {"Hora","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"};
         String[] horas = {"08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"};
        
-        
-        ManejadorHorarioProfesor.getInstancia().cargarHorarioDesdeBD(2);
+        ManejadorHorarioProfesor.getInstancia().limpiarDetallesHorario();
+
+        ManejadorHorarioProfesor.getInstancia().cargarHorarioDesdeBD(idProfesor,carrera,facultad,ciclo);
         
         // agregar los días como encabezado
         for(String dia:dias){
@@ -76,6 +99,11 @@ public class HorarioProfesor extends JFrame{
                 panelCalendario.add(boton);
             }
         }
+        
+        // refrescar la UI para actualizar los datos
+        panelCalendario.revalidate();
+        panelCalendario.repaint();
+        
         // usar scroll en caso hay demasiados datos
         add(new JScrollPane(panelCalendario)); 
         setVisible(true);

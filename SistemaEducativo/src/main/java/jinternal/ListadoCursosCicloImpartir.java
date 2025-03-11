@@ -6,6 +6,7 @@ package jinternal;
 
 import bean.LlenarComboBox;
 import db.Conexion;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import modelo.ModeloCursosCicloImpartir;
@@ -221,14 +222,15 @@ public class ListadoCursosCicloImpartir extends javax.swing.JInternalFrame {
         
         int fila = jTableListadoCursosCicloImpartir.getSelectedRow();
         
-        if(evt.getKeyCode() == evt.VK_UP && fila>0){
+        if(evt.getKeyCode() == KeyEvent.VK_UP && fila>0){
             fila--;
-        }else if(evt.getKeyCode()==evt.VK_DOWN && fila<jTableListadoCursosCicloImpartir.getRowCount()-1){
+        }else if(evt.getKeyCode()==KeyEvent.VK_DOWN && fila<jTableListadoCursosCicloImpartir.getRowCount()-1){
             fila++;
         }else{
             return;
         }
-        txtID.setText(jTableListadoCursosCicloImpartir.getValueAt(0, fila).toString());
+        txtID.setText(jTableListadoCursosCicloImpartir.getValueAt(fila,0).toString());
+        
         //cboDias.setT
         
     }//GEN-LAST:event_jTableListadoCursosCicloImpartirKeyPressed

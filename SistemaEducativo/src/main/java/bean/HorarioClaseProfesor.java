@@ -10,7 +10,7 @@ package bean;
  */
 public class HorarioClaseProfesor {
    
-    
+    private int idUsuario;
     private String profesor;
     private String facultad;
     private String carrera;
@@ -22,6 +22,14 @@ public class HorarioClaseProfesor {
     private String nombreEdificio;
     private String horarioClaseInicio;
     private String horarioClaseFin;
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public String getProfesor() {
         return profesor;
@@ -126,18 +134,16 @@ public class HorarioClaseProfesor {
     }
     
     
-    public HorarioClaseProfesor(String profesor, String facultad, String carrera, String fechaInicioClase, String fechaFinClase, String ciclo, String nombreEdificio) {
+    public HorarioClaseProfesor(int idUsuario,String profesor, String facultad, String carrera, String fechaInicioClase, String fechaFinClase, String ciclo, String nombreEdificio) {
+        this.idUsuario=idUsuario;
         this.profesor = profesor;
         this.facultad = facultad;
         this.carrera = carrera;
         this.fechaInicioClase = fechaInicioClase;
         this.fechaFinClase = fechaFinClase;
-        //this.nombreCurso = nombreCurso;
         this.ciclo = ciclo;
-        //this.salon = salon;
         this.nombreEdificio = nombreEdificio;
-        //this.horarioClaseInicio = horarioClaseInicio;
-        //this.horarioClaseFin = horarioClaseFin;
+
     }
     
 }

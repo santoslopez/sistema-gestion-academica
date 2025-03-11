@@ -35,13 +35,18 @@ public class ManejadorHorarioProfesor {
         return detallesHorario;
     }
     
+    // Limpia la lista antes de cargar nuevos datos
+    public void limpiarDetallesHorario() {
+        detallesHorario.clear(); 
+    }
 
-    public void cargarHorarioDesdeBD(int idProfesor) {
+    
+    public void cargarHorarioDesdeBD(int idProfesor,String carrera,String facultad,String ciclo) {
         
         try {
             //Conexion conexion = Conexion.getInstancia();
-            String consulta= "CALL sp_DetallesHorarioProfesor";
-            Object[] params={};
+            String consulta= "CALL sp_DetallesHorarioProfesor(?,?,?,?)";
+            Object[] params={idProfesor,carrera,facultad,ciclo};
             ResultSet rs = Conexion.getInstancia().hacerConsulta(consulta,params);
             
             while (rs.next()) {

@@ -50,6 +50,7 @@ public class ManejadorHorarioClaseProfesor {
         try{
             while(consulta.next()){
                 horario=new HorarioClaseProfesor(
+                        consulta.getInt("idUsuario"),
                   consulta.getString("Profesor"),
                         consulta.getString("Facultad"),
                         consulta.getString("Carrera"),
