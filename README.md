@@ -48,7 +48,7 @@ En la opción de usuarios se puede registrar, listar los usuarios registrados y 
 **Listado de usuarios**
 ![Registro exitoso de usuarios (profesores, estudiantes)](imagen-proyecto/6.webp)
 
-#### Facultad
+#### Facultad 
 ![Opciones de facultad](imagen-proyecto/7.webp)
 
 Se realizan todas las validaciones adecuadas como **verificar que el nombre no exista** o que los datos no sean vacíos.

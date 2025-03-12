@@ -21,8 +21,8 @@
 
 ### Diagrama entidad relacion
 
-**Actualmente no disponible**
-
+**Actualmente faltan algunos ajustes finales**
+![Diagrama entidad relación](imagen-proyecto/diagramaer.png)
 ---
 
 Regresar a <a href="https://github.com/santoslopez">inicio</a>

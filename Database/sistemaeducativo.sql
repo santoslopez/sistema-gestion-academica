@@ -382,8 +382,6 @@ BEGIN
 END $$
 DELIMITER ; 
 
-INSERT INTO Cursos(codigo,nombre) VALUES ('a1','Matematica 1');
-
 DELIMITER $$
 CREATE PROCEDURE sp_modificarCursos(
 	IN cursoID INT,
@@ -429,7 +427,6 @@ BEGIN
 END $$
 DELIMITER ; 
 
-
 -- representa los cursos que se van a impartir, cada curso tiene asociado la carrera y la facultad a la que pertenece.
 -- fecha registro regresenta la fecha en que se hizo el insert
 CREATE TABLE CursosCicloImpartir(
@@ -452,9 +449,6 @@ CREATE TABLE CursosCicloImpartir(
 	#FOREIGN KEY (idProfesor) REFERENCES Usuario(idUsuario)
 );
 
-select * from CursosCicloImpartir;
-
-
 DELIMITER $$
 CREATE PROCEDURE sp_detallesCursosCicloImpartir()
 BEGIN
@@ -466,7 +460,6 @@ inner join ciclos as cic on cic.idCiclo=cursoimp.idCiclo
 inner join aula as au on au.idAula=cursoimp.idAula;
 END $$
 DELIMITER ;
-
 
 DELIMITER $$
 CREATE PROCEDURE sp_agregarCursosCicloImpartir(
@@ -584,11 +577,14 @@ CREATE PROCEDURE sp_DetallesHorarioProfesor(
 IN codigoIDProfesor INT,
 IN carreraIngresado VARCHAR(100),
 IN facultadIngresado VARCHAR(100),
-IN descripcionIngresado VARCHAR(30)
+IN descripcionIngresado VARCHAR(30),
+IN fechaInicioClaseIngresado varchar(10),
+IN fechaFinClaseIngresado varchar(10)
 )
 BEGIN
 SELECT DISTINCT aul.salon,edif.nombreEdificio,cursosCicloI.horarioClaseInicio,
-cursosCicloI.horarioClaseFin,dias.dia,curs.nombre as nombre
+cursosCicloI.horarioClaseFin,dias.dia,curs.nombre as nombre,cursosCicloI.fechaInicioClase as fechaInicioCurso,
+cursosCicloI.fechaFinClase as fechaFinCurso
   FROM HorarioClaseProfesor AS horar
 INNER JOIN Usuario AS usu ON
 horar.idProfesor=usu.idUsuario 
@@ -602,6 +598,10 @@ INNER JOIN Aula AS aul ON cursosCicloI.idAula=aul.idAula
 INNER JOIN Edificio AS edif ON aul.idEdificio=edif.idEdificio
 INNER JOIN DiasSemana AS dias ON horar.idDiasSemana=dias.idDiasSemana 
 WHERE usu.idTipoUsuario=1 AND horar.idProfesor=codigoIDProfesor AND carre.nombre=carreraIngresado AND fac.nombre=facultadIngresado
-AND cic.descripcion=descripcionIngresado;
+AND cic.descripcion=descripcionIngresado
+AND cursosCicloI.fechaInicioClase=fechaInicioClaseIngresado  
+AND cursosCicloI.fechaFinClase=fechaFinClaseIngresado;
 END $$
 DELIMITER ;
+
+

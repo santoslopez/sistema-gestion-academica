@@ -34,7 +34,7 @@ public class ModeloCursosCicloImpartir extends AbstractTableModel{
         listado=new ManejadorCursosCicloImpartir().getInstancia().listarCursosCicloImpartirGuardados();
     }
     
-    private String[] encabezado = {"ID","Curso","Carrera","Horario de clase inicio","Horario clase fin","Fecha inicio","Fecha fin","Ciclo","Salón"};
+    private String[] encabezado = {"ID","Curso","Carrera","Horario de clase inicio","Horario clase fin","Fecha inicio","Fecha fin","Ciclo","Salón","Fecha inicio curso","Fecha fin curso"};
     
     public String getColumnName(int column){
         return encabezado[column];
@@ -96,6 +96,8 @@ public class ModeloCursosCicloImpartir extends AbstractTableModel{
             case 8:
                 resultado = String.valueOf(cursos.getAulaSalon());
             break;
+            
+
 
         }
         

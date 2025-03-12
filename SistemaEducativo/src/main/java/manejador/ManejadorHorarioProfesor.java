@@ -41,12 +41,12 @@ public class ManejadorHorarioProfesor {
     }
 
     
-    public void cargarHorarioDesdeBD(int idProfesor,String carrera,String facultad,String ciclo) {
+    public void cargarHorarioDesdeBD(int idProfesor,String carrera,String facultad,String ciclo,String fechaInicioCurso,String fechaFinCurso) {
         
         try {
             //Conexion conexion = Conexion.getInstancia();
-            String consulta= "CALL sp_DetallesHorarioProfesor(?,?,?,?)";
-            Object[] params={idProfesor,carrera,facultad,ciclo};
+            String consulta= "CALL sp_DetallesHorarioProfesor(?,?,?,?,?,?)";
+            Object[] params={idProfesor,carrera,facultad,ciclo,fechaInicioCurso,fechaFinCurso};
             ResultSet rs = Conexion.getInstancia().hacerConsulta(consulta,params);
             
             while (rs.next()) {
@@ -56,7 +56,9 @@ public class ManejadorHorarioProfesor {
                 String diaClase = rs.getString("dias.dia");
                 String cursoImpartir = rs.getString("curs.nombre");
                 String horarioFin = rs.getString("cursosCicloI.horarioClaseFin");
-                String[] horario1 = {salones,inicio,diaClase,cursoImpartir,horarioFin};
+                String cursoFechaInicio = rs.getString("fechaInicioCurso");
+                String cursoFechaFin = rs.getString("fechaFinCurso");
+                String[] horario1 = {salones,inicio,diaClase,cursoImpartir,horarioFin,cursoFechaInicio,cursoFechaFin};
                 detallesHorario.add(horario1);
             }
         } catch (SQLException e) {

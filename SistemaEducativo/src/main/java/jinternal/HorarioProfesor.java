@@ -34,7 +34,7 @@ public class HorarioProfesor extends JFrame{
     
   
     
-    public HorarioProfesor(int idProfesor,String carrera,String facultad,String ciclo){
+    public HorarioProfesor(int idProfesor,String carrera,String facultad,String ciclo,String fechaInicioCurso,String fechaFinCurso){
         
         //idProfesorRecuperado=2;
         setTitle("Horario de profesor");
@@ -62,7 +62,7 @@ public class HorarioProfesor extends JFrame{
        
         ManejadorHorarioProfesor.getInstancia().limpiarDetallesHorario();
 
-        ManejadorHorarioProfesor.getInstancia().cargarHorarioDesdeBD(idProfesor,carrera,facultad,ciclo);
+        ManejadorHorarioProfesor.getInstancia().cargarHorarioDesdeBD(idProfesor,carrera,facultad,ciclo,fechaInicioCurso,fechaFinCurso);
         
         // agregar los días como encabezado
         for(String dia:dias){

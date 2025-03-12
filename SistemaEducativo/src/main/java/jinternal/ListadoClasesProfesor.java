@@ -5,6 +5,7 @@
 package jinternal;
 
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import modelo.ModeloHorarioClaseProfesor;
 
@@ -19,6 +20,9 @@ public class ListadoClasesProfesor extends javax.swing.JInternalFrame {
     private String facultadEnviar;
     private String carreraEnviar;
     private String cicloEnviar;
+    private String fechaInicioCurso;
+    private String fechaFinCurso;
+    
     
     // recuperar el valor de la fila que se le dio click
     private int row;
@@ -95,7 +99,9 @@ public class ListadoClasesProfesor extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10))
         );
 
-        jMenuVerHorarioProfesor.setText("Ver calendario");
+        jMenuVerHorarioProfesor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/timetable.png"))); // NOI18N
+        jMenuVerHorarioProfesor.setText("Ver calendario de clases profesor");
+        jMenuVerHorarioProfesor.setEnabled(false);
         jMenuVerHorarioProfesor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuVerHorarioProfesorMouseClicked(evt);
@@ -121,12 +127,19 @@ public class ListadoClasesProfesor extends javax.swing.JInternalFrame {
 
     private void jMenuVerHorarioProfesorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuVerHorarioProfesorMouseClicked
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(() -> new HorarioProfesor(idProfesorSeleccionadoEnviar,carreraEnviar,facultadEnviar,cicloEnviar));
+        if(jMenuVerHorarioProfesor.isEnabled()){
+            SwingUtilities.invokeLater(() -> new HorarioProfesor(idProfesorSeleccionadoEnviar,carreraEnviar,facultadEnviar,cicloEnviar,fechaInicioCurso,fechaFinCurso));        
+           
+        }else{
+            JOptionPane.showMessageDialog(null,"Error, debes seleccionar una fila para ver el horario del profesor.","Mensaje",JOptionPane.ERROR_MESSAGE);
+        }
+        
         
     }//GEN-LAST:event_jMenuVerHorarioProfesorMouseClicked
 
     private void jTableListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListadoMouseClicked
         // TODO add your handling code here:
+        jMenuVerHorarioProfesor.setEnabled(true);
         row = jTableListado.rowAtPoint(evt.getPoint());
         
         String idSeleccionadoX = jTableListado.getValueAt(row,0).toString();
@@ -134,11 +147,16 @@ public class ListadoClasesProfesor extends javax.swing.JInternalFrame {
         this.facultadEnviar=jTableListado.getValueAt(row,2).toString();
         this.carreraEnviar=jTableListado.getValueAt(row,3).toString();
         this.cicloEnviar=jTableListado.getValueAt(row,6).toString();
-        //System.out.println("el id seleccionado es: "+idProfesorSeleccionadoEnviar);
+        this.fechaInicioCurso=jTableListado.getValueAt(row, 4).toString();
+        this.fechaFinCurso=jTableListado.getValueAt(row, 5).toString();
+        
+        
     }//GEN-LAST:event_jTableListadoMouseClicked
 
     private void jTableListadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableListadoKeyPressed
         // TODO add your handling code here:
+        jMenuVerHorarioProfesor.setEnabled(true);
+        
         int fila = jTableListado.getSelectedRow();
         if(evt.getKeyCode()==KeyEvent.VK_UP && fila>0){
             fila--;
@@ -152,6 +170,9 @@ public class ListadoClasesProfesor extends javax.swing.JInternalFrame {
         this.facultadEnviar=jTableListado.getValueAt(fila,2).toString();
         this.carreraEnviar=jTableListado.getValueAt(fila,3).toString();
         this.cicloEnviar=jTableListado.getValueAt(fila,6).toString();
+        this.fechaInicioCurso=jTableListado.getValueAt(fila,4).toString();
+        this.fechaFinCurso=jTableListado.getValueAt(fila, 5).toString();
+        
      
     }//GEN-LAST:event_jTableListadoKeyPressed
 
