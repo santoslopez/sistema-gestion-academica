@@ -234,6 +234,14 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
             return;
         }
         
+        String horarioInicioCurso = txtHorarioClaseInicio.getText();
+        String horarioFinCurso = txtHorarioClaseFin.getText();
+        if (horarioInicioCurso.length()<=0 || horarioFinCurso.length()<=0){
+            JOptionPane.showMessageDialog(null,"Error, debe ingresar las fechas de inicio y fin del curso","Mensaje",JOptionPane.ERROR_MESSAGE);
+
+            return;
+        }
+        
         int confirmar = JOptionPane.showConfirmDialog(null,"¿Deseas guardar los datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         
         if (confirmar==JOptionPane.YES_OPTION){
@@ -252,6 +260,7 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
                             txtFechaInicioClase.setText("");
                             txtFechaFinClase.setText("");
                             txtHorarioClaseInicio.setText("");
+                            txtHorarioClaseFin.setText("");
                             JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
                             
                             ListadoCursosCicloImpartir.getInstancia().getModelo().actualizarJTable();

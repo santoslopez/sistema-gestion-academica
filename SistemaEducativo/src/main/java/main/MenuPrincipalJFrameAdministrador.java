@@ -345,6 +345,11 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
         jMenuCursosCicloImpartir.setText("Cursos ciclos impartir");
         jMenuCursosCicloImpartir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenuCursosCicloImpartir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jMenuCursosCicloImpartir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuCursosCicloImpartirMouseClicked(evt);
+            }
+        });
 
         jMenuItemRegistrarCursosCicloImpartir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img-admin/plus.png"))); // NOI18N
         jMenuItemRegistrarCursosCicloImpartir.setText("Registrar");
@@ -615,6 +620,7 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemListadoCursosCiclosActionPerformed
 
     private void jMenuItemRegistrarCursosCicloImpartirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarCursosCicloImpartirActionPerformed
+
         // TODO add your handling code here:
         RegistrarCursosCicloImpartir reg = new RegistrarCursosCicloImpartir();
 
@@ -638,6 +644,12 @@ public class MenuPrincipalJFrameAdministrador extends javax.swing.JFrame {
             escritorio.setSelectedFrame(list);
         }
     }//GEN-LAST:event_jMenuItemListadoClasesProfesorActionPerformed
+
+    private void jMenuCursosCicloImpartirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCursosCicloImpartirMouseClicked
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jMenuCursosCicloImpartirMouseClicked
 
     /**
      * @param args the command line arguments

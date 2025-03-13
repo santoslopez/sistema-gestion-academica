@@ -11,6 +11,7 @@ package jinternal;
 
 import db.Conexion;
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.*;
 import java.awt.GridLayout;
 import java.sql.*;
@@ -42,6 +43,10 @@ public class HorarioProfesor extends JFrame{
         // para cerrar solo esta ventana o JFrame
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       
+        /*JLabel titulo = new JLabel("Reporte de horario de clases del profesor(a): ");
+        titulo.setFont(new Font("Arial",Font.BOLD,16));*/
+        
+        
         // Obtener horas únicas desde la BD
        horario = new HashMap<>();
         horario.clear();
