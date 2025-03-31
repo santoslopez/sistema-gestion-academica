@@ -9,12 +9,18 @@ import db.Conexion;
 import java.sql.ResultSet;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 /**
  *
  * @author santoslopeztzoy
  */
 public class RegistrarUsuario extends javax.swing.JInternalFrame {
+    
+     private JDateChooser dateChooser = new JDateChooser();
     
     private static RegistrarUsuario instancia;
     public static RegistrarUsuario getInstancia(){
@@ -40,6 +46,12 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
         //habilitar cierre
         setClosable(true);
         llenarComboBox();
+        ((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
+        dateChooser.setDateFormatString("yyyy-MM-dd");
+        dateChooser.setBounds(170,170,150, 30);  // Ajusta la posición y el tamaño
+        jPanelContenedor.add(dateChooser);
+        
+        
     }
 
     /**
@@ -54,7 +66,6 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
         jPanelContenedor = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         lblNombres = new javax.swing.JLabel();
-        txtFechaNacimiento = new javax.swing.JTextField();
         lblFechaNacimiento = new javax.swing.JLabel();
         txtNombres = new javax.swing.JTextField();
         lblApellidos = new javax.swing.JLabel();
@@ -72,12 +83,6 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
         lblTitulo.setText("REGISTRAR USUARIO");
 
         lblNombres.setText("Nombres");
-
-        txtFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaNacimientoActionPerformed(evt);
-            }
-        });
 
         lblFechaNacimiento.setText("Fecha de nacimiento");
 
@@ -128,7 +133,6 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
             jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
             .addComponent(lblNombres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(txtFechaNacimiento)
             .addComponent(lblFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(txtNombres, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(lblApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -155,9 +159,7 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
                 .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFechaNacimiento)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(35, 35, 35)
                 .addComponent(lblCorreo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,10 +190,6 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacimientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaNacimientoActionPerformed
-
     private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombresActionPerformed
@@ -212,13 +210,13 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String nombres = txtNombres.getText();
         String apellidos = txtApellidos.getText();
-        String fechaNacimiento = txtFechaNacimiento.getText();
+        //String fechaNacimiento = txtFechaNacimiento.getText();
         
         String usuario=txtUsuario.getText();
         String carnet="default";
         String correo=txtCorreo.getText();
-        
-        if (nombres.length()<=0 || apellidos.length()<=0 || fechaNacimiento.length()<=0 || usuario.length()<=0 
+                    
+        if (nombres.length()<=0 || apellidos.length()<=0 ||  usuario.length()<=0 
                 || carnet.length()<=0 || correo.length()<=0){
             
             JOptionPane.showMessageDialog(null, "Error, debe ingresar todos los datos","Mensaje",JOptionPane.ERROR_MESSAGE);
@@ -238,12 +236,21 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
             String sentencia = "CALL crearUsuario(?,?,?,?,?,?,?)"; 
             
             
+            Date fechaSeleccionado = dateChooser.getDate();
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-dd-MM");
+
+            String fechaNacimientoCalenderObtenido=formato.format(fechaSeleccionado);            
+
+            
+           
+            
             // necesario para recuperar el ID del tipo de usuario
             LlenarComboBox llenar = (LlenarComboBox)jComboBoxTipoUsuario.getSelectedItem();
             
             int idComboBox= llenar.getId();
+
             
-            Object[] params = {nombres,apellidos,fechaNacimiento,correo,usuario,carnet,idComboBox};
+            Object[] params = {nombres,apellidos,fechaNacimientoCalenderObtenido,correo,usuario,carnet,idComboBox};
 
             ResultSet resultado = Conexion.getInstancia().hacerConsulta(sentencia,params);
             
@@ -259,7 +266,7 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
                            JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                            txtNombres.setText("");
                            txtApellidos.setText("");
-                           txtFechaNacimiento.setText("");
+                           //txtFechaNacimiento.setText("");
                            txtUsuario.setText("");
                            txtCorreo.setText("");   
                        }else{
@@ -278,6 +285,8 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnRegistrarUsuarioActionPerformed
 
+    
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarUsuario;
@@ -292,7 +301,6 @@ public class RegistrarUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuario1;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtFechaNacimiento;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

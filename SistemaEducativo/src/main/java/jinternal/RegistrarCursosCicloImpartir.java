@@ -5,9 +5,17 @@
 package jinternal;
 
 import bean.LlenarComboBox;
+import com.toedter.calendar.JDateChooser;
 import db.Conexion;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 
 /**
  *
@@ -15,6 +23,19 @@ import javax.swing.JOptionPane;
  */
 public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
 
+    private JDateChooser dateChooser = new JDateChooser();
+    private JDateChooser dateChooserFinCurso = new JDateChooser();
+    
+    
+    // para horas, minutos y segundos
+    //private SimpleDateFormat horarioInicioClase = new SimpleDateFormat();
+    private JFormattedTextField timeField = new JFormattedTextField();
+    
+    
+    private Calendar calendar= Calendar.getInstance();
+    
+    
+    
     
     public void llenarComboboxCurso(){
         String consulta= "SELECT * From Cursos";
@@ -48,6 +69,49 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
     public RegistrarCursosCicloImpartir() {
         initComponents();
         setClosable(true);
+        
+        ((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
+        dateChooser.setDateFormatString("yyyy-MM-dd");
+        dateChooser.setBounds(160,140,180, 30);  // Ajusta la posición y el tamaño
+        jPanelContenedor.add(dateChooser);
+        
+        
+        ((JTextField) dateChooserFinCurso.getDateEditor().getUiComponent()).setEditable(false);
+        dateChooserFinCurso.setDateFormatString("yyyy-MM-dd");
+        dateChooserFinCurso.setBounds(160,180,180,30);
+        jPanelContenedor.add(dateChooserFinCurso);
+        
+        
+        /* configurando posición de hora, minutos y segundos
+        timeField.setValue(new Date());
+        timeField.setColumns(8);
+        timeField.setBounds(160,220, 180, 30);
+        jPanelContenedor.add(timeField);*/
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        
+        // Crear el modelo de fecha para el Jpinner
+        SpinnerDateModel model = new SpinnerDateModel();
+        
+        JSpinner spinner = new JSpinner(model);
+        
+        // configurar el editor del jspinner para mostrar el formato de hh:mm:ss
+        JTextField textField =((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
+        textField.setEditable(false);
+        
+        
+        //spinner.setEnabled(false);
+        //spinner.setEnabled(false);
+        //spinner.setEditor(editor);
+        spinner.setBounds(160,210,180,30);
+        
+        jPanelContenedor.add(spinner);
+        
+                
+        
+        
+        
         llenarComboboxCurso();
         llenarComboboxCarrera();
         llenarComboboxCiclo();
@@ -70,16 +134,13 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
         lblCarrera = new javax.swing.JLabel();
         cboCarrera = new javax.swing.JComboBox<>();
         lblFechaInicioClase = new javax.swing.JLabel();
-        txtFechaInicioClase = new javax.swing.JTextField();
         lblFechaFinClase = new javax.swing.JLabel();
-        txtFechaFinClase = new javax.swing.JTextField();
         lblCiclo = new javax.swing.JLabel();
         cboCiclo = new javax.swing.JComboBox<>();
         lblSalon = new javax.swing.JLabel();
         cboSalon = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
         lblHorarioClase = new javax.swing.JLabel();
-        txtHorarioClaseInicio = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtHorarioClaseFin = new javax.swing.JTextField();
 
@@ -143,13 +204,8 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
                 .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cboCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cboCarrera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFechaInicioClase)
-                    .addComponent(txtFechaFinClase)
                     .addComponent(cboCiclo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cboSalon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelContenedorLayout.createSequentialGroup()
-                        .addComponent(txtHorarioClaseInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(txtHorarioClaseFin)))
         );
         jPanelContenedorLayout.setVerticalGroup(
@@ -165,18 +221,12 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
                     .addComponent(lblCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cboCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblFechaInicioClase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFechaInicioClase, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addComponent(lblFechaInicioClase, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblFechaFinClase, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblFechaFinClase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFechaFinClase, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHorarioClase)
-                    .addComponent(txtHorarioClaseInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblHorarioClase)
+                .addGap(12, 12, 12)
                 .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(txtHorarioClaseFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -211,14 +261,23 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         LlenarComboBox curso  = (LlenarComboBox)cboCurso.getSelectedItem();
         LlenarComboBox carrera = (LlenarComboBox)cboCarrera.getSelectedItem();
-        String fechaInicioClase = txtFechaInicioClase.getText();
-        String fechaFinClase = txtFechaFinClase.getText();
-       
+        
+        
+        //String fechaInicioClase = txtFechaInicioClase.getText();
+        
+
+        Date fechaInicioCurso = dateChooser.getDate();
+        String fechaInicioClase = String.valueOf(fechaInicioCurso );
+        
+        
+        //String fechaFinClase = txtFechaFinClase.getText();
+        Date fechaFinCurso = dateChooser.getDate();
+        String fechaFinClase = String.valueOf(fechaFinCurso);
         
         LlenarComboBox ciclos = (LlenarComboBox)cboCiclo.getSelectedItem();
         LlenarComboBox salon = (LlenarComboBox)cboSalon.getSelectedItem();
         
-        String horarioClaseInicio = txtHorarioClaseInicio.getText();
+        //String horarioClaseInicio = txtHorarioClaseInicio.getText();
         
         String horarioClaseFin = txtHorarioClaseFin.getText();
         
@@ -234,9 +293,11 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
             return;
         }
         
-        String horarioInicioCurso = txtHorarioClaseInicio.getText();
+        //String horarioInicioCurso = txtHorarioClaseInicio.getText();
         String horarioFinCurso = txtHorarioClaseFin.getText();
-        if (horarioInicioCurso.length()<=0 || horarioFinCurso.length()<=0){
+        if ( horarioFinCurso.length()<=0){
+               //if (horarioInicioCurso.length()<=0 || horarioFinCurso.length()<=0){
+ 
             JOptionPane.showMessageDialog(null,"Error, debe ingresar las fechas de inicio y fin del curso","Mensaje",JOptionPane.ERROR_MESSAGE);
 
             return;
@@ -247,7 +308,7 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
         if (confirmar==JOptionPane.YES_OPTION){
             String consulta = "CALL sp_agregarCursosCicloImpartir(?,?,?,?,?,?,?,?)";
             
-            Object[] params = {curso.getId(),carrera.getId(),fechaInicioClase,fechaFinClase,horarioClaseInicio,horarioClaseFin,ciclos.getId(),salon.getId()};
+            Object[] params = {curso.getId(),carrera.getId(),fechaInicioClase,fechaFinClase,"20:00:00",horarioClaseFin,ciclos.getId(),salon.getId()};
             
             ResultSet ejecutar = Conexion.getInstancia().hacerConsulta(consulta, params);
             
@@ -257,9 +318,9 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
                         String mensajeObtenido = ejecutar.getString("mensaje");
                         
                         if (mensajeObtenido.equals("registrado")){
-                            txtFechaInicioClase.setText("");
-                            txtFechaFinClase.setText("");
-                            txtHorarioClaseInicio.setText("");
+                            //txtFechaInicioClase.setText("");
+                            //txtFechaFinClase.setText("");
+                            //txtHorarioClaseInicio.setText("");
                             txtHorarioClaseFin.setText("");
                             JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
                             
@@ -298,9 +359,6 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblHorarioClase;
     private javax.swing.JLabel lblSalon;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTextField txtFechaFinClase;
-    private javax.swing.JTextField txtFechaInicioClase;
     private javax.swing.JTextField txtHorarioClaseFin;
-    private javax.swing.JTextField txtHorarioClaseInicio;
     // End of variables declaration//GEN-END:variables
 }
