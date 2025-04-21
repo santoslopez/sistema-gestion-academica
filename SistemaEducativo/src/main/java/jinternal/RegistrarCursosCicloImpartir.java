@@ -23,20 +23,16 @@ import javax.swing.SpinnerDateModel;
  */
 public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
 
-    private JDateChooser dateChooser = new JDateChooser();
+    private JDateChooser dateChooserInicioCurso = new JDateChooser();
+    
+    
+    
     private JDateChooser dateChooserFinCurso = new JDateChooser();
     
+    private SpinnerDateModel modeloHorarioTerminaClase;
+    private SpinnerDateModel model;
     
-    // para horas, minutos y segundos
-    //private SimpleDateFormat horarioInicioClase = new SimpleDateFormat();
-    private JFormattedTextField timeField = new JFormattedTextField();
-    
-    
-    private Calendar calendar= Calendar.getInstance();
-    
-    
-    
-    
+        
     public void llenarComboboxCurso(){
         String consulta= "SELECT * From Cursos";
         Object[] params={};
@@ -70,48 +66,48 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
         initComponents();
         setClosable(true);
         
-        ((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
-        dateChooser.setDateFormatString("yyyy-MM-dd");
-        dateChooser.setBounds(160,140,180, 30);  // Ajusta la posición y el tamaño
-        jPanelContenedor.add(dateChooser);
+        ((JTextField) dateChooserInicioCurso.getDateEditor().getUiComponent()).setEditable(false);
+        dateChooserInicioCurso.setDateFormatString("yyyy-MM-dd");
+        dateChooserInicioCurso.setBounds(160,140,180, 30);  // Ajusta la posición y el tamaño
+        jPanelContenedor.add(dateChooserInicioCurso);
         
         
         ((JTextField) dateChooserFinCurso.getDateEditor().getUiComponent()).setEditable(false);
         dateChooserFinCurso.setDateFormatString("yyyy-MM-dd");
         dateChooserFinCurso.setBounds(160,180,180,30);
         jPanelContenedor.add(dateChooserFinCurso);
-        
-        
-        /* configurando posición de hora, minutos y segundos
-        timeField.setValue(new Date());
-        timeField.setColumns(8);
-        timeField.setBounds(160,220, 180, 30);
-        jPanelContenedor.add(timeField);*/
-        calendar.set(Calendar.HOUR_OF_DAY,0);
-        calendar.set(Calendar.MINUTE,0);
-        calendar.set(Calendar.SECOND,0);
-        
+
         // Crear el modelo de fecha para el Jpinner
-        SpinnerDateModel model = new SpinnerDateModel();
+        model = new SpinnerDateModel();
         
         JSpinner spinner = new JSpinner(model);
         
-        // configurar el editor del jspinner para mostrar el formato de hh:mm:ss
-        JTextField textField =((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
-        textField.setEditable(false);
         
+        // configurar para que solo se muestre hora y minutos
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner,"HH:mm");
+        spinner.setEditor(editor);
         
-        //spinner.setEnabled(false);
-        //spinner.setEnabled(false);
-        //spinner.setEditor(editor);
+        // para que no se pueda escribir en el textfield 
+        JTextField textFieldHorarioClaseInicio =((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
+        textFieldHorarioClaseInicio.setEditable(false);
+
         spinner.setBounds(160,210,180,30);
         
         jPanelContenedor.add(spinner);
         
-                
+        // Configurar botón de horario que termina la clase 
+        modeloHorarioTerminaClase = new SpinnerDateModel();
+        JSpinner spinnerHorarioTerminaClase = new JSpinner(modeloHorarioTerminaClase);
         
+        JSpinner.DateEditor editorHorarioTerminaClase = new JSpinner.DateEditor(spinnerHorarioTerminaClase,"HH:mm");
+        spinnerHorarioTerminaClase.setEditor(editorHorarioTerminaClase);
         
+        JTextField textFieldHorarioClaseTermina = ((JSpinner.DefaultEditor) spinnerHorarioTerminaClase.getEditor()).getTextField();
+        textFieldHorarioClaseTermina.setEditable(false);
         
+        spinnerHorarioTerminaClase.setBounds(160,240,180,30);
+        jPanelContenedor.add(spinnerHorarioTerminaClase);
+
         llenarComboboxCurso();
         llenarComboboxCarrera();
         llenarComboboxCiclo();
@@ -142,7 +138,6 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
         btnGuardar = new javax.swing.JButton();
         lblHorarioClase = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txtHorarioClaseFin = new javax.swing.JTextField();
 
         setTitle("Registrar cursos ciclo impartir");
 
@@ -205,8 +200,7 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
                     .addComponent(cboCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cboCarrera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cboCiclo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cboSalon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtHorarioClaseFin)))
+                    .addComponent(cboSalon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanelContenedorLayout.setVerticalGroup(
             jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,10 +221,8 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblHorarioClase)
                 .addGap(12, 12, 12)
-                .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(txtHorarioClaseFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addComponent(jLabel1)
+                .addGap(16, 16, 16)
                 .addGroup(jPanelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -258,57 +250,65 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+       
+        
         // TODO add your handling code here:
         LlenarComboBox curso  = (LlenarComboBox)cboCurso.getSelectedItem();
         LlenarComboBox carrera = (LlenarComboBox)cboCarrera.getSelectedItem();
-        
-        
+          
         //String fechaInicioClase = txtFechaInicioClase.getText();
+        Date dateFechaInicioCurso = dateChooserInicioCurso.getDate();
         
 
-        Date fechaInicioCurso = dateChooser.getDate();
-        String fechaInicioClase = String.valueOf(fechaInicioCurso );
+        SimpleDateFormat formatoFechaCurso = new SimpleDateFormat("yyy-MM-dd");
         
+        String fechaInicioClase = formatoFechaCurso.format(dateFechaInicioCurso);
         
+
         //String fechaFinClase = txtFechaFinClase.getText();
-        Date fechaFinCurso = dateChooser.getDate();
-        String fechaFinClase = String.valueOf(fechaFinCurso);
+        Date dateFechaFinCurso = dateChooserFinCurso.getDate();
+        
+        
+        String fechaFinClase = formatoFechaCurso.format(dateFechaFinCurso);
+        
+
+//String fechaFinClase = String.valueOf(fechaFinCurso);
         
         LlenarComboBox ciclos = (LlenarComboBox)cboCiclo.getSelectedItem();
         LlenarComboBox salon = (LlenarComboBox)cboSalon.getSelectedItem();
         
         //String horarioClaseInicio = txtHorarioClaseInicio.getText();
+        Date dateHorarioInicioClase = (Date)model.getValue();
         
-        String horarioClaseFin = txtHorarioClaseFin.getText();
+        //String horarioClaseFin = "";
+        String horaInicioClase = new java.text.SimpleDateFormat("HH:mm").format(dateHorarioInicioClase);
+
+      
+        // obtener horario fin clase
+        Date dateHorarioFinClase = (Date)modeloHorarioTerminaClase.getValue();
+        String horarioFinClase = new java.text.SimpleDateFormat("HH:mm").format(dateHorarioFinClase);
         
+        
+                
+
         if(curso==null || carrera==null || salon==null || ciclos==null){
-        
             JOptionPane.showMessageDialog(null,"Error, debe ingresar un curso, carrera, ciclo y salon","Mensaje",JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         if (fechaInicioClase.length()<=0 || fechaFinClase.length()<=0){
             JOptionPane.showMessageDialog(null,"Error, debe ingresar las fechas de inicio y fin del curso","Mensaje",JOptionPane.ERROR_MESSAGE);
-
             return;
         }
         
-        //String horarioInicioCurso = txtHorarioClaseInicio.getText();
-        String horarioFinCurso = txtHorarioClaseFin.getText();
-        if ( horarioFinCurso.length()<=0){
-               //if (horarioInicioCurso.length()<=0 || horarioFinCurso.length()<=0){
- 
-            JOptionPane.showMessageDialog(null,"Error, debe ingresar las fechas de inicio y fin del curso","Mensaje",JOptionPane.ERROR_MESSAGE);
 
-            return;
-        }
-        
         int confirmar = JOptionPane.showConfirmDialog(null,"¿Deseas guardar los datos?","Mensaje",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+       
         
         if (confirmar==JOptionPane.YES_OPTION){
             String consulta = "CALL sp_agregarCursosCicloImpartir(?,?,?,?,?,?,?,?)";
             
-            Object[] params = {curso.getId(),carrera.getId(),fechaInicioClase,fechaFinClase,"20:00:00",horarioClaseFin,ciclos.getId(),salon.getId()};
+            Object[] params = {curso.getId(),carrera.getId(),fechaInicioClase,fechaFinClase,horaInicioClase,horarioFinClase,ciclos.getId(),salon.getId()};
             
             ResultSet ejecutar = Conexion.getInstancia().hacerConsulta(consulta, params);
             
@@ -321,7 +321,8 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
                             //txtFechaInicioClase.setText("");
                             //txtFechaFinClase.setText("");
                             //txtHorarioClaseInicio.setText("");
-                            txtHorarioClaseFin.setText("");
+                            //txtHorarioClaseFin.setText("");
+                            
                             JOptionPane.showMessageDialog(null, "Registro exitoso","Mensaje",JOptionPane.INFORMATION_MESSAGE);   
                             
                             ListadoCursosCicloImpartir.getInstancia().getModelo().actualizarJTable();
@@ -359,6 +360,5 @@ public class RegistrarCursosCicloImpartir extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblHorarioClase;
     private javax.swing.JLabel lblSalon;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTextField txtHorarioClaseFin;
     // End of variables declaration//GEN-END:variables
 }
